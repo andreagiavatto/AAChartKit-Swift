@@ -12,6 +12,34 @@
 		22035E9A2344E7EC0093D5AD /* AAInfographics.h in Headers */ = {isa = PBXBuildFile; fileRef = 22035E8A2344E7EC0093D5AD /* AAInfographics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22035E9D2344E7EC0093D5AD /* AAInfographics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22035E882344E7EC0093D5AD /* AAInfographics.framework */; };
 		22035E9E2344E7EC0093D5AD /* AAInfographics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22035E882344E7EC0093D5AD /* AAInfographics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		22035EA82344F3A90093D5AD /* AAChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749914E210D90B5003D18C2 /* AAChartView.swift */; };
+		22035EA92344F3A90093D5AD /* AAChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749914B210D90B5003D18C2 /* AAChartModel.swift */; };
+		22035EAA2344F3A90093D5AD /* AASeriesElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749914C210D90B5003D18C2 /* AASeriesElement.swift */; };
+		22035EAB2344F3A90093D5AD /* AAOptionsConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415476C231A1F9100382DAD /* AAOptionsConstructor.swift */; };
+		22035EAC2344F3A90093D5AD /* AASerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749914D210D90B5003D18C2 /* AASerializable.swift */; };
+		22035EAD2344F3A90093D5AD /* AAOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44154762231A1B4800382DAD /* AAOptions.swift */; };
+		22035EAE2344F3A90093D5AD /* AAChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415475C231A194000382DAD /* AAChart.swift */; };
+		22035EAF2344F3A90093D5AD /* AATitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44154764231A1BEB00382DAD /* AATitle.swift */; };
+		22035EB02344F3A90093D5AD /* AASubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44154766231A1D0200382DAD /* AASubtitle.swift */; };
+		22035EB12344F3A90093D5AD /* AATooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DB49A32273767000B7926B /* AATooltip.swift */; };
+		22035EB22344F3A90093D5AD /* AAPlotOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415476A231A1E8200382DAD /* AAPlotOptions.swift */; };
+		22035EB32344F3A90093D5AD /* AASeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44154768231A1D5600382DAD /* AASeries.swift */; };
+		22035EB42344F3A90093D5AD /* AAAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415475A231A18C500382DAD /* AAAnimation.swift */; };
+		22035EB52344F3A90093D5AD /* AAMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44154760231A1AE100382DAD /* AAMarker.swift */; };
+		22035EB62344F3A90093D5AD /* AALegend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446809DB22C3806E00BAE647 /* AALegend.swift */; };
+		22035EB72344F3A90093D5AD /* AAPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442FA90C2340597200CF3BDF /* AAPane.swift */; };
+		22035EB82344F3A90093D5AD /* AALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4454E46A22DF1A4F00E01944 /* AALabel.swift */; };
+		22035EB92344F3A90093D5AD /* AALabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4454E46822DF15AE00E01944 /* AALabels.swift */; };
+		22035EBA2344F3A90093D5AD /* AADataLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440839A0226AD2B600645263 /* AADataLabels.swift */; };
+		22035EBB2344F3A90093D5AD /* AAXAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446809DD22C3809000BAE647 /* AAXAxis.swift */; };
+		22035EBC2344F3A90093D5AD /* AAYAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446809DF22C380A000BAE647 /* AAYAxis.swift */; };
+		22035EBD2344F3A90093D5AD /* AACrosshair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415475E231A1A4000382DAD /* AACrosshair.swift */; };
+		22035EBE2344F3A90093D5AD /* AAPlotBandsElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445353C022631B0E009FA12A /* AAPlotBandsElement.swift */; };
+		22035EBF2344F3A90093D5AD /* AAPlotLinesElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445353C222631B48009FA12A /* AAPlotLinesElement.swift */; };
+		22035EC02344F3A90093D5AD /* AAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272BBE7721A258C200DBE69D /* AAColor.swift */; };
+		22035EC12344F3A90093D5AD /* AAGradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44143D3521A17F2300D44657 /* AAGradientColor.swift */; };
+		22035EC22344F3A90093D5AD /* AAJSStringPurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DB49A5227381C300B7926B /* AAJSStringPurer.swift */; };
+		22035EC42344F3B50093D5AD /* AAJSFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27499097210D7B2E003D18C2 /* AAJSFiles.bundle */; };
 		272BBE7821A258C200DBE69D /* AAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272BBE7721A258C200DBE69D /* AAColor.swift */; };
 		27499098210D7B2E003D18C2 /* AAJSFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27499097210D7B2E003D18C2 /* AAJSFiles.bundle */; };
 		2749914F210D90B5003D18C2 /* AAChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749914B210D90B5003D18C2 /* AAChartModel.swift */; };
@@ -543,6 +571,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22035EC42344F3B50093D5AD /* AAJSFiles.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +614,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22035EA82344F3A90093D5AD /* AAChartView.swift in Sources */,
+				22035EA92344F3A90093D5AD /* AAChartModel.swift in Sources */,
+				22035EAA2344F3A90093D5AD /* AASeriesElement.swift in Sources */,
+				22035EAB2344F3A90093D5AD /* AAOptionsConstructor.swift in Sources */,
+				22035EAC2344F3A90093D5AD /* AASerializable.swift in Sources */,
+				22035EAD2344F3A90093D5AD /* AAOptions.swift in Sources */,
+				22035EAE2344F3A90093D5AD /* AAChart.swift in Sources */,
+				22035EAF2344F3A90093D5AD /* AATitle.swift in Sources */,
+				22035EB02344F3A90093D5AD /* AASubtitle.swift in Sources */,
+				22035EB12344F3A90093D5AD /* AATooltip.swift in Sources */,
+				22035EB22344F3A90093D5AD /* AAPlotOptions.swift in Sources */,
+				22035EB32344F3A90093D5AD /* AASeries.swift in Sources */,
+				22035EB42344F3A90093D5AD /* AAAnimation.swift in Sources */,
+				22035EB52344F3A90093D5AD /* AAMarker.swift in Sources */,
+				22035EB62344F3A90093D5AD /* AALegend.swift in Sources */,
+				22035EB72344F3A90093D5AD /* AAPane.swift in Sources */,
+				22035EB82344F3A90093D5AD /* AALabel.swift in Sources */,
+				22035EB92344F3A90093D5AD /* AALabels.swift in Sources */,
+				22035EBA2344F3A90093D5AD /* AADataLabels.swift in Sources */,
+				22035EBB2344F3A90093D5AD /* AAXAxis.swift in Sources */,
+				22035EBC2344F3A90093D5AD /* AAYAxis.swift in Sources */,
+				22035EBD2344F3A90093D5AD /* AACrosshair.swift in Sources */,
+				22035EBE2344F3A90093D5AD /* AAPlotBandsElement.swift in Sources */,
+				22035EBF2344F3A90093D5AD /* AAPlotLinesElement.swift in Sources */,
+				22035EC02344F3A90093D5AD /* AAColor.swift in Sources */,
+				22035EC12344F3A90093D5AD /* AAGradientColor.swift in Sources */,
+				22035EC22344F3A90093D5AD /* AAJSStringPurer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -928,6 +984,7 @@
 		278C54D71EE9472300770B97 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BPAYP34L8N;
 				INFOPLIST_FILE = AAInfographicsDemo/Info.plist;
@@ -942,6 +999,7 @@
 		278C54D81EE9472300770B97 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BPAYP34L8N;
 				INFOPLIST_FILE = AAInfographicsDemo/Info.plist;
