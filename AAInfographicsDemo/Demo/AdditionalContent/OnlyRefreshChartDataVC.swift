@@ -31,6 +31,7 @@
  */
 
 import UIKit
+import AAInfographics
 
 class OnlyRefreshChartDataVC: UIViewController {
     public var chartType: AAChartType?

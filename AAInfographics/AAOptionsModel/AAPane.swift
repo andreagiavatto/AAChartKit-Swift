@@ -39,6 +39,9 @@ public class AAPane: AAObject {
     private var size: AnyObject?
     private var startAngle: Float?
     
+    public override init() {
+        super.init()
+    }
     
     @discardableResult
       public func background(_ prop: [AABackgroundElement]) -> AAPane {

@@ -30,6 +30,7 @@
  */
 
 import UIKit
+import AAInfographics
 
 class MixedChartVC: UIViewController {
     open var chartType: String!

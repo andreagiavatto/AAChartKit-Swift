@@ -30,6 +30,7 @@
  */
 
 import UIKit
+import AAInfographics
 
 class CustomTooltipWithJSFunctionVC: UIViewController {
     private var aaChartModel: AAChartModel?

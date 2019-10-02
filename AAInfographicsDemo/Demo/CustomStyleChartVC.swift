@@ -30,6 +30,7 @@
  */
 
 import UIKit
+import AAInfographics
 
 class CustomStyleChartVC: UIViewController {
     open var chartType: Int!

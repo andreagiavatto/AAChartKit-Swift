@@ -32,6 +32,7 @@
  */
 
 import UIKit
+import AAInfographics
 
 class CommonChartVC: UIViewController {
     public var chartType: AAChartType!

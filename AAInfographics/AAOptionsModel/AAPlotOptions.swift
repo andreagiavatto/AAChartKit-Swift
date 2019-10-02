@@ -33,16 +33,16 @@
 import UIKit
 
 public class AAPlotOptions: AAObject {
-    var column: AAColumn?
-    var bar: AABar?
-    var line: AALine?
-    var spline: AASpline?
-    var area: AAArea?
-    var areaspline: AAAreaspline?
-    var pie: AAPie?
-    var columnrange: AAColumnrange?
-    var arearange: AAArearange?
-    var series: AASeries?
+    public var column: AAColumn?
+    public var bar: AABar?
+    public var line: AALine?
+    public var spline: AASpline?
+    public var area: AAArea?
+    public var areaspline: AAAreaspline?
+    public var pie: AAPie?
+    public var columnrange: AAColumnrange?
+    public var arearange: AAArearange?
+    public var series: AASeries?
     
     @discardableResult
     public func column(_ prop: AAColumn) -> AAPlotOptions {

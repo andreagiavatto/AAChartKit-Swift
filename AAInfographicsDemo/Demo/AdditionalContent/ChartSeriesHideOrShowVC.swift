@@ -31,6 +31,7 @@
  */
 
 import UIKit
+import AAInfographics
 
 class ChartSeriesHideOrShowVC: UIViewController {
     public var chartType: AAChartType?

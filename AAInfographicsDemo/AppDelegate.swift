@@ -31,6 +31,7 @@
  */
 
 import UIKit
+import AAInfographics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

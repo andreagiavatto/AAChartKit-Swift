@@ -31,6 +31,7 @@
  */
 
 import UIKit
+import AAInfographics
 
 class EvaluateJSStringFunctionVC: UIViewController, AAChartViewDelegate {
     public var sampleChartTypeIndex: NSInteger?

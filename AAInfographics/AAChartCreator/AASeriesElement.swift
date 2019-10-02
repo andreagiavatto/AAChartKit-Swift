@@ -198,6 +198,10 @@ public class AADataElement: AAObject {
     private var dataLabels: AADataLabels?
     private var marker: AAMarker?
     
+    public override init() {
+        super.init()
+    }
+    
     @discardableResult
     public func name(_ prop: String) -> AADataElement {
         name = prop
@@ -235,6 +239,10 @@ public class AAShadow: AAObject {
     private var offsetY: Float?
     private var opacity: Float?
     private var width: Float?
+    
+    public override init() {
+        super.init()
+    }
     
     @discardableResult
     public func color(_ prop: String) -> AAShadow {

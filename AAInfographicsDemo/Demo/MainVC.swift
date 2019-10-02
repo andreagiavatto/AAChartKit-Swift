@@ -31,7 +31,7 @@
  */
 
 import UIKit
-
+import AAInfographics
 
 class MainVC: UIViewController {
     

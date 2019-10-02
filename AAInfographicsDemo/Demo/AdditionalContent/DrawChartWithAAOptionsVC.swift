@@ -30,6 +30,7 @@
 
  */
 import UIKit
+import AAInfographics
 
 class DrawChartWithAAOptionsVC: UIViewController {
     private var aaChartModel: AAChartModel?
@@ -346,7 +347,7 @@ class DrawChartWithAAOptionsVC: UIViewController {
         //
         //    * 关于 `pointPadding`
         //https://api.highcharts.com.cn/highcharts#plotOptions.column.pointPadding
-        aaOptions.plotOptions?.column?
+        aaOptions.plotOptions?.column!
             .groupPadding(0.05)//Padding between each column or bar, in x axis units. default：0.1.
             .pointPadding(0)//Padding between each value groups, in x axis units. default：0.2.
         
