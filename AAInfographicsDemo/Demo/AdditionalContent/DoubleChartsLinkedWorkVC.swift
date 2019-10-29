@@ -82,10 +82,10 @@ class DoubleChartsLinkedWorkVC: UIViewController, AAChartViewDelegate {
                     ,
                 ])
     
-    let aaOptions = AAOptionsConstructor.configureAAOptions(aaChartModel: aaChartModel1)
+    let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel1)
     aaOptions.xAxis?
         .crosshair(AACrosshair()
-            .dashStyle(AALineDashStyleType.longDashDot)
+            .dashStyle(AAChartLineDashStyleType.longDashDot)
             .color(AAColor.black)
             .width(1)
     )
@@ -111,7 +111,7 @@ class DoubleChartsLinkedWorkVC: UIViewController, AAChartViewDelegate {
             .subtitle("")//图形副标题
             .dataLabelsEnabled(false)//是否显示数字
             .markerRadius(4)//折线连接点半径长度,为0时相当于没有折线连接点
-            .symbolStyle(.innerBlank)
+            .markerSymbolStyle(.innerBlank)
             .legendEnabled(false)
             .tooltipEnabled(false)
             .categories([

@@ -32,49 +32,38 @@
 
 import UIKit
 
-public enum AAChartLegendlLayoutType: String {
-    case horizontal, vertical
-}
-
-public enum AAChartLegendAlignType: String {
-    case left, center, right
-}
-
-public enum AAChartLegendVerticalAlignType: String {
-    case top, middle, bottom
-}
-
 public class AALegend: AAObject {
-    private var layout: String? //图例数据项的布局。布局类型： "horizontal" 或 "vertical" 即水平布局和垂直布局 默认是：horizontal.
-    private var align: String? //设定图例在图表区中的水平对齐方式，合法值有left，center 和 right。
-    private var verticalAlign: String? //设定图例在图表区中的垂直对齐方式，合法值有 top，middle 和 bottom。垂直位置可以通过 y 选项做进一步设定。
-    private var enabled: Bool?
-    private var borderColor: String?
-    private var borderWidth: Float?
-    private var itemMarginTop: Float? //图例的每一项的顶部外边距，单位px。 默认是：0.
-    private var itemMarginBottom: Float?
-    private var itemStyle: AAItemStyle?
-    private var symbolHeight: Float?
-    private var symbolPadding: Float?
-    private var symbolRadius: Float?
-    private var symbolWidth: Float?
-    private var x: Float?
-    private var y: Float?
+    public var layout: String? //图例数据项的布局。布局类型： "horizontal" 或 "vertical" 即水平布局和垂直布局 默认是：horizontal.
+    public var align: String? //设定图例在图表区中的水平对齐方式，合法值有left，center 和 right。
+    public var verticalAlign: String? //设定图例在图表区中的垂直对齐方式，合法值有 top，middle 和 bottom。垂直位置可以通过 y 选项做进一步设定。
+    public var enabled: Bool?
+    public var borderColor: String?
+    public var borderWidth: Float?
+    public var itemMarginTop: Float? //图例的每一项的顶部外边距，单位px。 默认是：0.
+    public var itemMarginBottom: Float?
+    public var itemStyle: AAItemStyle?
+    public var symbolHeight: Float?
+    public var symbolPadding: Float?
+    public var symbolRadius: Float?
+    public var symbolWidth: Float?
+    public var x: Float?
+    public var y: Float?
+    public var floating: Bool?
     
     @discardableResult
-    public func layout(_ prop: AAChartLegendlLayoutType?) -> AALegend {
+    public func layout(_ prop: AAChartLayoutType?) -> AALegend {
         layout = prop?.rawValue
         return self
     }
     
     @discardableResult
-    public func align(_ prop: AAChartLegendAlignType?) -> AALegend {
+    public func align(_ prop: AAChartAlignType?) -> AALegend {
         align = prop?.rawValue
         return self
     }
     
     @discardableResult
-    public func verticalAlign(_ prop: AAChartLegendVerticalAlignType?) -> AALegend {
+    public func verticalAlign(_ prop: AAChartVerticalAlignType?) -> AALegend {
         verticalAlign = prop?.rawValue
         return self
     }
@@ -145,6 +134,12 @@ public class AALegend: AAObject {
         return self
     }
     
+    @discardableResult
+    public func floating(_ prop: Bool?) -> AALegend {
+        floating = prop
+        return self
+    }
+    
     public override init () {
         
     }
@@ -152,11 +147,11 @@ public class AALegend: AAObject {
 }
 
 public class AAItemStyle: AAObject {
-    private var color: String?
-    private var cursor: String?
-    private var pointer: String?
-    private var fontSize: String?
-    private var fontWeight: AAChartFontWeightType?
+    public var color: String?
+    public var cursor: String?
+    public var pointer: String?
+    public var fontSize: String?
+    public var fontWeight: AAChartFontWeightType?
     
     @discardableResult
     public func color(_ prop: String) -> AAItemStyle {

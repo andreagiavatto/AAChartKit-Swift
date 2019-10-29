@@ -229,12 +229,12 @@ The received touch events message contain following content
 
 ```swift
 public class AAMoveOverEventMessageModel: NSObject {
-  var name: String?
-  var x: Float?
-  var y: Float?
-  var category: String?
-  var offset: [String: Any]?
-  var index: Int?
+    public var name: String?
+    public var x: Float?
+    public var y: Float?
+    public var category: String?
+    public var offset: [String: Any]?
+    public var index: Int?
 }
 ```
 
@@ -443,35 +443,6 @@ public var markerRadius: Int?           //The radius of the point marker. Defaul
 public var touchEventEnabled: Bool?     //Support touch event call back or not
 ```
 
-## Postscript
-
-If you want to shrink the size of the `AAInfographics` lib ,you should do something like this:
-1. Delete the `.js` file of `AAJSFiles` folder in `AAInfographics`,The names of multiple files that need to be deleted are as follows
-
-* AAHighchartsLib.js
-* AAHighchartsMore.js
-* AAFunnel.js
-
-2.Change the content of `AAChartView.html` file
-``` html
-<script src="AAHighchartsLib.js">
-</script>
-<script src="AAHighchartsMore.js">
-</script>
-<script src="AAFunnel.js">
-</script>
-```
-to be
-
-``` html
-<script src="https://img.hcharts.cn/highcharts/highcharts.js">
-</script>
-<script src="https://img.hcharts.cn/highcharts/highcharts-more.js">
-</script>
-<script src="https://img.hcharts.cn/highcharts/modules/funnel.js">
-</script>
-```
-
 ##  Created By
 
 ![](https://avatars1.githubusercontent.com/u/16357599?s=40&v=4)An An
@@ -503,10 +474,12 @@ to be
 
 ## Source Code⛓
 
-Language Version | Project Name | Source Code Link |
------------- | ------------- | ------------- |
-Swift | AAInfographics | https://github.com/AAChartModel/AAChartKit-Swift |
-Objective C | AAChartKit | https://github.com/AAChartModel/AAChartKit |
+Language Version | Project Name | Target Platform | Source Code Link |
+------------ | ------------- | ------------- | ------------- |
+Swift | AAInfographics |  iOS |https://github.com/AAChartModel/AAChartKit-Swift |
+Objective C | AAChartKit | iOS | https://github.com/AAChartModel/AAChartKit |
+Kotlin | AAInfographics | Android | https://github.com/AAChartModel/AAChartCore-Kotlin |
+Java | AAChartCore | Android | https://github.com/AAChartModel/AAChartCore |
 
 ## LICENSE
 

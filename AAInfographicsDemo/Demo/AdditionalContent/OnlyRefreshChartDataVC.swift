@@ -105,7 +105,7 @@ class OnlyRefreshChartDataVC: UIViewController {
                         .step(step!)
                         ,
                     ])
-            aaChartModel?.symbolStyle(.innerBlank)
+            aaChartModel?.markerSymbolStyle(.innerBlank)
         } else {
             let gradientColorDic = AAGradientColor.linearGradient(
                 direction: .toBottom,
@@ -128,7 +128,7 @@ class OnlyRefreshChartDataVC: UIViewController {
                         ,
                     ])
             if step! != true {
-                aaChartModel?.symbolStyle(.borderBlank)
+                aaChartModel?.markerSymbolStyle(.borderBlank)
                 .markerRadius(7)
             }
         }

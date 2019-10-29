@@ -26,8 +26,10 @@
 ***
 ## 功能特性
 
-1. **环境友好,兼容性强**. 适配 `iOS 8 +`,  支持`ARC`,支持 `swift`语言,配置简单.同时更有 Objective-C 版本[AAChartKit](https://github.com/AAChartModel/AAChartKit)可供使用.
+1. **环境友好,兼容性强**. 适配 `iOS 9 +`, 支持`iOS`、 `iPad OS`、`TV OS`、`macOS`,  支持 `Swift`语言, 同时更有 `Objective-C` 语言版本 [AAChartKit](https://github.com/AAChartModel/AAChartKit) 、 `Java` 语言版本 [AAChartCore](https://github.com/AAChartModel/AAChartCore) 、`Kotlin` 语言版本 [AAChartCore-Kotlin](https://github.com/AAChartModel/AAChartCore-Kotlin) 可供使用, 配置导入工程简单易操作. 支持的所有语言版本及连接,参见此[列表](https://github.com/AAChartModel/AAChartKit/blob/master/CHINESE-README.md#源代码).
 1. **功能强大,类型多样**. 支持`柱状图` 、`条形图` 、`折线图` 、`曲线图` 、`折线填充图` 、`曲线填充图`、`雷达图`、`极地图`、`扇形图`、`气泡图`、`散点图`、`区域范围图`、`柱形范围图`、`面积范围图`、`面积范围均线图`、`直方折线图`、`直方折线填充图`、`箱线图`、`瀑布图`、`热力图`、`桑基图`、`金字塔图`、`漏斗图`、等二十几种类型的图形,不可谓之不多.
+1. **现代化声明式语法**. 与过往的命令式编程技巧不同, 在 AAChartKit 中绘制任意一款自定义图表, 你完全无需关心挠人的内在实现细节. 描述你所要得到的, 你便得到你所描述的.
+1. **细致入微的用户自定义功能**. 基础的`主标题`、`副标题`、`X 轴`、`Y 轴`自不必谈, 从纵横的`交互准星线`、跟手的`浮动提示框`, 到切割数值的`值域分割颜色线`、`值域分割颜色带`, 再到细小的`线条`类型,`标记点`样式,  各种细微的图形子组件, 应有尽有. 以至于不论是`极简`、抽象的小清新风格, 还是纷繁`复杂`的严肃商业派头, 均可完美驾驭.
 1. **交互式图形动画**. 有着清晰和充满细节的用户交互方式,与此同时,图形渲染`动画`效果细腻精致,流畅优美.有三十多种以上渲染动画效果可供选择,用户可自由设置渲染图形时的动画时间和动画类型,关于图形渲染动画类型,具体参见[ AAInfographics 动画类型](https://github.com/AAChartModel/AAChartKit-Swift/blob/master/CHINESE-README.md#当前已支持的图表渲染动画类型有三十种以上).
 1. **支持手势缩放**.支持图表的手势缩放和拖动阅览,手势缩放类型具体参见[ AAInfographics 手势缩放类型](https://github.com/AAChartModel/AAChartKit-Swift/blob/master/CHINESE-README.md#当前已支持的图表手势缩放类型共有三种说明如下),默认禁用手势缩放功能.
 1. **极简主义**. `AAChartView + AAChartModel = Chart`,在 ***AAInfographics*** 数据可视化图形框架当中,遵循这样一个极简主义公式:`图表视图控件 + 图表模型 = 你想要的图表`.同另一款强大、精美而又易用的开源图形框架 [AAChartKit](https://github.com/AAChartModel/AAChartKit)完全一致.
@@ -251,12 +253,12 @@ extension CommonChartVC: AAChartViewDelegate {
   在监听用户交互事件时,获取的事件信息`AAMoveOverEventMessageModel`共包含以下内容
   ```swift
 public class AAMoveOverEventMessageModel: NSObject {
-    var name: String?
-    var x: Float?
-    var y: Float?
-    var category: String?
-    var offset: [String: Any]?
-    var index: Int?
+    public var name: String?
+    public var x: Float?
+    public var y: Float?
+    public var category: String?
+    public var offset: [String: Any]?
+    public var index: Int?
 }
   ```
 
@@ -423,35 +425,6 @@ public var markerRadius: Int?                          //折线连接点的半�
 public var touchEventEnabled: Bool?                    //是否支持触摸事件回调
 ```
 
-## 附言
-
-在 `AAInfographics` 数据可视化图形框架的初始设计中,为提升`.js`文件的加载速度,故将所依赖的`.js`文件放置在本地.然而由于本项目功能较多,故放置于本地的附加`JavaScript`文件库体积有一定大小,整个`AAJSFiles`文件夹下所有的`.js`文件体积合计共有`250KB左右`(当然在工程打包压缩之后实际大小远小于此),若对工程文件体积大小较为敏感的使用者,可使用以下建议的替代方案
-1.  删除在本`AAInfographics`项目文件中,`AAJSFiles`文件夹下的`4`项`.js`文件.需要被删除的文件名称如下
-* AAHighchartsLibrary.js
-* AAHighchartsMore.js
-* AAFunnel.js
-2.  将`AAChartView.html`文件中的以下内容
-``` html
-<script src="AAHighchartsLib.js">
-</script>
-<script src="AAHighchartsMore.js">
-</script>
-<script src="AAFunnel.js">
-</script>
-```
-替换为
-``` html
-<script src="https://img.hcharts.cn/highcharts/highcharts.js">
-</script>
-<script src="https://img.hcharts.cn/highcharts/highcharts-more.js">
-</script>
-<script src="https://img.hcharts.cn/highcharts/modules/funnel.js">
-</script>
-``` 
-即可.
-
-此方案是将原本加载放置在本地的`.js`依赖文件改为了加载放置在网络上的`.js`文件,减小了本地文件大小,但有可能会有一定的网络延迟(`0.5s以内`),所以建议`AAInfographics`用户可根据自己的实际项目的开发需要,酌情选择最终是否使用本替代方案.
-
 ## 作者
 
 ![](https://avatars1.githubusercontent.com/u/16357599?s=40&v=4)An An
@@ -486,10 +459,12 @@ public var touchEventEnabled: Bool?                    //是否支持触摸事�
 ```
 
 ## 源代码⛓
-语言版本 |  项目名称 | 源代码链接|
------------- | ------------- | ------------- |
-Swift | AAInfographics | https://github.com/AAChartModel/AAChartKit-Swift |
-Objective C | AAChartKit | https://github.com/AAChartModel/AAChartKit |
+语言版本 |  项目名称 | 适用平台| 源代码链接|
+------------ | ------------- | ------------- | ------------- |
+Swift | AAInfographics |  iOS |https://github.com/AAChartModel/AAChartKit-Swift |
+Objective C | AAChartKit | iOS | https://github.com/AAChartModel/AAChartKit |
+Kotlin | AAInfographics | Android | https://github.com/AAChartModel/AAChartCore-Kotlin |
+Java | AAChartCore | Android | https://github.com/AAChartModel/AAChartCore |
 
 ## 许可证
 

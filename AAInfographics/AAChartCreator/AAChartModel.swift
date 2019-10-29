@@ -89,8 +89,16 @@ public enum AAChartType: String {
     case gauge
 }
 
-public enum AAChartSubtitleAlignType: String {
+public enum AAChartLayoutType: String {
+    case horizontal, vertical
+}
+
+public enum AAChartAlignType: String {
     case left, center, right
+}
+
+public enum AAChartVerticalAlignType: String {
+    case top, middle, bottom
 }
 
 public enum AAChartZoomType: String {
@@ -113,7 +121,7 @@ public enum AAChartFontWeightType: String {
     case thin, regular, bold
 }
 
-public enum AALineDashStyleType: String {
+public enum AAChartLineDashStyleType: String {
     case solid
     case shortDash
     case shortDot
@@ -143,8 +151,9 @@ public class AAChartModel: AAObject {
     public var axesTextColor: String?                      //x 轴和 y 轴文字颜色
     public var chartType: AAChartType?                     //图表类型
     public var stacking: AAChartStackingType?              //堆积样式
-    public var symbol: AAChartSymbolType?                  //折线曲线连接点的类型："circle", "square", "diamond", "triangle","triangle-down"，默认是"circle"
-    public var symbolStyle: AAChartSymbolStyleType?        //折线或者曲线的连接点是否为空心的
+    public var markerRadius: Int?                          //折线连接点的半径长度
+    public var markerSymbol: AAChartSymbolType?            //折线曲线连接点的类型："circle", "square", "diamond", "triangle","triangle-down"，默认是"circle"
+    public var markerSymbolStyle: AAChartSymbolStyleType?  //折线或者曲线的连接点是否为空心的
     public var zoomType: AAChartZoomType?                  //缩放类型 AAChartZoomTypeX表示可沿着 x 轴进行手势缩放
     public var inverted: Bool?                             //x 轴是否翻转(垂直)
     public var xAxisReversed: Bool?                        //x 轴翻转
@@ -178,7 +187,6 @@ public class AAChartModel: AAObject {
     public var legendEnabled: Bool?                        //是否显示图例
     public var backgroundColor: Any?                       //图表背景色
     public var borderRadius: Int?                          //柱状图长条图头部圆角半径(可用于设置头部的形状,仅对条形图,柱状图有效)
-    public var markerRadius: Int?                          //折线连接点的半径长度
     public var touchEventEnabled: Bool?                    //是否支持触摸事件回调
     
     @discardableResult
@@ -266,8 +274,20 @@ public class AAChartModel: AAObject {
     }
     
     @discardableResult
-    public func symbol(_ prop: AAChartSymbolType) -> AAChartModel {
-        symbol = prop
+    public func markerRadius(_ prop: Int) -> AAChartModel {
+        markerRadius = prop
+        return self
+    }
+    
+    @discardableResult
+    public func markerSymbol(_ prop: AAChartSymbolType) -> AAChartModel {
+        markerSymbol = prop
+        return self
+    }
+    
+    @discardableResult
+    public func markerSymbolStyle(_ prop: AAChartSymbolStyleType) -> AAChartModel {
+        markerSymbolStyle = prop
         return self
     }
     
@@ -280,12 +300,6 @@ public class AAChartModel: AAObject {
     @discardableResult
     public func inverted(_ prop: Bool) -> AAChartModel {
         inverted = prop
-        return self
-    }
-    
-    @discardableResult
-    public func symbolStyle(_ prop: AAChartSymbolStyleType) -> AAChartModel {
-        symbolStyle = prop
         return self
     }
     
@@ -351,20 +365,20 @@ public class AAChartModel: AAObject {
     
     @discardableResult
     public func dataLabelsFontColor(_ prop: String) -> AAChartModel {
-    dataLabelsFontColor = prop
-    return self
+        dataLabelsFontColor = prop
+        return self
     }
     
     @discardableResult
     public func dataLabelsFontSize(_ prop: Float?) -> AAChartModel {
-    dataLabelsFontSize = prop
-    return self
+        dataLabelsFontSize = prop
+        return self
     }
     
     @discardableResult
     public func dataLabelsFontWeight(_ prop: AAChartFontWeightType) -> AAChartModel {
-    dataLabelsFontWeight = prop
-    return self
+        dataLabelsFontWeight = prop
+        return self
     }
     
     @discardableResult
@@ -417,20 +431,20 @@ public class AAChartModel: AAObject {
     
     @discardableResult
     public func yAxisMin(_ prop: Float) -> AAChartModel {
-    yAxisMin = prop
-    return self
+        yAxisMin = prop
+        return self
     }
     
     @discardableResult
     public func yAxisMax(_ prop: Float) -> AAChartModel {
-    yAxisMax = prop
-    return self
+        yAxisMax = prop
+        return self
     }
     
     @discardableResult
     public func yAxisAllowDecimals(_ prop: Bool) -> AAChartModel {
-    yAxisAllowDecimals = prop
-    return self
+        yAxisAllowDecimals = prop
+        return self
     }
     
     @discardableResult
@@ -470,12 +484,6 @@ public class AAChartModel: AAObject {
     }
     
     @discardableResult
-    public func markerRadius(_ prop: Int) -> AAChartModel {
-        markerRadius = prop
-        return self
-    }
-    
-    @discardableResult
     public func touchEventEnabled(_ prop: Bool) -> AAChartModel {
         touchEventEnabled = prop
         return self
@@ -484,11 +492,11 @@ public class AAChartModel: AAObject {
     
     public override init() {
         backgroundColor        = AAColor.white
-        animationType          = AAChartAnimationType.easeInQuad
+        animationType          = .easeInQuad
         animationDuration      = 800 //以毫秒为单位
-        chartType              = AAChartType.line
-        stacking               = AAChartStackingType.none
-        zoomType               = AAChartZoomType.none //默认禁用手势缩放
+        chartType              = .line
+        stacking               = Optional.none
+        zoomType               = Optional.none //默认禁用手势缩放
         colorsTheme            = ["#1e90ff","#ef476f","#ffd066","#04d69f","#25547c",]
         dataLabelsEnabled      = true
         tooltipEnabled         = true
@@ -503,13 +511,13 @@ public class AAChartModel: AAObject {
         borderRadius           = 0 //柱状图长条图头部圆角半径(可用于设置头部的形状,仅对条形图,柱状图有效,设置为1000时,柱形图或者条形图头部为楔形)
         markerRadius           = 5 //折线连接点的半径长度,如果设置默认值为0,那么这样就相当于不显示了
         titleFontColor         = AAColor.black //标题字体颜色为黑色
-        titleFontWeight        = AAChartFontWeightType.regular //常规字体
+        titleFontWeight        = .regular //常规字体
         titleFontSize          = 11
         subtitleFontColor      = AAColor.black //副标题字体颜色为黑色
-        subtitleFontWeight     = AAChartFontWeightType.regular //常规字体
+        subtitleFontWeight     = .regular //常规字体
         subtitleFontSize       = 9
         dataLabelsFontColor    = AAColor.black //数据标签默认颜色为黑色
-        dataLabelsFontWeight   = AAChartFontWeightType.bold //图表的数据字体为粗体
+        dataLabelsFontWeight   = .bold //图表的数据字体为粗体
         dataLabelsFontSize     = 10
         yAxisTitle             = ""
         
