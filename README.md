@@ -243,12 +243,13 @@ public class AAMoveOverEventMessageModel: NSObject {
 
 As we all know, AAInfographics support using HTML String.  Most of time, the `headerFormat` 、`pointFormat`、`footerFormat` HTML string is enough for customizing chart tooltip string content, However, sometimes the needs of APP is so weird to satified, in this time, you can even customize the chart tooltip style through `JavaScript` function. 
 
-For example, configuring AATooltip instance object properties as follow:
+For example
+
+* configuring AATooltip instance object properties as follow:
 
 
-```swift
-
-        let aaTooltip = AATooltip()
+```js
+         aaOptions.tooltip?
             .useHTML(true)
             .formatter("""
 function () {
@@ -265,13 +266,41 @@ function () {
             .backgroundColor("#000000")
             .borderColor("#000000")
             .style(AAStyle()
-                    .color("#FFD700")
-                    .fontSize(12)
-                    )
+                .color("#FFD700")
+                .fontSize(12)
+        )
 ```
 
 you can get the customized tooltip style chart like this👇
 ![](https://user-images.githubusercontent.com/16357599/56589690-543c5880-6618-11e9-9d18-6bc0fe2fa53f.png)
+
+* configuring AATooltip instance object properties as follow:
+
+```js
+        aaOptions.tooltip?
+            .useHTML(true)
+            .formatter(#"""
+function () {
+        let colorsArr = ["mediumspringgreen", "deepskyblue", "red", "sandybrown"];
+        let wholeContentString ='<span style=\"' + 'color:lightGray; font-size:13px\"' + '>◉ Time: ' + this.x + ' year</span><br/>';
+        for (let i = 0;i < 4;i++) {
+            let thisPoint = this.points[i];
+            let yValue = thisPoint.y;
+            if (yValue != 0) {
+                let spanStyleStartStr = '<span style=\"' + 'color:'+ colorsArr[i] + '; font-size:13px\"' + '>◉ ';
+                let spanStyleEndStr = '</span> <br/>';
+                wholeContentString += spanStyleStartStr + thisPoint.series.name + ': ' + thisPoint.y + '℃' + spanStyleEndStr;
+            }
+        }
+        return wholeContentString;
+    }
+"""#)
+            .backgroundColor("#050505")
+            .borderColor("#050505")
+```
+
+you can get the customized tooltip style chart like this👇
+![colorfulTooltipChart](https://raw.githubusercontent.com/AAChartModel/Gallery/master/AAChartKit/colorfulTooltipChart.png)
 
 
 ### Support value range segmentation 
@@ -280,9 +309,12 @@ you can get the customized tooltip style chart like this👇
 * chart with value range segmentation `bands 🎀`
 ![plotBandsChart](https://raw.githubusercontent.com/AAChartModel/Gallery/master/AAChartKit/plotBandsChart.png)
 
-
 * chart with value range segmentation `lines 🧶`
 ![plotLinesChart](https://raw.githubusercontent.com/AAChartModel/Gallery/master/AAChartKit/plotLinesChart.png)
+
+* chart with value range segmentation `zones 🧱`
+![seriesZonesChart](https://raw.githubusercontent.com/AAChartModel/Gallery/master/AAChartKit/seriesZonesChart.png)
+
 
 ### Supported chart type for now
 
@@ -393,18 +425,17 @@ public var title: String?               //The chart title
 public var titleFontColor: String?      //The chart title font color
 public var titleFontSize: Float?        //The chart title font size
 public var titleFontWeight: AAChartFontWeightType? //The chart font weight
-
 public var subtitle: String?            //The chart subtitle
-public var subtitleAlign: String?       //The chart subtitle text align style
+public var subtitleAlign: AAChartAlignType?//The chart subtitle text align style
 public var subtitleFontColor: String?   //The chart subtitle font color
 public var subtitleFontSize: Float?     //The chart subtitle font size
 public var subtitleFontWeight: AAChartFontWeightType?   //The chart subtitle font weight
 public var axesTextColor: String?       //The labels font color of chart x axis and y axis
 public var chartType: AAChartType?      //The default series type for the chart. Can be any of the chart types listed under `AAChartType`. Defaults to line
 public var stacking: AAChartStackingType? //Whether to stack the values of each series on top of each other. Possible values are null to disable, "normal" to stack by value or "percent". When stacking is enabled, data must be sorted in ascending X order
-public var symbol: AAChartSymbolType?   //A predefined shape or symbol for the marker. When null, the symbol is pulled from options.symbols. Other possible values are "circle", "square", "diamond", "triangle" and "triangle-down"
-public var symbolStyle: AAChartSymbolStyleType?
-public var zoomType: AAChartZoomType?            //Decides in what dimensions the user can zoom by dragging the mouse. Can be one of x, y or xy
+public var markerSymbol: AAChartSymbolType?   //A predefined shape or symbol for the marker. When null, the symbol is pulled from options.symbols. Other possible values are "circle", "square", "diamond", "triangle" and "triangle-down"
+public var markerSymbolStyle: AAChartSymbolStyleType?
+public var zoomType: AAChartZoomType?   //Decides in what dimensions the user can zoom by dragging the mouse. Can be one of x, y or xy
 public var inverted: Bool?              //Whether to invert the axes so that the x axis is vertical and y axis is horizontal. When true, the x axis is reversed by default. If a bar series is present in the chart, it will be inverted automatically.Inverting the chart doesn't have an effect if there are no cartesian series in the chart, or if the chart is polar.Defaults to false
 public var xAxisReversed: Bool?         //Whether to reverse the axis so that the highest number is closest to the origin. If the chart is inverted, the x axis is reversed by default. Defaults to false
 public var yAxisReversed: Bool?         //Whether to reverse the axis so that the highest number is closest to the origin. If the chart is inverted, the x axis is reversed by default. Defaults to false

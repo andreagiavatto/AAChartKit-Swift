@@ -229,10 +229,11 @@ class MixedChartVC: UIViewController {
             .chartType(.column)
             .stacking(.normal)
             .legendEnabled(true)
-            .colorsTheme([AAColor.darkGray,
-                          AAColor.gray,
-                          AAColor.lightGray,
-                ])
+            .colorsTheme([
+                AAColor.darkGray,
+                AAColor.gray,
+                AAColor.lightGray,
+            ])
             .series([
                 AASeriesElement()
                     .name("新用户")
