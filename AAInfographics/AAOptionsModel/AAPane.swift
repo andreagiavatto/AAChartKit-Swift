@@ -72,10 +72,6 @@ public class AAPane: AAObject {
         startAngle = prop
         return self
     }
-    
-    public override init() {
-        
-    }
 }
 
 public class AABackgroundElement: AAObject {

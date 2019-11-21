@@ -485,7 +485,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					22035E872344E7EC0093D5AD = {
@@ -641,12 +641,8 @@
 				27766455207C55BE00F0A62C /* MixedChartVC.swift in Sources */,
 				278C55161EE948C900770B97 /* SpecialChartVC.swift in Sources */,
 				27FADB8620D6569000FED960 /* ChartSeriesHideOrShowVC.swift in Sources */,
-				44EB70A722BCB606008FECE4 /* CustomTooltipWithJSFunctionVC.swift in Sources */,
 				44EB70A722BCB606008FECE4 /* JSFormatterFunctionVC.swift in Sources */,
-				44154769231A1D5600382DAD /* AASeries.swift in Sources */,
-				442FA90D2340597200CF3BDF /* AAPane.swift in Sources */,
 				449A0ED62377149D009F8FE1 /* ScrollingUpdateDataVC.swift in Sources */,
-				27499152210D90B5003D18C2 /* AAChartView.swift in Sources */,
 				447B4B3521C9F40900FDA965 /* DrawChartWithAAOptionsVC.swift in Sources */,
 				278C55141EE948C900770B97 /* CommonChartVC.swift in Sources */,
 			);
