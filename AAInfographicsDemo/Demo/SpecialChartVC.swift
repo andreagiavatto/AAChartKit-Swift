@@ -115,14 +115,18 @@ class SpecialChartVC: UIViewController {
                 AASeriesElement()
                     .name("Language market shares")
                     .innerSize("20%")//内部圆环半径大小占比(内部圆环半径/扇形图半径),
-                    .allowPointSelect(false)
+                    .allowPointSelect(true)
+                    .states(AAStates()
+                        .hover(AAHover()
+                            .enabled(false)//禁用点击区块之后出现的半透明遮罩层
+                    ))
                     .data([
                         ["Java"  ,67],
                         ["Swift",999],
                         ["Python",83],
                         ["OC"    ,11],
                         ["Go"    ,30],
-                        ])
+                    ])
                 ,
                 ]
     )
@@ -316,8 +320,7 @@ class SpecialChartVC: UIViewController {
                         [180.3, 83.2], [180.3, 83.2]
                         ])
                 
-                ]
-        )
+                ])
     }
     
     private func configureArearangeChart() -> AAChartModel {
@@ -709,8 +712,7 @@ class SpecialChartVC: UIViewController {
                         [14199012, 1.3,  2.5],
                         [14199876, 1.6,  4.2]
                         ])
-                ]
-        )
+                ])
     }
     
     private func configureAreasplinerangeChart() -> AAChartModel {
@@ -794,8 +796,7 @@ class SpecialChartVC: UIViewController {
                         [-5.2, 10.4],
                         [-13.5, 9.8]
                         ])
-                ]
-        )
+                ])
     }
     
     private func configureStepLineChart() -> AAChartModel {
@@ -912,8 +913,7 @@ class SpecialChartVC: UIViewController {
                             "isSum": true,
                             "color": "#04d69f"
                         ]])
-                    ]
-        )
+                    ])
     }
     
     private func configurePyramidChart() -> AAChartModel {
@@ -951,9 +951,16 @@ class SpecialChartVC: UIViewController {
                         ["JavaScript", 13569],
                         ["Go",         15221],
                         ["Python",     16298],
-                        ])
-                    ,
-                ])
+                    ])
+                    .dataLabels(AADataLabels()
+                        .inside(true)
+                        .verticalAlign(.middle)
+                        .color(AAColor.black)
+                        .style(AAStyle()
+                            .fontSize(20)
+                            .textOutline("0px 0px contrast")))
+                ,
+            ])
     }
     
     private func configureErrobarChart() -> AAChartModel {

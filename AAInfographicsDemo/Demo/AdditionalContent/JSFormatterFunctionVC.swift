@@ -58,6 +58,9 @@ class JSFormatterFunctionVC: UIViewController {
         case 6: return customYAxisLabels2()
         case 7: return customStackedAndGroupedColumnChartTooltip()
         case 8: return customDoubleXAxesChart()
+        case 9: return customArearangeChartTooltip()
+        case 10: return customLineChartOriginalPointPositionByConfiguringXAxisFormatterAndTooltipFormatter()
+        case 11: return customTooltipWhichDataSourceComeFromOutSideRatherThanSeries()
         default:
             return AAOptions()
         }
@@ -139,24 +142,25 @@ function () {
     
     private func customAreaChartTooltipStyleWithFormatterFunction2() -> AAOptions {
         let aaChartModel = AAChartModel()
-            .chartType(.area)//图形类型
+            .chartType(.areaspline)//图形类型
             .title("2014 ~ 2020 汪星人生存指数")//图表主标题
             .subtitle("数据来源：www.无任何可靠依据.com")//图表副标题
-            .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
-            .colorsTheme(["#1e90ff","#ef476f",])
+            .markerSymbolStyle(.innerBlank)
+            .colorsTheme([
+                AAGradientColor.oceanBlue,
+                AAGradientColor.sanguine,
+            ])
             .dataLabelsEnabled(false)
             .stacking(.normal)
             .series([
                 AASeriesElement()
                     .name("🐶狗子")
                     .lineWidth(5.0)
-                    .fillOpacity(0.4)
                     .data([0.45, 0.43, 0.50, 0.55, 0.58, 0.62, 0.83, 0.39, 0.56, 0.67, 0.50, 0.34, 0.50, 0.67, 0.58, 0.29, 0.46, 0.23, 0.47, 0.46, 0.38, 0.56, 0.48, 0.36])
                 ,
                 AASeriesElement()
                     .name("🌲树木")
                     .lineWidth(5.0)
-                    .fillOpacity(0.4)
                     .data([0.38, 0.31, 0.32, 0.32, 0.64, 0.66, 0.86, 0.47, 0.52, 0.75, 0.52, 0.56, 0.54, 0.60, 0.46, 0.63, 0.54, 0.51, 0.58, 0.64, 0.60, 0.45, 0.36, 0.67])
                 ,
                 ])
@@ -184,7 +188,6 @@ function () {
         let aaChartModel = AAChartModel()
             .chartType(.line)//图形类型
             .title("")//图表主标题
-            .subtitle("")//图表副标题
             .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
             .dataLabelsEnabled(false)
             .categories(["临床一期","临床二期","临床三期"])
@@ -236,7 +239,6 @@ function () {
         let aaChartModel = AAChartModel()
             .chartType(.areaspline)//图形类型
             .title("")//图表主标题
-            .subtitle("")//图表副标题
             .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
             .dataLabelsEnabled(false)
             .colorsTheme(["#04d69f","#1e90ff","#ef476f","#ffd066",])
@@ -344,7 +346,6 @@ function () {
         let aaChartModel = AAChartModel()
             .chartType(.line)//图形类型
             .title("")//图表主标题
-            .subtitle("")//图表副标题
             .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
             .dataLabelsEnabled(false)
             .colorsTheme(["#04d69f","#1e90ff","#ef476f","#ffd066",])
@@ -387,7 +388,6 @@ function () {
         let aaChartModel = AAChartModel()
             .chartType(.line)//图形类型
             .title("")//图表主标题
-            .subtitle("")//图表副标题
             .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
             .dataLabelsEnabled(false)
             .colorsTheme(["#04d69f","#1e90ff","#ef476f","#ffd066",])
@@ -398,7 +398,7 @@ function () {
                     .name("Tokyo Hot")
                     .lineWidth(5.0)
                     .fillOpacity(0.4)
-                    .data([1])
+                    .data([229.9, 771.5, 1106.4, 1129.2, 6644.0, 1176.0, 8835.6, 148.5, 8816.4, 6694.1, 7795.6, 9954.4])
                 ,
                 ])
         
@@ -469,8 +469,7 @@ function () {
                     .data([3,0,4, 4,3,])
                     .stack("female")
                     ,
-                ]
-        )
+                ])
         
         /*Custom Tooltip Style --- 自定义图表浮动提示框样式及内容*/
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
@@ -558,9 +557,9 @@ function () {
                 .animation(
                    AAAnimation()
                     .duration(800)
-                    .easing(AAChartAnimationType.bounce.rawValue)
+                    .easing(.bounce)
                 )
-                .stacking(AAChartStackingType.normal.rawValue))
+                .stacking(.normal))
         
         let aaTooltip = AATooltip()
             .enabled(true)
@@ -597,5 +596,260 @@ function () {
         
         return aaOptions
     }
-
+    
+    private func customArearangeChartTooltip() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .title("LANGUAGE MARKET SHARES JANUARY,2020 TO MAY")
+            .subtitle("virtual data")
+            .chartType(.arearange)
+            .markerSymbolStyle(.innerBlank)
+            .series([
+                AASeriesElement()
+                    .name("Range")
+                    .color("#1E90FF")
+                    .type(.arearange)
+                    .lineWidth(0)
+                    .fillOpacity(0.3)
+                    .data([
+                        [12464064, 14.3, 27.7],
+                        [12464928, 14.5, 27.8],
+                        [12465792, 15.5, 29.6],
+                        [12466656, 16.7, 30.7],
+                        [12467520, 16.5, 25.0],
+                        [12468384, 17.8, 25.7],
+                        [12469248, 13.5, 24.8],
+                        [12470112, 10.5, 21.4],
+                        [12470976, 9.2,  23.8],
+                        [12471840, 11.6, 21.8],
+                        [12472704, 10.7, 23.7],
+                        [12473568, 11.0, 23.3],
+                        [12474432, 11.6, 23.7],
+                        [12475296, 11.8, 20.7],
+                        [12476160, 12.6, 22.4],
+                        [12477024, 13.6, 19.6],
+                        [12477888, 11.4, 22.6],
+                        [12478752, 13.2, 25.0],
+                        [12479616, 14.2, 21.6],
+                        [12480480, 13.1, 17.1],
+                        [12481344, 12.2, 15.5],
+                        [12482208, 12.0, 20.8],
+                        [12483072, 12.0, 17.1],
+                        [12483936, 12.7, 18.3],
+                        [12484800, 12.4, 19.4],
+                        [12485664, 12.6, 19.9],
+                        [12486528, 11.9, 20.2],
+                        [12487392, 11.0, 19.3],
+                        [12488256, 10.8, 17.8],
+                        [12489120, 11.8, 18.5],
+                        [12489984, 10.8, 16.1]
+                        ])
+                    .zIndex(0)
+                    ,
+                ])
+        
+          let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+                aaOptions.tooltip?
+                    .useHTML(true)
+                    .formatter("""
+        function () {
+            let myPointOptions = this.points[0].point.options;
+            let xValue = myPointOptions.x;
+            let lowValue = myPointOptions.low;
+            let highValue = myPointOptions.high;
+            let titleStr = '🌕 this is my custom tooltip description text content <br>';
+            let xValueStr = '🌖 this is x value  : ' + xValue + '<br>';
+            let lowValueStr = ' 🌗 this is low value  : ' + lowValue + '<br>';
+            let highValueStr = '🌘 this is high value : ' + highValue + '<br>';
+            let tooltipDescStr =  titleStr + xValueStr + lowValueStr + highValueStr;
+            return tooltipDescStr;
+        }
+        """)
+                    .backgroundColor("#000000")
+                    .borderColor("#000000")
+                    .style(AAStyle()
+                        .color("#FFD700")
+                        .fontSize(12)
+                )
+                
+                return aaOptions
+    }
+    
+    private func customLineChartOriginalPointPositionByConfiguringXAxisFormatterAndTooltipFormatter() -> AAOptions {
+        let categories = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        
+        let categoryJSArrStr = javaScriptArrayStringWithSwiftArray(categories)
+        
+        let tooltipFormatter = """
+        function () {
+        return  'The value for <b>' + \(categoryJSArrStr)[this.x] +
+        '</b> is <b>' + this.y + '</b> ' + "℃";
+        }
+        """
+        
+        let xAxisLabelsFormatter = """
+        function () {
+        return \(categoryJSArrStr)[this.value];
+        }
+        """
+        
+        let aaChartModel = AAChartModel()
+            .chartType(.line)
+            .colorsTheme(["#1e90ff","#ef476f","#ffd066","#04d69f","#25547c",])//Colors theme
+            .axesTextColor(AAColor.white)
+            .title("")
+            .dataLabelsEnabled(false)
+            .tooltipValueSuffix("℃")
+            .animationType(.bounce)
+            .backgroundColor("#22324c")//To make the chart background color transparent, set backgroundColor to "rgba (0,0,0,0)" or "# 00000000". Also make sure `aaChartView!.IsClearBackgroundColor = true`
+            .touchEventEnabled(true)
+            .series([
+                AASeriesElement()
+                    .name("Tokyo")
+                    .data([7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6])
+                ,
+                AASeriesElement()
+                    .name("New York")
+                    .data([0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5])
+                ,
+                AASeriesElement()
+                    .name("Berlin")
+                    .data([0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0])
+                ,
+                AASeriesElement()
+                    .name("London")
+                    .data([3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8])
+                ,
+            ])
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        aaOptions.tooltip?
+            .useHTML(true)
+            .formatter(tooltipFormatter)
+        
+        aaOptions.xAxis?.labels?
+            .formatter(xAxisLabelsFormatter)
+        
+        return aaOptions
+    }
+    
+    private func customTooltipWhichDataSourceComeFromOutSideRatherThanSeries() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .chartType(.column)//图表类型
+            .title("")
+            .yAxisTitle("")//设置 Y 轴标题
+            .yAxisLineWidth(1)//Y轴轴线线宽为0即是隐藏Y轴轴线
+            .yAxisGridLineWidth(1)//y轴横向分割线宽度为1(为0即是隐藏分割线)
+            .xAxisGridLineWidth(1)//x轴横向分割线宽度为1(为0即是隐藏分割线)
+            .colorsTheme(["#FFD700"/*纯金色*/])
+            .categories(["一月", "二月", "三月", "四月", "五月", "六月",
+                         "七月", "八月", "九月", "十月", "十一月", "十二月"])
+            .yAxisMax(110)
+            .series([
+                AASeriesElement()
+                    .name("2017")
+                    .data([55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, ]),
+            ])
+        
+        let 看近时长数组 = [70, 69, 95, 14, 18, 21, 25, 26, 23, 18, 13, 96]
+        let 看中时长数组 = [20, 80, 57, 11, 17, 22, 24, 24, 20, 14, 86, 25]
+        let 看远时长数组 = [90, 60, 35, 84, 13, 17, 18, 17, 14, 90, 39, 10]
+        
+        var 总时长数组 = [Float]()
+        
+        for i in 0 ..< 12 {
+            let 单个总时长 = 看近时长数组[i] + 看中时长数组[i] + 看远时长数组[i]
+            总时长数组.append(Float(单个总时长))
+        }
+        
+        let 有效时长数组 = [39, 42, 57, 85, 19, 15, 17, 16, 14, 13, 66, 48]
+        
+        let 切换次数数组 = [
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+        ]
+        
+        let 停止次数数组 = [
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+        ]
+        
+        let 干预次数数组 = [
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+            arc4random() % 10, arc4random() % 10, arc4random() % 10,
+        ]
+        
+        let 总时长JS数组 = javaScriptArrayStringWithSwiftArray(总时长数组)
+        let 有效时长JS数组 = javaScriptArrayStringWithSwiftArray(有效时长数组)
+        let 看近时长JS数组 = javaScriptArrayStringWithSwiftArray(看近时长数组)
+        let 看中时长JS数组 = javaScriptArrayStringWithSwiftArray(看中时长数组)
+        let 看远时长JS数组 = javaScriptArrayStringWithSwiftArray(看远时长数组)
+        let 切换次数JS数组 = javaScriptArrayStringWithSwiftArray(切换次数数组)
+        let 停止次数JS数组 = javaScriptArrayStringWithSwiftArray(停止次数数组)
+        let 干预次数JS数组 = javaScriptArrayStringWithSwiftArray(干预次数数组)
+        
+        let jsFormatterStr = """
+        function () {
+        let 总时长数组 = \(总时长JS数组);
+        let 有效时长数组 = \(有效时长JS数组);
+        let 看近时长数组 = \(看近时长JS数组);
+        let 看中时长数组 = \(看中时长JS数组);
+        let 看远时长数组 = \(看远时长JS数组);
+        let 切换次数数组 = \(切换次数JS数组);
+        let 停止次数数组 = \(停止次数JS数组);
+        let 干预次数数组 = \(干预次数JS数组);
+        let 时间单位后缀 = "min<br/>";
+        let 频率单位后缀 = "次<br/>";
+        
+        let pointIndex = this.point.index;
+        let 单个总时长字符串 = "总时长: &nbsp &nbsp" + 总时长数组[pointIndex] + 时间单位后缀;
+        let 单个有效时长字符串 = "有效时长: &nbsp" + 有效时长数组[pointIndex] + 时间单位后缀;
+        let 单个看近时长字符串 = "看近时长: &nbsp" + 看近时长数组[pointIndex] + 时间单位后缀;
+        let 单个看中时长字符串 = "看中时长: &nbsp" + 看中时长数组[pointIndex] + 时间单位后缀;
+        let 单个看远时长字符串 = "看远时长: &nbsp" + 看远时长数组[pointIndex] + 时间单位后缀;
+        let 单个切换次数字符串 = "切换次数: &nbsp" + 切换次数数组[pointIndex] + 频率单位后缀;
+        let 单个停止次数字符串 = "停止次数: &nbsp" + 停止次数数组[pointIndex] + 频率单位后缀;
+        let 单个干预次数字符串 = "干预次数: &nbsp" + 干预次数数组[pointIndex] + 频率单位后缀;
+        
+        let wholeContentString =  单个总时长字符串 + 单个有效时长字符串 + 单个看近时长字符串 + 单个看中时长字符串 + 单个看远时长字符串 + 单个切换次数字符串 + 单个停止次数字符串 + 单个干预次数字符串;
+        
+        return wholeContentString;
+        }
+        """
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        aaOptions.tooltip?
+            //‼️以 this.point.index 这种方式获取选中的点的索引必须设置 tooltip 的 shared 为 false
+            //‼️共享时是 this.points (由多个 point 组成的 points 数组)
+            //‼️非共享时是 this.point 单个 point 对象
+            .shared(false)
+            .useHTML(true)
+            .formatter(jsFormatterStr)
+            .backgroundColor("#000000")//黑色背景色
+            .borderColor("#FFD700")//边缘颜色纯金色
+            .style(AAStyle()
+                    .color("#FFD700")//文字颜色纯金色
+                    .fontSize(12)
+        )
+        
+        return aaOptions
+    }
+    
+    //Convert Swift array to be JavaScript array
+    private func javaScriptArrayStringWithSwiftArray(_ swiftArray: [Any]) -> String {
+        var originalJsArrStr = ""
+        for element in swiftArray {
+            originalJsArrStr = originalJsArrStr + "'\(element)',"
+        }
+        
+        let finalJSArrStr = "[\(originalJsArrStr)]"
+        return finalJSArrStr
+    }
 }

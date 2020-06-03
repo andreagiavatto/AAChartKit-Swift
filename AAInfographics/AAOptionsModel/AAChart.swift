@@ -30,7 +30,7 @@
  
  */
 
-import UIKit
+import Foundation
 
 public class AAChart: AAObject {
     public var type: String?
@@ -42,8 +42,12 @@ public class AAChart: AAObject {
     public var polar: Bool?
     public var animation: AAAnimation?
     public var inverted: Bool?
-    public var marginLeft: Float?
-    public var marginRight: Float?
+    public var margin: [Float]? //Margin between the outer edge of the chart and the drawing area. The numbers in the array represent the top, right, bottom, and left ([👆, 👉, 👇, 👈]). You can also use marginTop, marginRight, marginBottom, and marginLeft to set the margins in a certain direction.
+    public var marginTop: Float? //👆
+    public var marginRight: Float? //👉
+    public var marginBottom: Float? //👇
+    public var marginLeft: Float? //👈
+    public var scrollablePlotArea: AAScrollablePlotArea?
     
     @discardableResult
     public func type(_ prop: AAChartType) -> AAChart {
@@ -100,14 +104,38 @@ public class AAChart: AAObject {
     }
     
     @discardableResult
-    public func marginLeft(_ prop: Float?) -> AAChart {
-        marginLeft = prop
+    public func margin(_ prop: [Float]?) -> AAChart {
+        margin = prop
+        return self
+    }
+    
+    @discardableResult
+    public func marginTop(_ prop: Float?) -> AAChart {
+        marginTop = prop
         return self
     }
     
     @discardableResult
     public func marginRight(_ prop: Float?) -> AAChart {
         marginRight = prop
+        return self
+    }
+    
+    @discardableResult
+    public func marginBottom(_ prop: Float?) -> AAChart {
+        marginBottom = prop
+        return self
+    }
+    
+    @discardableResult
+    public func marginLeft(_ prop: Float?) -> AAChart {
+        marginLeft = prop
+        return self
+    }
+    
+    @discardableResult
+    public func scrollablePlotArea(_ prop: AAScrollablePlotArea?) -> AAChart {
+        scrollablePlotArea = prop
         return self
     }
     

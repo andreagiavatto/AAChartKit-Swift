@@ -50,8 +50,8 @@ class DrawChartWithAAOptionsVC: UIViewController {
     private func configureAAOptions() -> AAOptions {
         switch self.chartType {
         case 0: return configureLegendStyle()
-        case 1: return setUpOptions1()
-        case 2: return setUpOptions2()
+        case 1: return simpleGaugeChart()
+        case 2: return gaugeChartWithPlotBand()
         case 3: return configureChartWithBackgroundImage()
         case 4: return yAxisOnTheRightSideChart()
         case 5: return adjustYAxisMinValueForChart()
@@ -69,6 +69,10 @@ class DrawChartWithAAOptionsVC: UIViewController {
         case 17: return configureDoubleYAxisChartOptions()
         case 18: return configureTripleYAxesMixedChart()
         case 19: return configureDoubleYAxesAndColumnLineMixedChart()
+        case 20: return configureDoubleYAxesMarketDepthChart()
+        case 21: return customAreaChartTooltipStyleLikeHTMLTable()
+        case 22: return customAxesGridLineStyle()
+        case 23: return customRadarChartStyle()
         default:
             return AAOptions()
         }
@@ -159,8 +163,7 @@ class DrawChartWithAAOptionsVC: UIViewController {
                         ["C#"    , 888],
                         ["C++"   , 66],
                     ])
-                ]
-        )
+                ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         aaOptions.chart?.plotBackgroundImage("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2859216016,2109779587&fm=27&gp=0.jpg")
@@ -183,8 +186,7 @@ class DrawChartWithAAOptionsVC: UIViewController {
                     .color(AAGradientColor.sanguine)
                     .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2, 26.5, 23.3, 45.3, 13.9, 9.6])
                 
-                ]
-        )
+                ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         //是否将坐标轴显示在对立面，默认情况下 x 轴是在图表的下方显示，y 轴是在左方，
@@ -199,7 +201,6 @@ class DrawChartWithAAOptionsVC: UIViewController {
         let aaChartModel = AAChartModel()
             .chartType(.column)//图表类型
             .title("")//图表主标题
-            .subtitle("")//图表副标题
             .borderRadius(5)
             .series([
                 AASeriesElement()
@@ -207,8 +208,7 @@ class DrawChartWithAAOptionsVC: UIViewController {
                     .data([1003.9, 1004.2, 1005.7, 1008.5, 1011.9, 1015.2,])
                     .color(AAGradientColor.sanguine)
                 
-                ]
-        )
+                ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         aaOptions.yAxis?.min(1000)
@@ -258,7 +258,7 @@ class DrawChartWithAAOptionsVC: UIViewController {
         let aaSeries = AASeries()
             .animation(AAAnimation()
                 .duration(800)
-                .easing(AAChartAnimationType.bounce.rawValue))
+                .easing(.bounce))
         
         let aaColumn = AAColumn()
             .grouping(false)
@@ -295,7 +295,6 @@ class DrawChartWithAAOptionsVC: UIViewController {
         let aaChartModel = AAChartModel()
             .chartType(.column)
             .title("")
-            .subtitle("")
             .colorsTheme(["#ffc069","#fe117c","#06caf4","#7dffc0"])
             .categories([
                 "January", "February", "March", "April", "May", "June",
@@ -319,8 +318,7 @@ class DrawChartWithAAOptionsVC: UIViewController {
                         0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5])
                 ,
                 
-                ]
-        )
+                ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         
@@ -336,7 +334,6 @@ class DrawChartWithAAOptionsVC: UIViewController {
         let aaChartModel = AAChartModel()
             .chartType(.column)
             .title("")
-            .subtitle("")
             .categories(["January", "February", "March", "April", "May", "June",
                          "July", "August", "Septembel", "October", "November", "December"])
             .dataLabelsEnabled(false)
@@ -347,8 +344,7 @@ class DrawChartWithAAOptionsVC: UIViewController {
                     .color(AAGradientColor.coastalBreeze)
                     .data([7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6])
                 
-                ]
-        )
+                ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         //    * 关于 `pointPadding`
@@ -363,7 +359,7 @@ class DrawChartWithAAOptionsVC: UIViewController {
         return aaOptions
     }
     
-    private func setUpOptions1() -> AAOptions {
+    private func simpleGaugeChart() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.gauge)
             .yAxisMin(0)
@@ -397,7 +393,7 @@ class DrawChartWithAAOptionsVC: UIViewController {
         return aaOptions
     }
     
-    private func setUpOptions2() -> AAOptions {
+    private func gaugeChartWithPlotBand() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.gauge)
             .backgroundColor(["#555555"])
@@ -490,7 +486,7 @@ class DrawChartWithAAOptionsVC: UIViewController {
     private func configureAAPlotLinesForChart() -> AAOptions {
         let aaChartModel = AAChartModel()
             .title("")
-            .chartType(.areaspline)//图形类型chartOptions.toDic()!
+            .chartType(.areaspline)
             .dataLabelsEnabled(false)
             .categories(["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
             .legendEnabled(false)
@@ -663,8 +659,7 @@ function () {
                         [12489984, 13.6]
                     ])
                 
-                ]
-        )
+                ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         let aaCrosshair = AACrosshair()
@@ -696,7 +691,6 @@ function () {
         let aaChartModel = AAChartModel()
             .chartType(.areaspline)
             .title("")
-            .subtitle("")
             .stacking(.normal)
             .categories(categories)
             .dataLabelsEnabled(false)
@@ -707,8 +701,7 @@ function () {
                     .color(AAGradientColor.mysticMauve)
                     .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2, 26.5, 23.3, 45.3, 13.9, 9.6])
                 ,
-                ]
-        )
+                ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         aaOptions.xAxis?.labels?.useHTML(true)
@@ -734,7 +727,6 @@ function () {
         let aaChartModel = AAChartModel()
             .chartType(.areaspline)
             .title("")
-            .subtitle("")
             .stacking(.normal)
             .yAxisVisible(false)
             .categories(categories)
@@ -746,8 +738,7 @@ function () {
                     .color(AAGradientColor.deepSea)
                     .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2, 26.5, 23.3, 45.3, 13.9, 9.6])
                 ,
-                ]
-        )
+                ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         aaOptions.xAxis?.labels?.useHTML(true)
@@ -771,7 +762,6 @@ function () {
         let aaChartModel = AAChartModel()
             .chartType(.areaspline)
             .title("")
-            .subtitle("")
             .backgroundColor(backgroundColorGradientColor)
             .yAxisVisible(true)
             .yAxisTitle("")
@@ -835,7 +825,6 @@ function () {
         let aaChartModel = AAChartModel()
             .chartType(.areaspline)
             .title("")
-            .subtitle("")
             .categories([
                 "一月", "二月", "三月", "四月", "五月", "六月",
                 "七月", "八月", "九月", "十月", "十一月", "十二月"
@@ -1188,7 +1177,7 @@ function () {
         let aaPlotOptions = AAPlotOptions()
             .series(AASeries()
                 .animation(AAAnimation()
-                    .easing(0)
+                    .easing(.easeTo)
                     .duration(1000)))
             .column(AAColumn()
                 .grouping(false)
@@ -1253,6 +1242,279 @@ function () {
         return aaOptions
     }
     
+    private func configureDoubleYAxesMarketDepthChart() -> AAOptions {
+        let aaChart = AAChart()
+            .type(.area)
+        
+        let aaTitle = AATitle()
+            .text("ETH-BTC 市场深度图")
+        
+        let aaSubtitle = AASubtitle()
+            .text("数据来源: https://github.com/AAChartModel")
+        
+        let aaXAxis = AAXAxis()
+            .visible(true)
+            .plotLines([
+                AAPlotLinesElement()
+                    .color(AAColor.red)
+                    .value(0.1523)
+                    .width(1.1)
+                    .dashStyle(.longDashDotDot)
+                    .label(AALabel()
+                        .text("实际价格")
+                        .rotation(90))
+            ])
+        
+        let yAxis1 = AAYAxis()
+            .visible(true)
+            .lineWidth(1)
+            .tickWidth(1)
+            .tickLength(5)
+            .tickPosition("inside")
+            .gridLineWidth(1)
+            .title(AATitle()
+                .text(""))
+            .labels(AALabels()
+                .enabled(true)//设置 y 轴是否显示数字
+                .align("left")
+                .x(8)
+        )
+        
+        let yAxis2 = AAYAxis()
+            .opposite(true)
+            .visible(true)
+            .lineWidth(1)
+            .tickWidth(1)
+            .tickLength(5)
+            .tickPosition("inside")
+            .gridLineWidth(0)
+            .title(AATitle()
+                 .text(""))
+            .labels(AALabels()
+                .enabled(true)//设置 y 轴是否显示数字
+                .align("right")
+                .x(-8)
+        )
+        
+        let aaTooltip = AATooltip()
+            .enabled(true)
+            .headerFormat("<span style=\\\"font-size=10px;\\\">Price: {point.key}</span><br/>")
+            .valueDecimals(2)
+        
+        let aaLegend = AALegend()
+            .enabled(false)
+        
+        let element1 = AASeriesElement()
+            .name("Bids")
+            .color("#04d69f")
+            .step(true)
+            .data([
+                [0.1524, 0.948665],
+                [0.1539, 35.510715],
+                [0.154,  39.883437],
+                [0.1541, 40.499661],
+                [0.1545, 43.262994000000006],
+                [0.1547, 60.14799400000001],
+                [0.1553, 60.30799400000001],
+                [0.1558, 60.55018100000001],
+                [0.1564, 68.381696],
+                [0.1567, 69.46518400000001],
+                [0.1569, 69.621464],
+                [0.157,  70.398015],
+                [0.1574, 70.400197],
+                [0.1575, 73.199217],
+                [0.158,  77.700017],
+                [0.1583, 79.449017],
+                [0.1588, 79.584064],
+                [0.159,  80.584064],
+                [0.16,   81.58156],
+                [0.1608, 83.38156]
+            ])
+        
+        let element2 = AASeriesElement()
+            .name("Asks")
+            .color("#1e90ff")
+            .step(true)
+            .data([
+                [0.1435, 242.521842],
+                [0.1436, 206.49862099999999],
+                [0.1437, 205.823735],
+                [0.1438, 197.33275],
+                [0.1439, 153.677454],
+                [0.144,  146.007722],
+                [0.1442, 82.55212900000001],
+                [0.1443, 59.152814000000006],
+                [0.1444, 57.942260000000005],
+                [0.1445, 57.483850000000004],
+                [0.1446, 52.39210800000001],
+                [0.1447, 51.867208000000005],
+                [0.1448, 44.104697],
+                [0.1449, 40.131217],
+                [0.145,  31.878217],
+                [0.1451, 22.794916999999998],
+                [0.1453, 12.345828999999998],
+                [0.1454, 10.035642],
+                [0.148,  9.326642],
+                [0.1522, 3.76317]
+            ])
+        
+        let aaOptions = AAOptions()
+            .chart(aaChart)
+            .title(aaTitle)
+            .subtitle(aaSubtitle)
+            .xAxis(aaXAxis)
+            .yAxisArray([yAxis1,yAxis2])
+            .tooltip(aaTooltip)
+            .legend(aaLegend)
+            .series([element1,element2])
+        return aaOptions;
+    }
+    
+// Chart Sample Online:   https://jshare.com.cn/highcharts/hhhhG1
+    private func customAreaChartTooltipStyleLikeHTMLTable() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .chartType(.areaspline)//图形类型
+            .title("")//图表主标题
+            .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
+            .dataLabelsEnabled(false)
+            .colorsTheme(["#fe117c","#ffc069","#06caf4","#7dffc0"])
+            .stacking(.normal)
+            .markerRadius(0)
+            .series([
+                AASeriesElement()
+                    .name("TokyoHot")
+                    .lineWidth(5.0)
+                    .fillOpacity(0.4)
+                    .data([0.45, 0.43, 0.50, 0.55, 0.58, 0.62, 0.83, 0.39, 0.56, 0.67, 0.50, 0.34, 0.50, 0.67, 0.58, 0.29, 0.46, 0.23, 0.47, 0.46, 0.38, 0.56, 0.48, 0.36])
+                ,
+                AASeriesElement()
+                    .name("BerlinHot")
+                    .lineWidth(5.0)
+                    .fillOpacity(0.4)
+                    .data([0.38, 0.31, 0.32, 0.32, 0.64, 0.66, 0.86, 0.47, 0.52, 0.75, 0.52, 0.56, 0.54, 0.60, 0.46, 0.63, 0.54, 0.51, 0.58, 0.64, 0.60, 0.45, 0.36, 0.67])
+                ,
+                AASeriesElement()
+                    .name("NewYorkHot")
+                    .lineWidth(5.0)
+                    .fillOpacity(0.4)
+                    .data([0.46, 0.32, 0.53, 0.58, 0.86, 0.68, 0.85, 0.73, 0.69, 0.71, 0.91, 0.74, 0.60, 0.50, 0.39, 0.67, 0.55, 0.49, 0.65, 0.45, 0.64, 0.47, 0.63, 0.64])
+                ,
+                AASeriesElement()
+                    .name("LondonHot")
+                    .lineWidth(5.0)
+                    .fillOpacity(0.4)
+                    .data([0.60, 0.51, 0.52, 0.53, 0.64, 0.84, 0.65, 0.68, 0.63, 0.47, 0.72, 0.60, 0.65, 0.74, 0.66, 0.65, 0.71, 0.59, 0.65, 0.77, 0.52, 0.53, 0.58, 0.53])
+                ,
+            ])
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        aaOptions.tooltip?
+            .shared(true)
+            .useHTML(true)
+            .headerFormat("<small>{point.key}</small><table>")
+            .pointFormat("<tr><td style=\\\"color: {series.color}\\\">{series.name}: </td>"
+            + "<td style=\\\"text-align: right\\\"><b>{point.y}EUR</b></td></tr>")
+            .footerFormat("</table>")
+        
+        return aaOptions
+    }
+    
+    
+    private func customAxesGridLineStyle() -> AAOptions  {
+        let aaChartModel = AAChartModel()
+            .chartType(.line)//图表类型
+            .title("custom Axes Grid Line Style")//图表主标题
+            .markerSymbolStyle(.borderBlank)
+            .categories(["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])
+            .markerRadius(8)
+            .series([
+                AASeriesElement()
+                    .name("2020")
+                    .lineWidth(5.5)
+                    .color(AAGradientColor.sanguine)
+                    .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2, 26.5, 23.3, 45.3, 13.9, 9.6])
+                
+                ])
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+    
+        aaOptions.yAxis?
+            .opposite(true)
+            .gridLineDashStyle(.shortDashDot)
+            .gridLineWidth(3)
+            .gridLineColor(AAColor.lightGray)
+        
+        aaOptions.xAxis?
+        .gridLineDashStyle(.shortDashDotDot)
+        .gridLineWidth(3)
+        .gridLineColor(AAColor.gray)
+        
+        return aaOptions
+    }
+    
+// https://github.com/AAChartModel/AAChartKit-Swift/issues/213
+    private func customRadarChartStyle() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .title("")
+            .colorsTheme(["#5BCCC8"])
+            .chartType(.area)
+            .dataLabelsEnabled(false)
+            .xAxisVisible(true)
+            .yAxisVisible(true)
+            .yAxisLabelsEnabled(false)
+            .polar(true)
+            .markerRadius(8)
+            .markerSymbol(.circle)
+            .markerSymbolStyle(.borderBlank)
+            .legendEnabled(false)
+            .touchEventEnabled(false)
+            .series([
+                AASeriesElement()
+                    .data([86, 90, 65])
+            ])
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        let categories = ["智力感", "距离感", "成熟感"]
+        let categoryJSArrStr = javaScriptArrayStringWithSwiftArray(categories)
+
+        let xAxisLabelsFormatter = """
+        function () {
+        return \(categoryJSArrStr)[this.value];
+        }
+        """
+        
+        aaOptions.yAxis?
+            .tickPositions([0, 25, 50, 75, 100])
+            .gridLineColor("#DDDDDD")
+            .gridLineWidth(2.0)
+            .gridLineDashStyle(.dash)
+        
+        aaOptions.xAxis?
+            .lineColor("#5BCCC8")
+            .lineWidth(5)
+            .gridLineColor(AAColor.red)
+            .gridLineWidth(3)
+            .gridLineDashStyle(.longDashDotDot)
+            .tickPositions([0,1,2,0])
+        
+        aaOptions.xAxis?.labels?
+            
+        .formatter(xAxisLabelsFormatter)
+        
+        return aaOptions
+    }
+    
+    //Convert Swift array to be JavaScript array
+    private func javaScriptArrayStringWithSwiftArray(_ swiftArray: [Any]) -> String {
+        var originalJsArrStr = ""
+        for element in swiftArray {
+            originalJsArrStr = originalJsArrStr + "'\(element)',"
+        }
+        
+        let finalJSArrStr = "[\(originalJsArrStr)]"
+        return finalJSArrStr
+    }
 }
 
 

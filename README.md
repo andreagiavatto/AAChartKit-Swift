@@ -12,6 +12,7 @@
 [![](https://jaywcjlove.github.io/sb/lang/english.svg)](https://github.com/AAChartModel/AAChartKit-Swift)</br>
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/AAChartModel/AAChartKit-Swift.svg)](http://isitmaintained.com/project/AAChartModel/AAChartKit-Swift "Average time to resolve an issue")</br>
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/AAChartModel/AAChartKit-Swift.svg)](http://isitmaintained.com/project/AAChartModel/AAChartKit-Swift "Percentage of issues still open")
+[![](https://img.shields.io/badge/AAChartKitSwift-StarHistory-blue.svg)](https://star-history.t9t.io/#AAChartModel/AAChartKit-Swift)</br>
 
 ## [ **English Document 🇬🇧** ](https://github.com/AAChartModel/AAChartKit-Swift)  |  [ **简体中文文档 🇨🇳** ](https://github.com/AAChartModel/AAChartKit-Swift/blob/master/CHINESE-README.md)| [ **繁體中文文檔 🇭🇰** ](https://github.com/AAChartModel/AAChartKit-Swift/blob/master/TRADITIONAL-CHINESE-README.md)
 
@@ -25,11 +26,19 @@
 ***
 ## Features
 
-1. Support `iOS 8`、`ARC` & `Swift`.
-2. Powerful,support the  `column chart`、`bar chart`、`area chart`、`areaspline chart`、`line chart`、`spline chart`、`radar chart`、`polar chart`、`pie chart`、`bubble chart`、`pyramid chart`、`funnel chart`、`columnrange chart`and other graphics.
-3. Interactive、animated, the `animation` effect is exquisite 、delicate、 smooth and beautiful.
-4. Support `chain programming syntax` like *Masonry*.
-5. `AAChartView + AAChartModel = Chart`  In the AAInfographics,it follows a minimalist formula: ` Chart view + Chart model = The chart you want`. Like the powerful charts lib [AAChartKit](https://github.com/AAChartModel/AAChartKit).
+* 🎂  **Environment friendly**. Support `iOS `、 `iPadOS`、`tvOS` and `macOS`. Totally support `Swift` language, and there are more types version such as  `Objective-C` language version [AAChartKit](https://github.com/AAChartModel/AAChartKit) 、 `Java` language version [AAChartCore](https://github.com/AAChartModel/AAChartCore) 、`Kotlin` language version [AAInfographics](https://github.com/AAChartModel/AAChartCore-Kotlin) . To get more details you can see the [source code links list](https://github.com/AAChartModel/AAChartKit-Swift#source-code).
+
+* 🚀  **Powerful and easy to use**. It supports `column chart`, `bar chart`, `area chart`, `areaspline chart`, `line chart`, `spline chart`, `radar chart`, `polar chart`, `pie chart`, `bubble chart`, `pyramid chart`, `funnel chart`, `columnrange chart`, `arearange chart`, `mixed chart` and other graphics. Support for more chart types is planned.
+
+* 📝  **Modern Declarative Syntax**. Unlike previous imperative programming techniques, drawing any custom chart in AAChartKit, you don't need to care about the inner implementation details which is annoying && boring. *Describe what you want, you will get what you described*.
+
+* 🎮  **Interactive and animated**. The charts `animation` effect is exquisite, delicate, smooth and beautiful.
+
+* ⛓  **Chain programming**.  Supports `chain programming syntax` like *Masonry* .
+
+* 🦋  **Minimalist**. `AAChartView + AAChartModel = Chart`. The AAChartKit follows a minimalist formula: Chart view + Chart model = The chart you want, just like the powerful and beautiful charts framework [AAChartKit](https://github.com/AAChartModel/AAChartKit).
+
+* 🖱 **Interaction event callback**. Support for monitoring [user click events and single finger move over events](#support-user-click-events-and-move-over-events), which can be used to achieve double charts linked-working and even multiple charts linkage, as well as other more complex custom user interaction effects.
 ***
 
 ## Appreciation
@@ -77,8 +86,8 @@ to your project Podfile.
 
 1. Creat the instance object of chart view:`AAChartView`
 ```swift
-        CGFloat chartViewWidth  = self.view.frame.size.width
-        CGFloat chartViewHeight = self.view.frame.size.height
+        let chartViewWidth  = self.view.frame.size.width
+        let chartViewHeight = self.view.frame.size.height
         aaChartView = AAChartView()
         aaChartView?.frame = CGRect(x:0,y:0,width:chartViewWidth,height:chartViewHeight)
         // set the content height of aachartView
@@ -88,12 +97,12 @@ to your project Podfile.
 2. Configure the properties of chart model:`AAChartModel`
 
 ``` swift
-        aaChartModel = AAChartModel()
+        let aaChartModel = AAChartModel()
             .chartType(.column)//Can be any of the chart types listed under `AAChartType`.
             .animationType(.bounce)
             .title("TITLE")//The chart title
             .subtitle("subtitle")//The chart subtitle
-            .dataLabelEnabled(false) //Enable or disable the data labels. Defaults to false
+            .dataLabelsEnabled(false) //Enable or disable the data labels. Defaults to false
             .tooltipValueSuffix("USD")//the value suffix of the chart tooltip
             .categories(["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])

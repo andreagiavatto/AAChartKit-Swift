@@ -185,12 +185,13 @@ public class AAChartModel: AAObject {
     public var tooltipValueSuffix: String?  //Custom tooltip value unit suffix
     public var tooltipCrosshairs: Bool?     //Show tooltip crosshair or not
     public var colorsTheme: Array<Any>?     //An array containing the default colors for the chart's series. When all colors are used, new colors are pulled from the start again. Defaults to: ["#bb250c","#f67210","#fde680","#257679","#f1c6c5"]
-    public var series: [AASeriesElement]?   //An array of all the chart's series
+    public var series: [Any]?   //An array of all the chart's series
     public var legendEnabled: Bool?         //Enable or disable the legend. Defaults to true
     public var backgroundColor: Any?        //The background color or gradient for the outer chart area. Defaults to #FFFFFF
-    public var borderRadius: Int?           //The corner radius of the outer chart border. Defaults to 0
-    public var markerRadius: Int?           //The radius of the point marker. Defaults to 4
+    public var borderRadius: Float?         //The corner radius of the outer chart border. Defaults to 0
+    public var markerRadius: Float?         //The radius of the point marker. Defaults to 4
     public var touchEventEnabled: Bool?     //Support touch event call back or not
+    public var scrollablePlotArea: AAScrollablePlotArea?    //Scroll properties if supported
     
     @discardableResult
     public func animationType(_ prop: AAChartAnimationType) -> AAChartModel {
@@ -277,7 +278,7 @@ public class AAChartModel: AAObject {
     }
     
     @discardableResult
-    public func markerRadius(_ prop: Int) -> AAChartModel {
+    public func markerRadius(_ prop: Float) -> AAChartModel {
         markerRadius = prop
         return self
     }
@@ -433,6 +434,12 @@ public class AAChartModel: AAObject {
     }
     
     @discardableResult
+    public func yAxisLineWidth(_ prop: Float) -> AAChartModel {
+        yAxisLineWidth = prop
+        return self
+    }
+    
+    @discardableResult
     public func yAxisMin(_ prop: Float) -> AAChartModel {
         yAxisMin = prop
         return self
@@ -463,7 +470,7 @@ public class AAChartModel: AAObject {
     }
     
     @discardableResult
-    public func series(_ prop: [AASeriesElement]) -> AAChartModel {
+    public func series(_ prop: [Any]) -> AAChartModel {
         series = prop
         return self
     }
@@ -481,7 +488,7 @@ public class AAChartModel: AAObject {
     }
     
     @discardableResult
-    public func borderRadius(_ prop: Int) -> AAChartModel {
+    public func borderRadius(_ prop: Float) -> AAChartModel {
         borderRadius = prop
         return self
     }
@@ -492,38 +499,33 @@ public class AAChartModel: AAObject {
         return self
     }
     
+    @discardableResult
+    public func scrollablePlotArea(_ prop: AAScrollablePlotArea) -> AAChartModel {
+        scrollablePlotArea = prop
+        return self
+    }
+    
     
     public override init() {
         backgroundColor        = AAColor.white
         animationType          = .easeInQuad
-        animationDuration      = 800 //以毫秒为单位
+        animationDuration      = 800 //In milliseconds
         chartType              = .line
-        stacking               = Optional.none
-        zoomType               = Optional.none //默认禁用手势缩放
+        stacking               = AAChartStackingType.none
+        zoomType               = AAChartZoomType.none //Disable gesture zoom by default
         colorsTheme            = ["#1e90ff","#ef476f","#ffd066","#04d69f","#25547c",]
-        dataLabelsEnabled      = true
         tooltipEnabled         = true
         tooltipCrosshairs      = true
         xAxisLabelsEnabled     = true
-        xAxisVisible           = true // X 轴默认可见
-        yAxisVisible           = true // Y 轴默认可见
+        xAxisVisible           = true
+        yAxisVisible           = true
         yAxisLabelsEnabled     = true
         yAxisLineWidth         = 0
         yAxisGridLineWidth     = 0.6
-        legendEnabled          = true
-        borderRadius           = 0 //柱状图长条图头部圆角半径(可用于设置头部的形状,仅对条形图,柱状图有效,设置为1000时,柱形图或者条形图头部为楔形)
-        markerRadius           = 5 //折线连接点的半径长度,如果设置默认值为0,那么这样就相当于不显示了
-        titleFontColor         = AAColor.black //标题字体颜色为黑色
-        titleFontWeight        = .regular //常规字体
-        titleFontSize          = 11
-        subtitleFontColor      = AAColor.black //副标题字体颜色为黑色
-        subtitleFontWeight     = .regular //常规字体
-        subtitleFontSize       = 9
-        dataLabelsFontColor    = AAColor.black //数据标签默认颜色为黑色
-        dataLabelsFontWeight   = .bold //图表的数据字体为粗体
-        dataLabelsFontSize     = 10
         yAxisTitle             = ""
-        
+        legendEnabled          = true
+        borderRadius           = 0
+        markerRadius           = 5 //The radius of the polyline connection point. If the default value is set to 0, then this is equivalent to not displaying.
     }
     
 }

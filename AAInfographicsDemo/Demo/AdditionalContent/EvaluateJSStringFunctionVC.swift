@@ -76,6 +76,7 @@ class EvaluateJSStringFunctionVC: UIViewController, AAChartViewDelegate {
                         .data([29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4])
                         ,
                     ])
+            aaChartView.aa_drawChartWithChartModel(aaChartModel)
         } else {
             aaChartModel
                 .chartType(.column)
@@ -96,10 +97,15 @@ class EvaluateJSStringFunctionVC: UIViewController, AAChartViewDelegate {
                     "闪<br>客",
                     "忍<br>者<br>之<br>印"
                     ])
+                .zoomType(.x)//‼️ 重要属性,需要支持 X 轴横向滚动
+                .yAxisMax(650)
                 .series([
                     AASeriesElement()
                         .name("伦敦")
-                        .data([82.89,67.54,62.07,59.43,67.02,67.09,35.66,71.78,81.61,78.85,79.12,72.30])
+                        .data([82.89,67.54,62.07,59.43,67.02,67.09,35.66,71.78,81.61,78.85,79.12,72.30,
+                        82.89,67.54,62.07,59.43,67.02,67.09,35.66,71.78,81.61,78.85,79.12,72.30,
+                        82.89,67.54,62.07,59.43,67.02,67.09,35.66,71.78,81.61,78.85,79.12,72.30,
+                        82.89,67.54,62.07,59.43,67.02,67.09,35.66,71.78,81.61,78.85,79.12,72.30,])
                         .dataLabels(AADataLabels()
                             .enabled(true)
                             .style(AAStyle()
@@ -132,28 +138,35 @@ class EvaluateJSStringFunctionVC: UIViewController, AAChartViewDelegate {
                         .data([281.55,398.35,214.02,219.55,289.57,296.14,164.18,322.69,306.08,552.84,205.97,332.79])
                         ,
                     ])
-    
+            
+            let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+            aaOptions.tooltip?.followTouchMove(false)
+            aaOptions.xAxis?.minRange(2)
+            
+            aaChartView.aa_drawChartWithChartOptions(aaOptions)
         }
         
-        aaChartView.aa_drawChartWithChartModel(aaChartModel)
         
     }
     
     func aaChartViewDidFinishLoad (_ aaChartView: AAChartView) {
         print("🚀🚀🚀AAChartView did finished load")
-        
+                
         var jsFunctionStr:String
         if self.sampleChartTypeIndex == 0 {
             jsFunctionStr = configureMaxMiniDataLabelJSFunctionString()
         } else if self.sampleChartTypeIndex == 1 {
             jsFunctionStr = configureFirstSecondThirdDataLabelJSFunctionString()
-        } else {
+        } else if self.sampleChartTypeIndex == 2 {
             jsFunctionStr = configureFirstSecondThirdStackLabelJSFunctionString()
+        } else {
+            //https://jshare.com.cn/jianshu/ZBrzXx
+            self.aaChartView.aa_updateXAxisExtremes(min: 0, max: 3)
+            return
         }
         //图表加载完成后调用,避免WebView还没有获得JavaScript上下文,致使调用失败
         self.aaChartView!.aa_evaluateJavaScriptStringFunction(jsFunctionStr)
     }
-
     
     func configureMaxMiniDataLabelJSFunctionString() -> String {
         //refer to highcharts sample  https://jshare.com.cn/hcharts.cn/hhhhov
