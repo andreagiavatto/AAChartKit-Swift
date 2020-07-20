@@ -15,19 +15,11 @@
             }
                 </style>
             </head>
-    <body>
+    <body style="margin:0px 0px 0px 0px;">
         <div id="container" style="width:100%; height: 100%;"></div>
         <script>
             let aaGlobalChart;
             function loadTheHighChartView(sender, receivedWidth, receivedHeight) {
-                let aaOptions = JSON.parse(sender);
-                if (aaOptions.xAxisArray) {
-                    aaOptions.xAxis = aaOptions.xAxisArray
-                }
-                if (aaOptions.yAxisArray) {
-                    aaOptions.yAxis = aaOptions.yAxisArray
-                }
-                
                 let container = document.getElementById('container');
                 if (receivedWidth != 0) {
                     container.style.width = receivedWidth;
@@ -36,19 +28,25 @@
                     container.style.height = receivedHeight;
                 }
                 
+                let aaOptions = JSON.parse(sender);
+                if (aaOptions.xAxisArray) {
+                    aaOptions.xAxis = aaOptions.xAxisArray
+                }
+                if (aaOptions.yAxisArray) {
+                    aaOptions.yAxis = aaOptions.yAxisArray
+                }
+                
                 aaOptions.credits = {
                     enabled: false
                 };
                 
                 //Global options(you can configure chart themes by it)
                 //refer to https://api.hcharts.cn/highcharts#Highcharts.setOptions
-                let globalOptions = {
-                    lang: {
-                        thousandsSep: ",",
-                        resetZoom: "ResetZoom"
-                    }
-                };
-                Highcharts.setOptions(globalOptions);
+                if (aaOptions.defaultOptions) {
+                    Highcharts.setOptions({
+                        lang: aaOptions.defaultOptions
+                    });
+                }
 
                 if (aaOptions.plotOptions) {
                     configurePlotOptions(aaOptions);
@@ -114,7 +112,21 @@
                 && aaOptions.yAxis.labels
                 && aaOptions.yAxis.labels.formatter) {
                 aaOptions.yAxis.labels.formatter = eval(aaOptions.yAxis.labels.formatter);
-            } 
+            }
+                
+            if (aaOptions.plotOptions
+                && aaOptions.plotOptions.series
+                ) {
+                if (aaOptions.plotOptions.series.dataLabels
+                    && aaOptions.plotOptions.series.dataLabels.formatter) {
+                    aaOptions.plotOptions.series.dataLabels.formatter = eval(aaOptions.plotOptions.series.dataLabels.formatter);
+                }
+                        
+                if (aaOptions.plotOptions.series.events
+                    && aaOptions.plotOptions.series.events.legendItemClick) {
+                    aaOptions.plotOptions.series.events.legendItemClick = eval(aaOptions.plotOptions.series.events.legendItemClick);
+                }
+            }
         }
         
         function onlyRefreshTheChartDataWithSeries(receivedSeries, animation) {
@@ -199,6 +211,21 @@
         
         function evaluateTheJavaScriptStringFunction(jsStringFunction) {
             eval(jsStringFunction);
+        }
+        
+        function changeChartSize(receivedWidth, receivedHeight, receivedAnimation) {
+            let container = document.getElementById('container');
+            container.style.width = receivedWidth;
+            container.style.height = receivedHeight;
+            
+            let aaAnimation;
+            if (receivedAnimation) {
+                aaAnimation = JSON.parse(receivedAnimation);
+                let animationEasingType = aaAnimation.easing;
+                aaAnimation.easing = configureTheChartAnimationEasingType(animationEasingType);
+            }
+            
+            aaGlobalChart.setSize(receivedWidth, receivedHeight, aaAnimation);
         }
         
             </script>

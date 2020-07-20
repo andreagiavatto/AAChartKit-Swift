@@ -49,8 +49,26 @@ public class AAMoveOverEventMessageModel: NSObject {
     public var index: Int?
 }
 
+//Refer to: https://stackoverflow.com/questions/26383031/wkwebview-causes-my-view-controller-to-leak
+class AALeakAvoider : NSObject, WKScriptMessageHandler {
+    weak var delegate : WKScriptMessageHandler?
+    
+    init(delegate:WKScriptMessageHandler) {
+        self.delegate = delegate
+        super.init()
+    }
+    
+    func userContentController(
+        _ userContentController: WKUserContentController,
+        didReceive message: WKScriptMessage
+    ) {
+        self.delegate?.userContentController(userContentController, didReceive: message)
+    }
+}
+
+
 public class AAChartView: WKWebView {
-    public var delegate: AAChartViewDelegate?
+    public weak var delegate: AAChartViewDelegate?
     
     public var scrollEnabled: Bool? {
         willSet {
@@ -100,6 +118,7 @@ public class AAChartView: WKWebView {
     }
     
     private var optionsJson: String?
+    private var touchEventEnabled = false
     
     override private init(frame: CGRect, configuration: WKWebViewConfiguration) {
         super.init(frame: frame, configuration: configuration)
@@ -108,14 +127,10 @@ public class AAChartView: WKWebView {
         self.navigationDelegate = self
     }
     
-   convenience public init() {
-    let userContentController = WKUserContentController()
-    let configuration = WKWebViewConfiguration()
-    configuration.userContentController = userContentController
-    
-    self.init(frame: .zero, configuration: configuration)
-    
-    configuration.userContentController.add(self, name: kUserContentMessageNameMouseOver)
+    convenience public init() {
+        let configuration = WKWebViewConfiguration()
+        configuration.userContentController = WKUserContentController()
+        self.init(frame: .zero, configuration: configuration)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -123,11 +138,20 @@ public class AAChartView: WKWebView {
     }
     
     private func drawChart() {
-        safeEvaluateJavaScriptString(optionsJson!)
+        let jsStr = "loadTheHighChartView('\(optionsJson ?? "")','\(contentWidth ?? 0)','\(contentHeight ?? 0)')"
+        safeEvaluateJavaScriptString(jsStr)
     }
     
     private func safeEvaluateJavaScriptString (_ jsString: String) {
+        if self.optionsJson == nil {
+            #if DEBUG
+            print("💀💀💀AAChartView did not finish loading!!!")
+            #endif
+            return
+        }
+        
         self.evaluateJavaScript(jsString, completionHandler: { (item, error) in
+            #if DEBUG
             if error != nil {
                 let objcError = error! as NSError
                 let errorUserInfo = objcError.userInfo
@@ -135,7 +159,7 @@ public class AAChartView: WKWebView {
                 let errorInfo =
                 """
                 
-                ☠️☠️💀☠️☠️WARNING!!!!!!!!!!!!!!!!!!!! FBI WARNING !!!!!!!!!!!!!!!!!!!! WARNING☠️☠️💀☠️☠️
+                ☠️☠️💀☠️☠️WARNING!!!!!!!!!!!!!!!!!!!! FBI WARNING !!!!!!!!!!!!!!!!!!!!WARNING☠️☠️💀☠️☠️
                 ==========================================================================================
                 ------------------------------------------------------------------------------------------
                 code = \(objcError.code);
@@ -148,19 +172,51 @@ public class AAChartView: WKWebView {
                 WKJavaScriptExceptionSourceURL = \(errorUserInfo["WKJavaScriptExceptionSourceURL"] ?? "");
                 ------------------------------------------------------------------------------------------
                 ==========================================================================================
-                ☠️☠️💀☠️☠️WARNING!!!!!!!!!!!!!!!!!!!! FBI WARNING !!!!!!!!!!!!!!!!!!!! WARNING☠️☠️💀☠️☠️
+                ☠️☠️💀☠️☠️WARNING!!!!!!!!!!!!!!!!!!!! FBI WARNING !!!!!!!!!!!!!!!!!!!!WARNING☠️☠️💀☠️☠️
                 
                 """
                 print(errorInfo)
             }
+            #endif
         })
     }
     
-    private func configureTheJavaScriptStringWithOptions(_ aaOptions: AAOptions) {
-        var modelJsonStr = aaOptions.toJSON()!
-        modelJsonStr = modelJsonStr.replacingOccurrences(of: "\n", with: "") as String
-        optionsJson = "loadTheHighChartView('\(modelJsonStr)','\(contentWidth ?? 0)','\(contentHeight ?? 0)')"
+    private func configureOptionsJsonStringWithAAOptions(_ aaOptions: AAOptions) {
+        if self.isClearBackgroundColor == true {
+            aaOptions.chart?.backgroundColor = "rgba(0,0,0,0)"
+        }
+        
+        if     aaOptions.touchEventEnabled == true
+            && self.touchEventEnabled == false {
+            
+            self.touchEventEnabled = true
+            self.configuration.userContentController.add(AALeakAvoider.init(delegate: self), name: kUserContentMessageNameMouseOver)
+        }
+        
+        #if DEBUG
+        let modelJsonDic = aaOptions.toDic()!
+        let data = try? JSONSerialization.data(withJSONObject: modelJsonDic, options: .prettyPrinted)
+        if data != nil {
+            let prettyPrintedModelJson = String(data: data!, encoding: String.Encoding.utf8)
+            print("""
+                -----------🖨🖨🖨 console log AAOptions JSON information of AAChartView 🖨🖨🖨-----------:
+                \(prettyPrintedModelJson!)
+                """)
+        }
+        #endif
+        
+        optionsJson = aaOptions.toJSON()!
     }
+    
+
+    deinit {
+        self.configuration.userContentController.removeAllUserScripts()
+        NotificationCenter.default.removeObserver(self)
+        #if DEBUG
+        print("👻👻👻 AAChartView was destroyed!!!")
+        #endif
+    }
+
 }
 
 extension AAChartView {
@@ -201,7 +257,7 @@ extension AAChartView {
     /// - Parameter aaOptions: The instance object of AAOptions model
     public func aa_drawChartWithChartOptions(_ aaOptions: AAOptions) {
         if optionsJson == nil {
-            configureTheJavaScriptStringWithOptions(aaOptions)
+            configureOptionsJsonStringWithAAOptions(aaOptions)
             let path = Bundle(for: self.classForCoder)
                 .path(forResource: "AAChartView",
                       ofType: "html",
@@ -210,7 +266,7 @@ extension AAChartView {
             let urlRequest = NSURLRequest(url: urlStr) as URLRequest
             self.load(urlRequest)
         } else {
-            configureTheJavaScriptStringWithOptions(aaOptions)
+            configureOptionsJsonStringWithAAOptions(aaOptions)
             drawChart()
         }
     }
@@ -233,8 +289,7 @@ extension AAChartView {
             seriesElementDicArr.append(aaSeriesElement.toDic()!)
         }
         
-         var str = getJSONStringFromArray(array: seriesElementDicArr)
-         str = str.replacingOccurrences(of: "\n", with: "") as String
+         let str = getJSONStringFromArray(array: seriesElementDicArr)
          let jsStr = "onlyRefreshTheChartDataWithSeries('\(str)','\(animation)');"
          safeEvaluateJavaScriptString(jsStr)
      }
@@ -244,7 +299,7 @@ extension AAChartView {
     ///
     /// - Parameter aaOptions: The instance object of AAOptions model
     public func aa_refreshChartWholeContentWithChartOptions(_ aaOptions: AAOptions) {
-        configureTheJavaScriptStringWithOptions(aaOptions)
+        configureOptionsJsonStringWithAAOptions(aaOptions)
         drawChart()
     }
     
@@ -260,23 +315,29 @@ extension AAChartView {
     /// - Parameter options: A configuration object for the new chart options as defined in the options section of the API.
     /// - Parameter redraw: Whether to redraw after updating the chart, the default is true
     public func aa_updateChart(options: AAObject, redraw: Bool) {
-        var classNameStr = options.classNameString
-        if classNameStr.contains(".") {
-            classNameStr = classNameStr.components(separatedBy: ".")[1];
-        }
-       
-        classNameStr = classNameStr.replacingOccurrences(of: "AA", with: "")
-
-        //convert fisrt character to be lowercase string
-        let firstChar = classNameStr.prefix(1)
-        let lowercaseFirstChar = firstChar.lowercased()
-        let index = classNameStr.index(classNameStr.startIndex, offsetBy: 1)
-        classNameStr = String(classNameStr.suffix(from: index))
-        let finalClassNameStr = lowercaseFirstChar + classNameStr
-        
+        let isOptionsClass: Bool = options is AAOptions
         let optionsDic = options.toDic()
-        let finalOptionsDic: [String : Any] = [finalClassNameStr: optionsDic as Any]
+        let finalOptionsDic: [String : Any]!
         
+        if isOptionsClass == true {
+            finalOptionsDic = optionsDic
+        } else {
+            var classNameStr = options.classNameString
+            if classNameStr.contains(".") {
+                classNameStr = classNameStr.components(separatedBy: ".")[1];
+            }
+            
+            classNameStr = classNameStr.replacingOccurrences(of: "AA", with: "")
+            
+            //convert fisrt character to be lowercase string
+            let firstChar = classNameStr.prefix(1)
+            let lowercaseFirstChar = firstChar.lowercased()
+            let index = classNameStr.index(classNameStr.startIndex, offsetBy: 1)
+            classNameStr = String(classNameStr.suffix(from: index))
+            let finalClassNameStr = lowercaseFirstChar + classNameStr
+            finalOptionsDic = [finalClassNameStr: optionsDic as Any]
+        }
+                
         let optionsStr = getJSONStringFromDictionary(dictionary: finalOptionsDic)
         let jsStr = "updateChart('\(optionsStr)','\(redraw)')"
         safeEvaluateJavaScriptString(jsStr)
@@ -325,11 +386,9 @@ extension AAChartView {
             optionsStr = "\(options)"
         } else if options is [Any] {
             optionsStr = self.getJSONStringFromArray(array: options as! [Any])
-            optionsStr = optionsStr.replacingOccurrences(of: "\n", with: "")
         } else {
             let aaOption: AAObject = options as! AAObject
             optionsStr = aaOption.toJSON()!
-            optionsStr = optionsStr.replacingOccurrences(of: "\n", with: "")
         }
     
         let javaScriptStr = "addPointToChartSeries('\(elementIndex)','\(optionsStr)','\(redraw)','\(shift)','\(animation)')"
@@ -433,6 +492,34 @@ extension AAChartView {
         let jsStr = "redrawWithAnimation('\(animation)')"
         safeEvaluateJavaScriptString(jsStr)
     }
+    
+    
+    /// Set the chart view content be adaptive to screen rotation with default animation effect
+    public func aa_adaptiveScreenRotation() {
+        let aaAnimation = AAAnimation()
+            .duration(800)
+            .easing(.easeOutQuart)
+        aa_adaptiveScreenRotationWithAnimation(aaAnimation)
+    }
+
+    /// Set the chart view content be adaptive to screen rotation with custom animation effect
+    /// Refer to https://api.highcharts.com.cn/highcharts#Chart.setSize
+    ///
+    /// - Parameter animation: The instance object of AAAnimation
+    public func aa_adaptiveScreenRotationWithAnimation(_ animation: AAAnimation) {
+        NotificationCenter.default.addObserver(
+            forName: UIDevice.orientationDidChangeNotification,
+            object: nil,
+            queue: nil) { [weak self] _ in
+                self?.handleDeviceOrientationChangeEventWithAnimation(animation)
+        }
+    }
+    
+    private func handleDeviceOrientationChangeEventWithAnimation(_ animation: AAAnimation) {
+        let animationJsonStr = animation.toJSON()!
+        let jsFuncStr = "changeChartSize('\(self.frame.size.width)','\(self.frame.size.height)','\(animationJsonStr)')"
+        self.safeEvaluateJavaScriptString(jsFuncStr)
+    }
 }
 
 
@@ -443,24 +530,25 @@ extension AAChartView: WKUIDelegate {
         initiatedByFrame frame: WKFrameInfo,
         completionHandler: @escaping () -> Void
     ) {
-        let alert = UIAlertController(
+        let alertController = UIAlertController(
             title: "FBI WARNING",
             message: message,
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(
+        alertController.addAction(UIAlertAction(
             title: "Okay",
             style: .default,
-            handler: { (action) in
+            handler: { _ in
             completionHandler()
         }))
-        let rootVC = UIApplication.shared.keyWindow?.rootViewController
-        rootVC!.present(
-            alert,
+
+        let alertHelperController = UIViewController()
+        self.addSubview(alertHelperController.view)
+        
+        alertHelperController.present(
+            alertController,
             animated: true,
-            completion: nil
-        )
-        print(message)
+            completion: nil)
     }
 }
 

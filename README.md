@@ -26,7 +26,7 @@
 ***
 ## Features
 
-* 🎂  **Environment friendly**. Support `iOS `、 `iPadOS`、`tvOS` and `macOS`. Totally support `Swift` language, and there are more types version such as  `Objective-C` language version [AAChartKit](https://github.com/AAChartModel/AAChartKit) 、 `Java` language version [AAChartCore](https://github.com/AAChartModel/AAChartCore) 、`Kotlin` language version [AAInfographics](https://github.com/AAChartModel/AAChartCore-Kotlin) . To get more details you can see the [source code links list](https://github.com/AAChartModel/AAChartKit-Swift#source-code).
+* 🎂  **Environment friendly**. Support `iOS `、`iPadOS` and  `macOS`. Totally support `Swift` language, and there are more types version such as  `Objective-C` language version [AAChartKit](https://github.com/AAChartModel/AAChartKit) 、 `Java` language version [AAChartCore](https://github.com/AAChartModel/AAChartCore) 、`Kotlin` language version [AAInfographics](https://github.com/AAChartModel/AAChartCore-Kotlin) . To get more details you can see the [source code links list](https://github.com/AAChartModel/AAChartKit-Swift#source-code).
 
 * 🚀  **Powerful and easy to use**. It supports `column chart`, `bar chart`, `area chart`, `areaspline chart`, `line chart`, `spline chart`, `radar chart`, `polar chart`, `pie chart`, `bubble chart`, `pyramid chart`, `funnel chart`, `columnrange chart`, `arearange chart`, `mixed chart` and other graphics. Support for more chart types is planned.
 
@@ -38,7 +38,7 @@
 
 * 🦋  **Minimalist**. `AAChartView + AAChartModel = Chart`. The AAChartKit follows a minimalist formula: Chart view + Chart model = The chart you want, just like the powerful and beautiful charts framework [AAChartKit](https://github.com/AAChartModel/AAChartKit).
 
-* 🖱 **Interaction event callback**. Support for monitoring [user click events and single finger move over events](#support-user-click-events-and-move-over-events), which can be used to achieve double charts linked-working and even multiple charts linkage, as well as other more complex custom user interaction effects.
+* 🖱 **Interaction event callback**. Support for monitoring [user click events and single finger move over events](https://github.com/AAChartModel/AAChartKit-Swift#support-user-click-events-and-move-over-events), which can be used to achieve double charts linked-working and even multiple charts linkage, as well as other more complex custom user interaction effects.
 ***
 
 ## Appreciation
@@ -324,6 +324,21 @@ you can get the customized tooltip style chart like this👇
 * chart with value range segmentation `zones 🧱`
 ![seriesZonesChart](https://raw.githubusercontent.com/AAChartModel/Gallery/master/AAChartKit/seriesZonesChart.png)
 
+### Support scrolling update chart data
+
+<div  align="center">
+   <img src='https://raw.githubusercontent.com/AAChartModel/Gallery/master/AAChartKit/scrollingUpdateColumnChart.gif' >
+   <img src='https://raw.githubusercontent.com/AAChartModel/Gallery/master/AAChartKit/scrollingUpdateLineChart.gif' >
+   <img src='https://raw.githubusercontent.com/AAChartModel/Gallery/master/AAChartKit/scrollingUpdateStepAreaChart.gif' >
+</div>
+
+### Support data sorting with animation effect
+
+<div  align="center">
+   <img src='https://raw.githubusercontent.com/AAChartModel/Gallery/master/AAChartKit/DataSortingColumnChart.gif' >
+   <img src='https://raw.githubusercontent.com/AAChartModel/Gallery/master/AAChartKit/DataSortingScatterChart.gif' >
+   <img src='https://raw.githubusercontent.com/AAChartModel/Gallery/master/AAChartKit/DataSortingBarChart.gif' >
+</div>
 
 ### Supported chart type for now
 

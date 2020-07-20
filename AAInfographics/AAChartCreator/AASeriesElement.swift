@@ -31,7 +31,6 @@
  */
 
  public class AASeriesElement: AAObject {
-    
     public var type: String?               //A chart type series. If the type option is not specified, it is inherited from `chart.type`.
     public var name: String?               //The name of the series as shown in the legend, tooltip etc.
     public var data: [Any]?                //An array of data points for the series
@@ -42,23 +41,28 @@
     public var fillColor: Any?             //The fill color, It is only valid for area, areaspline, arearange and arearangespline chart types
     public var fillOpacity: Float?         //The fill opacity, It is only valid for area, areaspline, arearange and arearangespline chart types. Note that when you set an explicit fillColor, the fillOpacity is not applied. Instead, you should define the opacity in the fillColor with an rgba color definition. Deafualt value：0.75.
     public var threshold: Float?           //The threshold, also called zero level or base level. For line type series this is only used in conjunction with negativeColor. default：0.
-    public var negativeColor: String?      //The color for the parts of the graph or points that are below the threshold
+    public var negativeColor: Any?         //The color for the parts of the graph or points that are below the threshold
+    public var negativeFillColor: Any?     //A separate color for the negative part of the area.
     public var dashStyle: String?          //A name for the dash style to use for the graph. Applies only to series type having a graph, like line, spline, area and scatter in case it has a lineWidth.
     public var yAxis: Int?
-    public var dataLabels: AADataLabels?  //Individual data label for each point. The options are the same as the ones for `plotOptions.series.dataLabels`.
-    public var marker: AAMarker?      //Enable or disable the point marker. If null, the markers are hidden when the data is dense, and shown for more widespread data points.
+    public var dataLabels: AADataLabels?   //Individual data label for each point. The options are the same as the ones for `plotOptions.series.dataLabels`.
+    public var marker: AAMarker?           //Enable or disable the point marker. If null, the markers are hidden when the data is dense, and shown for more widespread data points.
     public var step: Any?                  //Whether to apply steps to the line. Possible values are left, center and right.
     public var states: AAStates?
     public var colorByPoint: Bool?         //When using automatic point colors pulled from the `options.colors` collection, this option determines whether the chart should receive one color per series or one color per point.
     public var allowPointSelect: Bool?     //Allow this series' points to be selected by clicking on the markers, bars or pie slices
     public var zIndex: Int?                //Define the visual z index of the series.
-    public var size: Any?          //The innder size for pie chart
+    public var size: Any?                  //The innder size for pie chart
     public var innerSize: String?          //The innder size for pie chart
-    public var shadow: Any?
-    public var zones: [Any]?
+    public var shadow: AAShadow?
+    public var zones: [AAZonesElement]?
+    public var zoneAxis: String?           //Defines the Axis on which the zones are applied. defalut value：y.
     public var stack: String?
     public var tooltip: AATooltip?
     public var pointPlacement: Any?
+    public var enableMouseTracking: Bool?
+    public var dataSorting: AADataSorting?
+    public var reversed: Bool?             //Only useful for pyramid chart and funnel chart
     
     @discardableResult
     public func type(_ prop: AAChartType) -> AASeriesElement {
@@ -121,8 +125,14 @@
     }
     
     @discardableResult
-    public func negativeColor(_ prop: String) -> AASeriesElement {
+    public func negativeColor(_ prop: Any) -> AASeriesElement {
         negativeColor = prop
+        return self
+    }
+    
+    @discardableResult
+    public func negativeFillColor(_ prop: Any) -> AASeriesElement {
+        negativeFillColor = prop
         return self
     }
     
@@ -194,13 +204,19 @@
     
     @discardableResult
     public func shadow(_ prop: AAShadow) -> AASeriesElement {
-        shadow = prop.toDic()!
+        shadow = prop
         return self
     }
     
     @discardableResult
-    public func zones(_ prop: [Any]) -> AASeriesElement {
+    public func zones(_ prop: [AAZonesElement]) -> AASeriesElement {
         zones = prop
+        return self
+    }
+    
+    @discardableResult
+    public func zoneAxis(_ prop: String) -> AASeriesElement {
+        zoneAxis = prop
         return self
     }
     
@@ -221,7 +237,24 @@
         pointPlacement = prop
         return self
     }
-
+    
+    @discardableResult
+    public func enableMouseTracking(_ prop: Bool) -> AASeriesElement {
+        enableMouseTracking = prop
+        return self
+    }
+    
+    @discardableResult
+    public func dataSorting(_ prop: AADataSorting) -> AASeriesElement {
+        dataSorting = prop
+        return self
+    }
+    
+    @discardableResult
+    public func reversed(_ prop: Bool) -> AASeriesElement {
+        reversed = prop
+        return self
+    }
 
     public  override init() {
     }   
@@ -308,6 +341,55 @@ public class AAShadow: AAObject {
     public func width(_ prop: Float) -> AAShadow {
         width = prop
         return self
+    }
+}
+
+public class AAZonesElement: AAObject {
+    public var value: Float?
+    public var color: String?
+    public var dashStyle: String?
+
+    @discardableResult
+    public func value(_ prop: Float) -> AAZonesElement {
+        value = prop
+        return self
+    }
+    
+    @discardableResult
+    public func color(_ prop: String) -> AAZonesElement {
+        color = prop
+        return self
+    }
+    
+    @discardableResult
+    public func dashStyle(_ prop: AAChartLineDashStyleType) -> AAZonesElement {
+        dashStyle = prop.rawValue
+        return self
+    }
+    
+    public override init() {
+        
+    }
+}
+
+public class AADataSorting: AAObject {
+    public var enabled: Bool?
+    public var matchByName: Bool?
+    
+    @discardableResult
+    public func enabled(_ prop: Bool) -> AADataSorting {
+        enabled = prop
+        return self
+    }
+    
+    @discardableResult
+    public func matchByName(_ prop: Bool) -> AADataSorting {
+        matchByName = prop
+        return self
+    }
+    
+    public override init() {
+        
     }
 }
 

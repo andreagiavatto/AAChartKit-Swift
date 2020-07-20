@@ -44,20 +44,22 @@ class MainVC: UIViewController {
         title = "AAInfographics"
         
         sectionTitleArr = [
-                  "Basic Type Chart --- 基础类型图表",
-                  "Special Type Chart --- 特殊类型图表",
-                  "Custom Style Chart---一些自定义风格样式图表",
-                  "Mixed Chart --- 混合图形",
-                  "Only Refresh data ---单纯刷新数据",
-                  "Double Chart View---同时显示多个图表",
-                  "Rendering Animation types ---渲染动画示例",
-                  "Hide Or Show Chart Series---隐藏或显示内容",
-                  "Evaluate JS String Function---执行js函数",
-                  "Draw Chart With AAOptions---通过Options绘图",
-                  "Custom Tooltip With JS Function ---通过JS函数自定义Tooltip",
-                  "Scrolling update chart data ---滚动刷新图表数据",
-                  "Scrollable chart ---可滚动的图表",
-              ]
+            "Basic Type Chart --- 基础类型图表",
+            "Special Type Chart --- 特殊类型图表",
+            "Custom Style Chart---一些自定义风格样式图表",
+            "Mixed Chart --- 混合图形",
+            "Only Refresh data ---单纯刷新数据",
+            "Double Chart View---同时显示多个图表",
+            "Rendering Animation types ---渲染动画示例",
+            "Hide Or Show Chart Series---隐藏或显示内容",
+            "Evaluate JS String Function---执行js函数",
+            "Draw Chart With AAOptions---通过Options绘图",
+            "JS Function For AAOptionns ---通过带有 JS 函数的 Options 绘图",
+            "Scrolling update chart data ---滚动刷新图表数据",
+            "Scrollable chart ---可滚动の图表",
+            //                  "Scrollable chart ---可滚动の图表",
+            "Data Sorting Chart With Animation---图表动态排序",
+        ]
         
         chartTypeTitleArr = [
             /*Basic types chart*/
@@ -92,12 +94,12 @@ class MainVC: UIViewController {
             [
                 "Colorful Column Chart---多彩条形图",
                 "Colorful Gradient Color Chart---多彩颜色渐变条形图",
-                "Discontinuous Data Chart---数值不连续的图表",
+                "Discontinuous Data Chart---数值不连续の图表",
                 "Mixed Line Chart---虚实线混合折线图",
-                "Random Colors Colorful Column Chart---随机颜色的多彩柱形图",
+                "Random Colors Colorful Column Chart---随机颜色の多彩柱形图",
                 "Gradient Color Bar Chart---颜色渐变条形图",
-                "Stacking polar chart---百分比堆积效果的极地图",
-                "Area Chart with minus--带有负数的区域填充图",
+                "Stacking polar chart---百分比堆积效果の极地图",
+                "Area Chart with minus--带有负数の区域填充图",
                 "Step Line Chart--直方折线图",
                 "Step Area Chart--直方折线填充图",
                 "Nightingale Rose Chart---南丁格尔玫瑰图",
@@ -109,8 +111,8 @@ class MainVC: UIViewController {
                 "Special Style Marker Of Single Data Element Chart",
                 "Special Style Column Of Single Data Element Chart",
                 "configure Area Chart Threshold---自定义阈值",
-                "custom Scatter Chart Marker Symbol Content---自定义散点图的标志点内容",
-                "custom Line Chart Marker Symbol Content---自定义折线图的标志点内容",
+                "custom Scatter Chart Marker Symbol Content---自定义散点图の标志点内容",
+                "custom Line Chart Marker Symbol Content---自定义折线图の标志点内容",
                 "Triangle Radar Chart---三角形雷达图",
                 "Quadrangle Radar Chart---四角形雷达图",
                 "Pentagon Radar Chart---五角形雷达图",
@@ -120,9 +122,14 @@ class MainVC: UIViewController {
                 "custom Bar Chart Hover Color and Select Color---自定义条形图手指滑动颜色和单个长条被选中颜色",
                 "custom Line Chart Chart Hover And Select Halo Style",
                 "custom Spline Chart Marker States Hover Style",
-                "customNormalStackingChartDataLabelsContentAndStyle---自定义堆积柱状图 DataLabels 的内容及样式",
-                "upsideDownPyramidChart---倒立的金字塔图",
-                "doubleLayerPieChart---双层嵌套扇形图"
+                "customNormalStackingChartDataLabelsContentAndStyle---自定义堆积柱状图 DataLabels の内容及样式",
+                "upsideDownPyramidChart---倒立の金字塔图",
+                "doubleLayerPieChart---双层嵌套扇形图",
+                "disableSomeOfLinesMouseTrackingEffect---针对部分数据列关闭鼠标或手指跟踪行为",
+                "configureColorfulShadowChart---彩色阴影效果の曲线图",
+                "configureColorfulDataLabelsStepLineChart---彩色 DataLabels の直方折线图",
+                "configureColorfulGradientColorAndColorfulDataLabelsStepAreaChart---彩色渐变效果且彩色 DataLabels の直方折线填充图",
+                "disableSplineChartMarkerHoverEffect---禁用曲线图の手指滑动 marker 点の光圈变化放大の效果"
             ],
             /*Mixed Chart*/
             [
@@ -130,14 +137,15 @@ class MainVC: UIViewController {
                 "Columnrange Mixed Line---柱形范围图混合折线图",
                 "Stacking Column Mixed Line---堆积柱形图混合折线图",
                 "Dash Style Types Mixed---多种类型曲线混合图",
-                "Negative Color Mixed---基准线以下异色混合图",
+                "Negative Color Mixed Column Chart---基准线以下异色混合图",
                 "scatterMixedLine---散点图混合折线图",
-                "Negative Color Mixed bubble---基准线以下异色气泡图",
+                "Negative Color Mixed Bubble Chart---基准线以下异色气泡图",
                 "Polygon Mixed Scatter---多边形混合散点图",
                 "Polar Chart Mixed---极地混合图",
                 "Column Mixed Scatter---柱形图混合散点图",
                 "Pie Mixed Line Mixed Column---扇形折线柱形混合图",
-                "Line Chart With Shadow---带有阴影效果的折线图"
+                "Line Chart With Shadow---带有阴影效果の折线图",
+                "Negative Color Mixed Areaspline chart---基准线以下异色混合曲线填充图",
             ],
             /*Only update chart data*/
             [  "Column Chart---柱形图",
@@ -207,23 +215,35 @@ class MainVC: UIViewController {
                 "Double Y Axes And Column Line Mixed Chart || 双 Y 轴柱形曲线混合图",
                 "Double Y Axes Market Depth Chart || 双 Y 轴市场深度图",
                 "custom Area Chart Tooltip Style Like HTML Table || 自定义区域填充图浮动提示框为 HTML 表格样式",
-                "custom Axes Grid Line Style || 自定义 X 轴和 Y 轴网格线的样式",
-                "custom Radar Chart Style || 自定义雷达图样式"
+                "custom Axes Grid Line Style || 自定义 X 轴和 Y 轴网格线の样式",
+                "custom Radar Chart Style || 自定义雷达图样式",
+                "customColumnrangeChartStyle---自定义柱形范围图样式",
+                "self customXAxisLabelsBeImages---自定义曲线面积图 X 轴 labels 为一组图片🖼",
+                "Triangle Radar Chart With PlotBands---带有颜色标志带の三角形雷达图",
+                "Quadrangle Radar Chart With PlotBands---带有颜色标志带の四角形雷达图",
+                "Pentagon Radar Chart With PlotBands---带有颜色标志带の五角形雷达图",
+                "Hexagon Radar Char With PlotBands----带有颜色标志带の六角形雷达图",
+                "Spider Web Radar Chart With PlotBands----带有颜色标志带の🕸蜘蛛网状雷达图",
+
             ],
             /*Custom Tooltip With JavaScript Formatter Function */
             [
-                "简单字符串拼接",
-                "自定义不同单位后缀",
-                "值为0时,在tooltip中不显示",
-                "自定义多彩颜色文字",
-                "自定义箱线图的浮动提示框头部内容",
-                "自定义Y轴文字1",
-                "自定义Y轴文字2",
-                "自定义分组堆积柱状图tooltip内容",
+                "customAreaChartTooltipStyleWithSimpleFormatString---简单字符串拼接",
+                "customAreaChartTooltipStyleWithDifferentUnitSuffix---自定义不同单位后缀",
+                "customAreaChartTooltipStyleWithColorfulHtmlLabels---自定义多彩颜色文字",
+                "customLineChartTooltipStyleWhenValueBeZeroDoNotShow---值为0时,在tooltip中不显示",
+                "customBoxplotTooltipContent---自定义箱线图の浮动提示框头部内容",
+                "customYAxisLabels---自定义Y轴文字1",
+                "customYAxisLabels2---自定义Y轴文字2",
+                "customStackedAndGroupedColumnChartTooltip---自定义分组堆积柱状图tooltip内容",
                 "Double X Axes Mirror Chart---双 X 轴镜像图表",
                 "custom Arearange Chart Tooltip---自定义面积范围图浮动提示框",
-                "调整折线图的 X 轴左边距",
-                "通过来自外部的数据源来自定义 tooltip (而非常规的来自图表的 series)",
+                "customLineChartOriginalPointPositionByConfiguringXAxisFormatterAndTooltipFormatter---调整折线图の X 轴左边距",
+                "customTooltipWhichDataSourceComeFromOutSideRatherThanSeries---通过来自外部の数据源来自定义 tooltip (而非常规の来自图表の series)",
+                "custom Spider Chart Style---自定义蜘蛛图🕷🕸样式",
+                "customize Every DataLabel Singlely By DataLabels Formatter---通过 DataLabels 的 formatter 函数来实现单个数据标签🏷自定义",
+                "custom XAxis Labels Be Images---自定义柱形图 X 轴 labels 为一组图片🖼",
+                "custom Legend Item Click Event---自定义图例点击事件🖱"
             ],
             /*Scrolling update chart data*/
             [  "Column Chart---柱形图",
@@ -245,6 +265,17 @@ class MainVC: UIViewController {
                "Step Line Chart--- 直方折线图",
                "Line Chart---折线图",
                "Spline Chart---曲线图",
+               "Scatter Chart---散点图",
+            ],
+            /*Data Sorting With Animation Charts*/
+            [  "Column Chart---柱形图",
+               "Bar Chart---条形图",
+//               "Area Chart---折线填充图",
+//               "Areaspline Chart---曲线填充图",
+//               "Step Area Chart--- 直方折线填充图",
+//               "Step Line Chart--- 直方折线图",
+//               "Line Chart---折线图",
+//               "Spline Chart---曲线图",
                "Scatter Chart---散点图",
             ],
         ]
@@ -293,7 +324,8 @@ class MainVC: UIViewController {
                 "polarChartMixed",
                 "columnMixedScatter",
                 "PieMixeLineMixedColumn",
-                "LineChartWithShadow"
+                "LineChartWithShadow",
+                "NegativeColorMixedAreasplineChart"
             ],
             /*Only update chart data*/
             [
@@ -357,6 +389,18 @@ class MainVC: UIViewController {
                 AAChartType.line,
                 AAChartType.line,
                 AAChartType.spline,
+                AAChartType.scatter
+            ],
+            /*Data Sorting With Animation Charts*/
+            [
+                AAChartType.column,
+                AAChartType.bar,
+//                AAChartType.area,
+//                AAChartType.areaspline,
+//                AAChartType.area,
+//                AAChartType.line,
+//                AAChartType.line,
+//                AAChartType.spline,
                 AAChartType.scatter
             ],
         ]
@@ -442,7 +486,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         
         let sectionTitleLabel = UILabel()
         sectionTitleLabel.text = sectionTitleArr[section]
-        sectionTitleLabel.textColor =  kRGBColorFromHex(rgbValue: 0x7B68EE)//熏衣草花的淡紫色
+        sectionTitleLabel.textColor =  kRGBColorFromHex(rgbValue: 0x7B68EE)//熏衣草花の淡紫色
         sectionTitleLabel.font = .boldSystemFont(ofSize: 17)
         sectionTitleLabel.textAlignment = .center
         view.addSubview(sectionTitleLabel)
@@ -472,7 +516,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.section {
         case 0:
             /*Basic Type Charts*/
-            let vc = CommonChartVC()
+            let vc = BasicChartVC()
             vc.chartType = chartTypeArr[indexPath.section][indexPath.row] as? AAChartType
             if indexPath.row == 4 || indexPath.row == 5 {
                 vc.step = true
@@ -481,22 +525,26 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         case 1:
             /*Special Type Charts*/
             let vc = SpecialChartVC()
-            vc.chartType = chartTypeArr[indexPath.section][indexPath.row] as? AAChartType
+            vc.selectedIndex = indexPath.row
+            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
             navigationController?.pushViewController(vc, animated: true)
         case 2:
             /*Mixed Type Charts*/
             let vc = CustomStyleChartVC()
-            vc.chartType = indexPath.row
+            vc.selectedIndex = indexPath.row
+            vc.navigationItemTitleArr = self.chartTypeTitleArr[indexPath.section]
             navigationController?.pushViewController(vc, animated: true)
         case 3:
             /*Mixed Type Charts*/
             let vc = MixedChartVC()
-            vc.chartType = chartTypeArr[indexPath.section][indexPath.row] as? String
+            vc.selectedIndex = indexPath.row
+            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
             navigationController?.pushViewController(vc, animated: true)
         case 4:
             /*Only Refresh Chart Data Dynamiclly*/
             let vc = OnlyRefreshChartDataVC()
-            vc.chartType = chartTypeArr[indexPath.section][indexPath.row] as? AAChartType
+            vc.selectedIndex = indexPath.row
+            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
             vc.step = false
             if indexPath.row == 4 || indexPath.row == 5 {
                 vc.step = true
@@ -538,17 +586,20 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         case 9:
             /*Draw Chart With AAOptions Instance Object*/
             let vc = DrawChartWithAAOptionsVC()
-            vc.chartType = indexPath.row
+            vc.selectedIndex = indexPath.row
+            vc.navigationItemTitleArr = self.chartTypeTitleArr[indexPath.section]
             navigationController?.pushViewController(vc, animated: true)
         case 10:
             /*Custom Tooltip With JavaScript Formatter Function */
             let vc = JSFormatterFunctionVC()
             vc.selectedIndex = indexPath.row
+            vc.navigationItemTitleArr = self.chartTypeTitleArr[indexPath.section]
             navigationController?.pushViewController(vc, animated: true)
         case 11:
             /*Scrolling update Chart Data Dynamiclly*/
             let vc = ScrollingUpdateDataVC()
-            vc.chartType = chartTypeArr[indexPath.section][indexPath.row] as? AAChartType
+            vc.selectedIndex = indexPath.row
+            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
             vc.step = false
             if indexPath.row == 4 || indexPath.row == 5 {
                 vc.step = true
@@ -557,10 +608,21 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         case 12:
             /*Scrollable Charts*/
             let vc = ScrollableChartVC()
-            vc.chartType = chartTypeArr[indexPath.section][indexPath.row] as? AAChartType
+            vc.selectedIndex = indexPath.row
+            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
             if indexPath.row == 4 || indexPath.row == 5 {
                 vc.step = true
             }
+            navigationController?.pushViewController(vc, animated: true)
+            
+        case 13:
+            /*Data Sorting With Animation Charts*/
+            let vc = DataSortingWithAnimationChartVC()
+            vc.selectedIndex = indexPath.row
+            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
+            if indexPath.row == 4 || indexPath.row == 5 {
+                         vc.step = true
+                     }
             navigationController?.pushViewController(vc, animated: true)
         default:
             break

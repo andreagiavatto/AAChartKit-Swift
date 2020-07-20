@@ -46,6 +46,7 @@ public class AAOptions: AAObject {
     public var legend: AALegend?
     public var pane: AAPane?
     public var colors: [Any]?
+    public var defaultOptions: AALang?
     public var touchEventEnabled: Bool?
     
     @discardableResult
@@ -127,6 +128,12 @@ public class AAOptions: AAObject {
     }
     
     @discardableResult
+    public func defaultOptions(_ prop: AALang?) -> AAOptions {
+        defaultOptions = prop
+        return self
+    }
+    
+    @discardableResult
     public func touchEventEnabled(_ prop: Bool?) -> AAOptions {
         touchEventEnabled = prop
         return self
@@ -144,10 +151,10 @@ public class AAOptionsConstructor {
         _ aaChartModel: AAChartModel
         ) -> AAOptions {
         let aaChart = AAChart()
-            .type(aaChartModel.chartType!)
+            .type(aaChartModel.chartType)
             .inverted(aaChartModel.inverted)
             .backgroundColor(aaChartModel.backgroundColor)
-            .pinchType(aaChartModel.zoomType?.rawValue) //Set gesture zoom direction
+            .pinchType(aaChartModel.zoomType) //Set gesture zoom direction
             .panning(true) //Set whether gestures can be panned after zooming
             .polar(aaChartModel.polar) //Whether to polarize the chart (turn on polar mode)
             .marginLeft(aaChartModel.marginLeft)
@@ -156,20 +163,27 @@ public class AAOptionsConstructor {
         
         let aaTitle = AATitle()
             .text(aaChartModel.title) //Title text content
-            .style(AAStyle()
+        
+        if aaChartModel.title != "" {
+            aaTitle.style(AAStyle()
                 .color(aaChartModel.titleFontColor) //Title font color
                 .fontSize(aaChartModel.titleFontSize) //Title font size
                 .fontWeight(aaChartModel.titleFontWeight) //Title font weight
-        )
+            )
+        }
         
-        let aaSubtitle = AASubtitle()
-            .text(aaChartModel.subtitle) //Subtitle text content
-            .align(aaChartModel.subtitleAlign) // The horizontal alignment of the chart subtitle text. Possible values are "left", "center", and "right". The default is: "center".
-            .style(AAStyle()
-                .color(aaChartModel.subtitleFontColor) //Subtitle font color
-                .fontSize(aaChartModel.subtitleFontSize) //Subtitle font size
-                .fontWeight(aaChartModel.subtitleFontWeight) //Subtitle font weight
-        )
+        var aaSubtitle: AASubtitle?
+        if aaChartModel.subtitle != "" {
+            aaSubtitle = AASubtitle()
+                .text(aaChartModel.subtitle) //Subtitle text content
+                .align(aaChartModel.subtitleAlign) // The horizontal alignment of the chart subtitle text. Possible values are "left", "center", and "right". The default is: "center".
+                .style(AAStyle()
+                    .color(aaChartModel.subtitleFontColor) //Subtitle font color
+                    .fontSize(aaChartModel.subtitleFontSize) //Subtitle font size
+                    .fontWeight(aaChartModel.subtitleFontWeight) //Subtitle font weight
+            )
+        }
+        
         
         let aaTooltip = AATooltip()
             .enabled(aaChartModel.tooltipEnabled)
@@ -196,7 +210,7 @@ public class AAOptionsConstructor {
         let aaLegend = AALegend()
             .enabled(aaChartModel.legendEnabled)
             .itemStyle(AAItemStyle()
-                .color(aaChartModel.axesTextColor ?? "#000000")
+                .color(aaChartModel.axesTextColor)
         ) //The default legend text color is the same as the X-axis text color
         
         let aaOptions = AAOptions()
@@ -255,10 +269,10 @@ public class AAOptionsConstructor {
         ) {
         let chartType = aaChartModel.chartType!
         
-        var aaDataLabels = AADataLabels()
+        let aaDataLabels = AADataLabels()
         .enabled(aaChartModel.dataLabelsEnabled)
         if (aaChartModel.dataLabelsEnabled == true) {
-            aaDataLabels = aaDataLabels
+             aaDataLabels
                 .style(AAStyle()
                     .color(aaChartModel.dataLabelsFontColor)
                     .fontSize(aaChartModel.dataLabelsFontSize)
@@ -271,7 +285,6 @@ public class AAOptionsConstructor {
             let aaColumn = AAColumn()
                 .borderWidth(0)
                 .borderRadius(aaChartModel.borderRadius)
-                .dataLabels(aaDataLabels)
             if (aaChartModel.polar == true) {
                 aaColumn.pointPadding(0)
                     .groupPadding(0.005)
@@ -281,20 +294,11 @@ public class AAOptionsConstructor {
             let aaBar = AABar()
                 .borderWidth(0)
                 .borderRadius(aaChartModel.borderRadius)
-                .dataLabels(aaDataLabels)
             if (aaChartModel.polar == true) {
                 aaBar.pointPadding(0)
                     .groupPadding(0.005)
             }
             aaPlotOptions.bar(aaBar)
-        case .area:
-            aaPlotOptions.area(AAArea().dataLabels(aaDataLabels))
-        case .areaspline:
-            aaPlotOptions.areaspline(AAAreaspline().dataLabels(aaDataLabels))
-        case .line:
-            aaPlotOptions.line(AALine().dataLabels(aaDataLabels))
-        case .spline:
-            aaPlotOptions.spline(AASpline().dataLabels(aaDataLabels))
         case .pie:
             let aaPie = AAPie()
                 .allowPointSelect(true)
@@ -303,16 +307,15 @@ public class AAOptionsConstructor {
             if (aaChartModel.dataLabelsEnabled == true) {
                 aaDataLabels.format("<b>{point.name}</b>: {point.percentage:.1f} %")
             }
-            aaPlotOptions.pie(aaPie.dataLabels(aaDataLabels))
+            aaPlotOptions.pie(aaPie)
         case .columnrange:
             aaPlotOptions.columnrange(AAColumnrange()
-                .dataLabels(aaDataLabels)
-                .borderRadius(0)
+                .borderRadius(aaChartModel.borderRadius)
                 .borderWidth(0))
-        case .arearange:
-            aaPlotOptions.arearange(AAArearange().dataLabels(aaDataLabels))
+
         default: break
         }
+        aaPlotOptions.series?.dataLabels(aaDataLabels)
     }
     
     private static func configureAxisContentAndStyle(

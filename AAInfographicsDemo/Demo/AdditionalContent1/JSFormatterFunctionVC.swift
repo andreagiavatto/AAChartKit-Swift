@@ -32,27 +32,19 @@
 import UIKit
 import AAInfographics
 
-class JSFormatterFunctionVC: UIViewController {
-    private var aaChartModel: AAChartModel?
-    private var aaChartView: AAChartView?
-    public var selectedIndex: Int?
+class JSFormatterFunctionVC: AABaseChartVC {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
-        self.title = "JS Function Formatter"
         
-        let aaChartView = setUpChartView()
-        let aaOptions = configureAAOptions()
-        
-        aaChartView.aa_drawChartWithChartOptions(aaOptions)
     }
     
-    private func configureAAOptions() -> AAOptions {
-        switch self.selectedIndex {
-        case 0: return customAreaChartTooltipStyleWithFormatterFunction1()
-        case 1: return customAreaChartTooltipStyleWithFormatterFunction2()
-        case 2: return customAreaChartTooltipStyleWithFormatterFunction3()
-        case 3: return customAreaChartTooltipStyleWithFormatterFunction4()
+    override func chartConfigurationWithSelectedIndex(_ selectedIndex: Int) -> Any? {
+        switch selectedIndex {
+        case 0: return customAreaChartTooltipStyleWithSimpleFormatString()
+        case 1: return customAreaChartTooltipStyleWithDifferentUnitSuffix()
+        case 2: return customAreaChartTooltipStyleWithColorfulHtmlLabels()
+        case 3: return customLineChartTooltipStyleWhenValueBeZeroDoNotShow()
         case 4: return customBoxplotTooltipContent()
         case 5: return customYAxisLabels()
         case 6: return customYAxisLabels2()
@@ -61,26 +53,16 @@ class JSFormatterFunctionVC: UIViewController {
         case 9: return customArearangeChartTooltip()
         case 10: return customLineChartOriginalPointPositionByConfiguringXAxisFormatterAndTooltipFormatter()
         case 11: return customTooltipWhichDataSourceComeFromOutSideRatherThanSeries()
+        case 12: return customSpiderChartStyle()
+        case 13: return customizeEveryDataLabelSinglelyByDataLabelsFormatter()
+        case 14: return customXAxisLabelsBeImages()
+        case 15: return customLegendItemClickEvent()
         default:
             return AAOptions()
         }
     }
     
-    private func setUpChartView() -> AAChartView {
-        let aaChartView = AAChartView()
-        let chartWidth = view.frame.size.width
-        let chartHeight = view.frame.size.height
-        aaChartView.frame = CGRect(x: 0,
-                                   y: 60,
-                                   width: chartWidth,
-                                   height: chartHeight)
-        aaChartView.contentHeight = view.frame.size.height - 80
-        view.addSubview(aaChartView)
-        aaChartView.scrollEnabled = false
-        return aaChartView
-    }
-    
-    private func customAreaChartTooltipStyleWithFormatterFunction1() -> AAOptions {
+    private func customAreaChartTooltipStyleWithSimpleFormatString() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.area)//图形类型
             .title("近三个月金价起伏周期图")//图表主标题
@@ -112,8 +94,8 @@ class JSFormatterFunctionVC: UIViewController {
                         2.18, 3.24,3.23, 3.15, 2.90, 1.81, 2.11, 2.43, 5.59, 3.09, 4.09, 6.14, 5.33, 6.05,
                         5.71, 6.22, 6.56, 4.75, 5.27, 6.02, 5.48
                     ])
-                    ,
-                ])
+                ,
+            ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         aaOptions.tooltip?
@@ -140,7 +122,7 @@ function () {
         return aaOptions
     }
     
-    private func customAreaChartTooltipStyleWithFormatterFunction2() -> AAOptions {
+    private func customAreaChartTooltipStyleWithDifferentUnitSuffix() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.areaspline)//图形类型
             .title("2014 ~ 2020 汪星人生存指数")//图表主标题
@@ -163,7 +145,7 @@ function () {
                     .lineWidth(5.0)
                     .data([0.38, 0.31, 0.32, 0.32, 0.64, 0.66, 0.86, 0.47, 0.52, 0.75, 0.52, 0.56, 0.54, 0.60, 0.46, 0.63, 0.54, 0.51, 0.58, 0.64, 0.60, 0.45, 0.36, 0.67])
                 ,
-                ])
+            ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         aaOptions.tooltip?
@@ -184,61 +166,9 @@ function () {
         return aaOptions
     }
     
-    private func customAreaChartTooltipStyleWithFormatterFunction3() -> AAOptions {
-        let aaChartModel = AAChartModel()
-            .chartType(.line)//图形类型
-            .title("")//图表主标题
-            .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
-            .dataLabelsEnabled(false)
-            .categories(["临床一期","临床二期","临床三期"])
-            .series([
-                AASeriesElement()
-                    .name("上市")
-                    .data([0,0,7])
-                    ,
-                AASeriesElement()
-                    .name("中止")
-                    .data([4,5,1])
-                    ,
-                AASeriesElement()
-                    .name("无进展")
-                    .data([2,0,1])
-                    ,
-                AASeriesElement()
-                    .name("进行中")
-                    .data([3,5,2])
-                    ,
-                ])
-        
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
-        aaOptions.tooltip?
-            .useHTML(true)
-            .formatter(#"""
-function () {
-        let colorDot0 = '<span style=\"' + 'color:red; font-size:13px\"' + '>◉</span> ';
-        let colorDot1 = '<span style=\"' + 'color:mediumspringgreen; font-size:13px\"' + '>◉</span> ';
-        let colorDot2 = '<span style=\"' + 'color:deepskyblue; font-size:13px\"' + '>◉</span> ';
-        let colorDot3 = '<span style=\"' + 'color:sandybrown; font-size:13px\"' + '>◉</span> ';
-        let colorDotArr = [colorDot0, colorDot1, colorDot2, colorDot3];
-        let wholeContentString = this.points[0].x + '<br/>';
-        for (let i = 0;i < 4;i++) {
-            let yValue = this.points[i].y;
-            if (yValue != 0) {
-                let prefixStr = colorDotArr[i];
-                wholeContentString += prefixStr + this.points[i].series.name + ': ' + this.points[i].y + '<br/>';
-            }
-        }
-        return wholeContentString;
-    }
-"""#)
-        
-        return aaOptions
-    }
-    
-    private func customAreaChartTooltipStyleWithFormatterFunction4() -> AAOptions {
+    private func customAreaChartTooltipStyleWithColorfulHtmlLabels() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.areaspline)//图形类型
-            .title("")//图表主标题
             .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
             .dataLabelsEnabled(false)
             .colorsTheme(["#04d69f","#1e90ff","#ef476f","#ffd066",])
@@ -250,26 +180,26 @@ function () {
                     .lineWidth(5.0)
                     .fillOpacity(0.4)
                     .data([0.45, 0.43, 0.50, 0.55, 0.58, 0.62, 0.83, 0.39, 0.56, 0.67, 0.50, 0.34, 0.50, 0.67, 0.58, 0.29, 0.46, 0.23, 0.47, 0.46, 0.38, 0.56, 0.48, 0.36])
-                    ,
+                ,
                 AASeriesElement()
                     .name("Berlin Hot")
                     .lineWidth(5.0)
                     .fillOpacity(0.4)
                     .data([0.38, 0.31, 0.32, 0.32, 0.64, 0.66, 0.86, 0.47, 0.52, 0.75, 0.52, 0.56, 0.54, 0.60, 0.46, 0.63, 0.54, 0.51, 0.58, 0.64, 0.60, 0.45, 0.36, 0.67])
-                    ,
+                ,
                 AASeriesElement()
                     .name("New York Hot")
                     .lineWidth(5.0)
                     .fillOpacity(0.4)
                     .data([0.46, 0.32, 0.53, 0.58, 0.86, 0.68, 0.85, 0.73, 0.69, 0.71, 0.91, 0.74, 0.60, 0.50, 0.39, 0.67, 0.55, 0.49, 0.65, 0.45, 0.64, 0.47, 0.63, 0.64])
-                    ,
+                ,
                 AASeriesElement()
                     .name("London Hot")
                     .lineWidth(5.0)
                     .fillOpacity(0.4)
                     .data([0.60, 0.51, 0.52, 0.53, 0.64, 0.84, 0.65, 0.68, 0.63, 0.47, 0.72, 0.60, 0.65, 0.74, 0.66, 0.65, 0.71, 0.59, 0.65, 0.77, 0.52, 0.53, 0.58, 0.53])
-                    ,
-                ])
+                ,
+            ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         aaOptions.tooltip?
@@ -292,6 +222,56 @@ function () {
 """#)
             .backgroundColor("#050505")
             .borderColor("#050505")
+        
+        return aaOptions
+    }
+    
+    private func customLineChartTooltipStyleWhenValueBeZeroDoNotShow() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .chartType(.line)//图形类型
+            .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
+            .dataLabelsEnabled(false)
+            .categories(["临床一期","临床二期","临床三期"])
+            .series([
+                AASeriesElement()
+                    .name("上市")
+                    .data([0,0,7])
+                ,
+                AASeriesElement()
+                    .name("中止")
+                    .data([4,5,1])
+                ,
+                AASeriesElement()
+                    .name("无进展")
+                    .data([2,0,1])
+                ,
+                AASeriesElement()
+                    .name("进行中")
+                    .data([3,5,2])
+                ,
+            ])
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        aaOptions.tooltip?
+            .useHTML(true)
+            .formatter(#"""
+    function () {
+            let colorDot0 = '<span style=\"' + 'color:red; font-size:13px\"' + '>◉</span> ';
+            let colorDot1 = '<span style=\"' + 'color:mediumspringgreen; font-size:13px\"' + '>◉</span> ';
+            let colorDot2 = '<span style=\"' + 'color:deepskyblue; font-size:13px\"' + '>◉</span> ';
+            let colorDot3 = '<span style=\"' + 'color:sandybrown; font-size:13px\"' + '>◉</span> ';
+            let colorDotArr = [colorDot0, colorDot1, colorDot2, colorDot3];
+            let wholeContentString = this.points[0].x + '<br/>';
+            for (let i = 0;i < 4;i++) {
+                let yValue = this.points[i].y;
+                if (yValue != 0) {
+                    let prefixStr = colorDotArr[i];
+                    wholeContentString += prefixStr + this.points[i].series.name + ': ' + this.points[i].y + '<br/>';
+                }
+            }
+            return wholeContentString;
+        }
+    """#)
         
         return aaOptions
     }
@@ -345,7 +325,6 @@ function () {
     private func customYAxisLabels() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.line)//图形类型
-            .title("")//图表主标题
             .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
             .dataLabelsEnabled(false)
             .colorsTheme(["#04d69f","#1e90ff","#ef476f","#ffd066",])
@@ -387,7 +366,6 @@ function () {
     private func customYAxisLabels2() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.line)//图形类型
-            .title("")//图表主标题
             .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
             .dataLabelsEnabled(false)
             .colorsTheme(["#04d69f","#1e90ff","#ef476f","#ffd066",])
@@ -489,7 +467,7 @@ function () {
      }
 """#)
         
-        return aaOptions;
+        return aaOptions
     }
     
     private func customDoubleXAxesChart() -> AAOptions {
@@ -696,7 +674,6 @@ function () {
             .chartType(.line)
             .colorsTheme(["#1e90ff","#ef476f","#ffd066","#04d69f","#25547c",])//Colors theme
             .axesTextColor(AAColor.white)
-            .title("")
             .dataLabelsEnabled(false)
             .tooltipValueSuffix("℃")
             .animationType(.bounce)
@@ -736,7 +713,6 @@ function () {
     private func customTooltipWhichDataSourceComeFromOutSideRatherThanSeries() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.column)//图表类型
-            .title("")
             .yAxisTitle("")//设置 Y 轴标题
             .yAxisLineWidth(1)//Y轴轴线线宽为0即是隐藏Y轴轴线
             .yAxisGridLineWidth(1)//y轴横向分割线宽度为1(为0即是隐藏分割线)
@@ -851,5 +827,326 @@ function () {
         
         let finalJSArrStr = "[\(originalJsArrStr)]"
         return finalJSArrStr
+    }
+    
+
+    //https://github.com/AAChartModel/AAChartKit/issues/852 自定义蜘蛛🕷图样式
+    private func customSpiderChartStyle() -> AAOptions {
+        let categoryArr = [
+            "周转天数(天)",
+            "订单满足率",
+            "订单履约时效",
+            "动销率",
+            "畅销商品缺货率",
+            "高库存金额占比",
+            "不动销金额占比",
+            "停采金额占比",
+        ]
+        let categoryJSArrStr = javaScriptArrayStringWithSwiftArray(categoryArr)
+        
+        let xAxisLabelsFormatter = """
+        function () {
+        return \(categoryJSArrStr)[this.value];
+        }
+        """;
+        
+        let aaChartModel = AAChartModel()
+            .chartType(.line)//图表类型
+            .title("健康体检表")//图表主标题
+            .colorsTheme(["#fe117c","#ffc069",])//设置主体颜色数组
+            .yAxisLineWidth(0)
+            .yAxisGridLineWidth(1)//y轴横向分割线宽度为0(即是隐藏分割线)
+            //        .yAxisTickPositions([0, 5, 10, 15, 20, 25, 30, 35])
+            .markerRadius(5)
+            .markerSymbol(.circle)
+            .polar(true)
+            .series([
+                AASeriesElement()
+                    .name("本月得分")
+                    .data([7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5,]),
+                AASeriesElement()
+                    .name("上月得分")
+                    .data([0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, ]),
+            ])
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        aaOptions.chart?
+            .marginLeft(80)
+            .marginRight(80)
+        
+        aaOptions.xAxis?
+            .lineWidth(0)//避免多边形外环之外有额外套了一层无用的外环
+            .labels?
+            .style(AAStyle()
+                .color(AAColor.black))
+            .formatter(xAxisLabelsFormatter)
+        
+        aaOptions.yAxis?
+            .gridLineInterpolation("polygon")//设置蜘蛛网🕸图表的网线为多边形
+            .labels(AALabels()
+                .style(AAStyle()
+                    .color(AAColor.black)))
+        
+        //设定图例项的CSS样式。只支持有关文本的CSS样式设定。
+        /* 默认是：{
+         "color": "#333333",
+         "cursor": "pointer",
+         "fontSize": "12px",
+         "fontWeight": "bold"
+         }
+         */
+        let aaItemStyle = AAItemStyle()
+            .color(AAColor.gray)//字体颜色
+            .cursor("pointer")//(在移动端这个属性没什么意义,其实不用设置)指定鼠标滑过数据列时鼠标的形状。当绑定了数据列点击事件时，可以将此参数设置为 "pointer"，用来提醒用户改数据列是可以点击的。
+            .fontSize(14)//字体大小
+            .fontWeight(.thin)//字体为细体字
+        
+        
+        aaOptions.legend?
+            .enabled(true)
+            .align(.center)//设置图例位于水平方向上的右侧
+            .layout(.horizontal)//设置图例排列方式为垂直排布
+            .verticalAlign(.top)//设置图例位于竖直方向上的顶部
+            .itemStyle(aaItemStyle)
+        
+        
+        return aaOptions
+    }
+
+    // Refer to the issue https://github.com/AAChartModel/AAChartKit/issues/589
+    private func customizeEveryDataLabelSinglelyByDataLabelsFormatter() -> AAOptions  {
+        let aaChartModel = AAChartModel()
+            .chartType(.areaspline)//图表类型
+            .dataLabelsEnabled(true)
+            .tooltipEnabled(false)
+            .colorsTheme([AAGradientColor.fizzyPeach])
+            .markerRadius(0)
+            .legendEnabled(false)
+            .categories(["美国🇺🇸","欧洲🇪🇺","中国🇨🇳","日本🇯🇵","韩国🇰🇷","越南🇻🇳","中国香港🇭🇰",])
+            .series([
+                AASeriesElement()
+                    .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2]),
+            ])
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        aaOptions.yAxis?.gridLineDashStyle = AAChartLineDashStyleType.longDash.rawValue//设置Y轴的网格线样式为 AAChartLineDashStyleTypeLongDash
+        
+        aaOptions.tooltip?.shared = true
+        
+        
+        let unitArr = ["美元", "欧元", "人民币", "日元", "韩元", "越南盾", "港币", ]
+        let unitJSArrStr = javaScriptArrayStringWithSwiftArray(unitArr)
+        //单组 serie 图表, 获取选中的点的索引是 this.point.index ,多组并且共享提示框,则是this.points[0].index
+        let dataLabelsFormatter = """
+        function () {
+        return this.y + \(unitJSArrStr)[this.point.index];
+        }
+        """
+        
+        let aaDatalabels = AADataLabels()
+            .style(AAStyle()
+                .fontSize(10)
+                .fontWeight(.bold)
+                .color(AAColor.red)
+                .textOutline("1px 1px contrast"))
+            .formatter(dataLabelsFormatter)
+            .backgroundColor(AAColor.white)// white color
+            .borderColor(AAColor.red)// red color
+            .borderRadius(1.5)
+            .borderWidth(1.3)
+            .x(3)
+            .verticalAlign(.middle)
+            .y(-20)
+        
+        aaOptions.plotOptions?.series?.dataLabels = aaDatalabels
+        
+        return aaOptions
+    }
+
+//
+    private func customXAxisLabelsBeImages() -> AAOptions {
+         let nameArr = [
+            "South Korea",
+            "Japan",
+            "Australia",
+            "Germany",
+            "Russia",
+            "China",
+            "Great Britain",
+            "United States"
+        ]
+
+         let colorArr = [
+            "rgb(201, 36, 39)",
+            "rgb(201, 36, 39)",
+            "rgb(0, 82, 180)",
+            "rgb(0, 0, 0)",
+            "rgb(240, 240, 240)",
+            "rgb(255, 217, 68)",
+            "rgb(0, 82, 180)",
+            "rgb(215, 0, 38)"
+        ]
+
+
+         let imageLinkFlagArr = [
+            "197582",
+            "197604",
+            "197507",
+            "197571",
+            "197408",
+            "197375",
+            "197374",
+            "197484"
+        ]
+
+        let aaChartModel = AAChartModel()
+            .chartType(.column)
+            .title("Custom X Axis Labels Be Images")
+            .subtitle("use HTML")
+            .categories(nameArr)
+            .colorsTheme(colorArr)
+            .borderRadius(5)
+            .series([
+                AASeriesElement()
+                    .name("AD 2020")
+                    .data([7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5])
+                    .colorByPoint(true)
+            ])
+
+         let imageLinkFlagJSArrStr = javaScriptArrayStringWithSwiftArray(imageLinkFlagArr)
+         let xLabelsFormatter = """
+function () {
+    let imageFlag = \(imageLinkFlagJSArrStr)[this.pos];
+    let imageLink = "<span><img src=\"https://image.flaticon.com/icons/svg/197/" + imageFlag + ".svg\" style=\"width: 30px; height: 30px;\"/><br></span>";
+    return imageLink;
+}
+"""
+
+        //    https://api.highcharts.com.cn/highcharts#xAxis.labels.formatter
+         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        aaOptions.xAxis?.labels?
+        .useHTML(true)
+        .formatter(xLabelsFormatter)
+        
+
+        aaOptions.plotOptions?.column?.groupPadding(0.005)
+
+        //Custom tooltip style
+         let tooltipFormatter = """
+function () {
+    let imageFlag = \(imageLinkFlagJSArrStr)[this.point.index];
+    let imageLink = "<span><img src=\"https://image.flaticon.com/icons/svg/197/" + imageFlag + ".svg\" style=\"width: 30px; height: 30px;\"/><br></span>";
+    return imageLink
+    + " 🌕 🌖 🌗 🌘 🌑 🌒 🌓 🌔 <br/> "
+    + " Support JavaScript Function Just Right Now !!! <br/> "
+    + " The Gold Price For <b>2020 "
+    +  this.x
+    + " </b> Is <b> "
+    +  this.y
+    + " </b> Dollars ";
+}
+"""
+        
+        aaOptions.tooltip?
+            .shared(false)
+            .useHTML(true)
+            .formatter(tooltipFormatter)
+        
+        return aaOptions
+    }
+
+    //https://bbs.hcharts.cn/article-109-1.html
+    //图表自带的图例点击事件是：
+    //点击某个显示/隐藏的图例，该图例对应的serie就隐藏/显示。
+    //个人觉得不合理，正常来说，有多条折线(或其他类型的图表)，点击某个图例是想只看该图例对应的数据；
+    //于是修改了图例点击事件。
+    //
+    //实现的效果是(以折线图为例)：
+    //1. 当某条折线隐藏时，点击该折线的图例 --> 该折线显示；
+    //2. 当全部折线都显示时，点击某个图例 --> 该图例对应的折线显示，其他折线均隐藏；
+    //3. 当只有一条折线显示时，点击该折线的图例 --> 全部折线均显示；
+    //4. 其他情况，按默认处理：
+    //显示 --> 隐藏；
+    //隐藏 --> 显示；
+    //Customized legengItemClick Event online: http://code.hcharts.cn/rencht/hhhhLv/share
+    private func customLegendItemClickEvent() -> AAOptions  {
+        let aaChartModel = AAChartModel()
+            .chartType(.column)
+            .stacking(.normal)
+            .colorsTheme(["#fe117c","#ffc069","#06caf4","#7dffc0"])//设置主题颜色数组
+            .markerRadius(0)
+            .series([
+                AASeriesElement()
+                    .name("2017")
+                    .data([7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]),
+                AASeriesElement()
+                    .name("2018")
+                    .data([0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]),
+                AASeriesElement()
+                    .name("2019")
+                    .data([0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]),
+                AASeriesElement()
+                    .name("2020")
+                    .data([3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]),
+            ])
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        aaOptions.legend?
+            .enabled(true)
+            .align(.right)//设置图例位于水平方向上的右侧
+            .layout(.vertical)//设置图例排列方式为垂直排布
+            .verticalAlign(.top)//设置图例位于竖直方向上的顶部
+        
+        
+        //自定义图例点击事件
+        aaOptions.plotOptions?.series?.events = AAEvents()
+            .legendItemClick(#"""
+function(event) {
+    function getVisibleMode(series, serieName) {
+        var allVisible = true;
+        var allHidden = true;
+        for (var i = 0; i < series.length; i++) {
+            if (series[i].name == serieName)
+                continue;
+            allVisible &= series[i].visible;
+            allHidden &= (!series[i].visible);
+        }
+        if (allVisible && !allHidden)
+            return 'all-visible';
+        if (allHidden && !allVisible)
+            return 'all-hidden';
+        return 'other-cases';
+    }
+
+    var series = this.chart.series;
+    var mode = getVisibleMode(series, this.name);
+    var enableDefault = false;
+    if (!this.visible) {
+        enableDefault = true;
+    }
+    else if (mode == 'all-visible') {
+        var seriesLength = series.length;
+        for (var i = 0; i < seriesLength; i++) {
+            var serie = series[i];
+            serie.hide();
+        }
+        this.show();
+    }
+    else if (mode == 'all-hidden') {
+        var seriesLength = series.length;
+        for (var i = 0; i < seriesLength; i++) {
+            var serie = series[i];
+            serie.show();
+        }
+    }
+    else {
+        enableDefault = true;
+    }
+    return enableDefault;
+}
+"""#)
+        
+        return aaOptions
     }
 }

@@ -1,9 +1,9 @@
 //
-//  AAPlotLinesElement.swift
+//  AALang.swift
 //  AAInfographicsDemo
 //
-//  Created by AnAn on 2019/4/14.
-//  Copyright © 2019 An An. All rights reserved.
+//  Created by AnAn on 2020/7/17.
+//  Copyright © 2020 An An. All rights reserved.
 //*************** ...... SOURCE CODE ...... ***************
 //***...................................................***
 //*** https://github.com/AAChartModel/AAChartKit        ***
@@ -30,56 +30,25 @@
  
  */
 
-import Foundation
+import UIKit
 
-public class AAPlotLinesElement: AAObject {
-    public var color: Any?
-    public var dashStyle: String?
-    public var width: Float?
-    public var value: Float?
-    public var zIndex: Int?
-    public var label: AALabel?
+public class AALang: AAObject {
+    public var resetZoom: String?
+    public var thousandsSep: String?
     
     @discardableResult
-    public func color(_ prop: Any) -> AAPlotLinesElement {
-        color = prop
+    public func resetZoom(_ prop: String) -> AALang {
+        resetZoom = prop
         return self
     }
     
     @discardableResult
-    public func dashStyle(_ prop: AAChartLineDashStyleType) -> AAPlotLinesElement {
-        dashStyle = prop.rawValue
-        return self
-    }
-    
-    @discardableResult
-    public func width(_ prop: Float) -> AAPlotLinesElement {
-        width = prop
-        return self
-    }
-    
-    @discardableResult
-    public func value(_ prop: Float) -> AAPlotLinesElement {
-        value = prop
-        return self
-    }
-    
-    @discardableResult
-    public func zIndex(_ prop: Int) -> AAPlotLinesElement {
-        zIndex = prop
-        return self
-    }
-    
-    @discardableResult
-    public func label(_ prop: AALabel) -> AAPlotLinesElement {
-        label = prop
+    public func thousandsSep(_ prop: String) -> AALang {
+        thousandsSep = prop
         return self
     }
     
     public override init() {
         
     }
-
 }
-
-

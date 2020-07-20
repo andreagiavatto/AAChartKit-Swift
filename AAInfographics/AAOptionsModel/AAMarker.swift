@@ -89,13 +89,24 @@ public class AAMarkerStates: AAObject {
         hover = prop
         return self
     }
+    
+    public override init() {
+        
+    }
 }
 
 public class AAMarkerHover: AAObject {
+    public var enabled: Bool?
     public var fillColor: String?
     public var lineColor: String?
     public var lineWidth: Float?
     public var radius: Float?
+    
+    @discardableResult
+    public func enabled(_ prop: Bool) -> AAMarkerHover {
+        enabled = prop
+        return self
+    }
     
     @discardableResult
     public func fillColor(_ prop: String) -> AAMarkerHover {
@@ -119,5 +130,9 @@ public class AAMarkerHover: AAObject {
     public func radius(_ prop: Float) -> AAMarkerHover {
         radius = prop
         return self
+    }
+    
+    public override init() {
+        
     }
 }

@@ -34,7 +34,7 @@
 import UIKit
 import AAInfographics
 
-class CommonChartVC: UIViewController {
+class BasicChartVC: UIViewController {
     public var chartType: AAChartType!
     public var step: Bool?
     private var aaChartModel: AAChartModel!
@@ -70,8 +70,6 @@ class CommonChartVC: UIViewController {
                                     y: 60,
                                     width: chartViewWidth,
                                     height: chartViewHeight)
-        /// AAChartView content height (the content height defaults to the same height as AAChartView)
-        aaChartView!.contentHeight = chartViewHeight - 20
         view.addSubview(aaChartView!)
         aaChartView!.scrollEnabled = false//Disable chart content scrolling
         aaChartView!.isClearBackgroundColor = true
@@ -81,16 +79,14 @@ class CommonChartVC: UIViewController {
             .chartType(chartType!)
             .colorsTheme(["#1e90ff","#ef476f","#ffd066","#04d69f","#25547c",])//Colors theme
             .axesTextColor(AAColor.white)
-            .title("")
             .dataLabelsEnabled(false)
             .tooltipValueSuffix("℃")
             .animationType(.bounce)
-            .backgroundColor("#22324c")//To make the chart background color transparent, set backgroundColor to "rgba (0,0,0,0)" or "# 00000000". Also make sure `aaChartView!.IsClearBackgroundColor = true`
             .touchEventEnabled(true)
             .series([
                 AASeriesElement()
                     .name("Tokyo")
-                    .data([-7.0, -6.9, -9.5, -14.5, -18.2, -21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6])
+                    .data([7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6])
                     ,
                 AASeriesElement()
                     .name("New York")
@@ -236,11 +232,11 @@ class CommonChartVC: UIViewController {
                 ["Square corners",
                  "Rounded corners",
                  "Wedge"]
-            ];
+            ]
             typeLabelNamesArr = [
                 "Stacking Type Selection",
                 "Corners Style Type Selection"
-            ];
+            ]
         } else {
             segmentedNamesArr = [
                 ["No stacking",
@@ -251,11 +247,11 @@ class CommonChartVC: UIViewController {
                  "Diamond",
                  "Triangle",
                  "Triangle-down"]
-            ];
+            ]
             typeLabelNamesArr = [
                 "Stacking Type Selection",
                 "Chart Symbol Type Selection"
-            ];
+            ]
         }
         
         for  i in 0 ..< segmentedNamesArr.count {
@@ -264,7 +260,7 @@ class CommonChartVC: UIViewController {
                                    y: 40.0 * CGFloat(i) + (view.frame.size.height - 145),
                                    width: view.frame.size.width - 40,
                                    height: 20)
-            segment.tag = i;
+            segment.tag = i
             segment.tintColor = .red
             segment.selectedSegmentIndex = 0
             segment.addTarget(self,
@@ -347,7 +343,7 @@ class CommonChartVC: UIViewController {
                                     width: switchWidth,
                                     height: 20)
             uiSwitch.isOn = false
-            uiSwitch.tag = i;
+            uiSwitch.tag = i
             uiSwitch.onTintColor = .red
             uiSwitch.addTarget(self,
                                action: #selector(switchDidChange(switchView:)),
@@ -390,28 +386,30 @@ class CommonChartVC: UIViewController {
     }
 }
 
-extension CommonChartVC: AAChartViewDelegate {
+extension BasicChartVC: AAChartViewDelegate {
     open func aaChartViewDidFinishLoad(_ aaChartView: AAChartView) {
        print("🙂🙂🙂, AAChartView Did Finished Load!!!")
     }
-    
+
     open func aaChartView(_ aaChartView: AAChartView, moveOverEventMessage: AAMoveOverEventMessageModel) {
         print(
             """
-            
+
             selected point series element name: \(moveOverEventMessage.name ?? "")
             🔥🔥🔥WARNING!!!!!!!!!!!!!!!!!!!! Touch Event Message !!!!!!!!!!!!!!!!!!!! WARNING🔥🔥🔥
             ==========================================================================================
             ------------------------------------------------------------------------------------------
             user finger moved over!!!,get the move over event message: {
-            category = \(String(describing: moveOverEventMessage.category));
-            index = \(String(describing: moveOverEventMessage.index));
-            name = \(String(describing: moveOverEventMessage.name));
-            offset = \(String(describing: moveOverEventMessage.offset));
-            x = \(String(describing: moveOverEventMessage.x));
-            y = \(String(describing: moveOverEventMessage.y));
+            category = \(String(describing: moveOverEventMessage.category))
+            index = \(String(describing: moveOverEventMessage.index))
+            name = \(String(describing: moveOverEventMessage.name))
+            offset = \(String(describing: moveOverEventMessage.offset))
+            x = \(String(describing: moveOverEventMessage.x))
+            y = \(String(describing: moveOverEventMessage.y))
             }
             +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            
+            
             """
         )
     }
