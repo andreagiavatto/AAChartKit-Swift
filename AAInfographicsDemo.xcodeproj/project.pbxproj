@@ -7,46 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22035E912344E7EC0093D5AD /* AAInfographics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22035E882344E7EC0093D5AD /* AAInfographics.framework */; };
-		22035E982344E7EC0093D5AD /* AAInfographicsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22035E972344E7EC0093D5AD /* AAInfographicsTests.swift */; };
-		22035E9A2344E7EC0093D5AD /* AAInfographics.h in Headers */ = {isa = PBXBuildFile; fileRef = 22035E8A2344E7EC0093D5AD /* AAInfographics.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22035E9D2344E7EC0093D5AD /* AAInfographics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22035E882344E7EC0093D5AD /* AAInfographics.framework */; };
-		22035E9E2344E7EC0093D5AD /* AAInfographics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22035E882344E7EC0093D5AD /* AAInfographics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		22035EA82344F3A90093D5AD /* AAChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749914E210D90B5003D18C2 /* AAChartView.swift */; };
-		22035EA92344F3A90093D5AD /* AAChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749914B210D90B5003D18C2 /* AAChartModel.swift */; };
-		22035EAA2344F3A90093D5AD /* AASeriesElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749914C210D90B5003D18C2 /* AASeriesElement.swift */; };
-		22035EAC2344F3A90093D5AD /* AASerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749914D210D90B5003D18C2 /* AASerializable.swift */; };
-		22035EAD2344F3A90093D5AD /* AAOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44154762231A1B4800382DAD /* AAOptions.swift */; };
-		22035EAE2344F3A90093D5AD /* AAChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415475C231A194000382DAD /* AAChart.swift */; };
-		22035EAF2344F3A90093D5AD /* AATitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44154764231A1BEB00382DAD /* AATitle.swift */; };
-		22035EB02344F3A90093D5AD /* AASubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44154766231A1D0200382DAD /* AASubtitle.swift */; };
-		22035EB12344F3A90093D5AD /* AATooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DB49A32273767000B7926B /* AATooltip.swift */; };
-		22035EB22344F3A90093D5AD /* AAPlotOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415476A231A1E8200382DAD /* AAPlotOptions.swift */; };
-		22035EB32344F3A90093D5AD /* AASeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44154768231A1D5600382DAD /* AASeries.swift */; };
-		22035EB42344F3A90093D5AD /* AAAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415475A231A18C500382DAD /* AAAnimation.swift */; };
-		22035EB52344F3A90093D5AD /* AAMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44154760231A1AE100382DAD /* AAMarker.swift */; };
-		22035EB62344F3A90093D5AD /* AALegend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446809DB22C3806E00BAE647 /* AALegend.swift */; };
-		22035EB72344F3A90093D5AD /* AAPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442FA90C2340597200CF3BDF /* AAPane.swift */; };
-		22035EB82344F3A90093D5AD /* AALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4454E46A22DF1A4F00E01944 /* AALabel.swift */; };
-		22035EB92344F3A90093D5AD /* AALabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4454E46822DF15AE00E01944 /* AALabels.swift */; };
-		22035EBA2344F3A90093D5AD /* AADataLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440839A0226AD2B600645263 /* AADataLabels.swift */; };
-		22035EBB2344F3A90093D5AD /* AAXAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446809DD22C3809000BAE647 /* AAXAxis.swift */; };
-		22035EBC2344F3A90093D5AD /* AAYAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446809DF22C380A000BAE647 /* AAYAxis.swift */; };
-		22035EBD2344F3A90093D5AD /* AACrosshair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4415475E231A1A4000382DAD /* AACrosshair.swift */; };
-		22035EBE2344F3A90093D5AD /* AAPlotBandsElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445353C022631B0E009FA12A /* AAPlotBandsElement.swift */; };
-		22035EBF2344F3A90093D5AD /* AAPlotLinesElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445353C222631B48009FA12A /* AAPlotLinesElement.swift */; };
-		22035EC02344F3A90093D5AD /* AAColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272BBE7721A258C200DBE69D /* AAColor.swift */; };
-		22035EC12344F3A90093D5AD /* AAGradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44143D3521A17F2300D44657 /* AAGradientColor.swift */; };
-		22035EC22344F3A90093D5AD /* AAJSStringPurer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DB49A5227381C300B7926B /* AAJSStringPurer.swift */; };
-		22035EC42344F3B50093D5AD /* AAJSFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 27499097210D7B2E003D18C2 /* AAJSFiles.bundle */; };
-		227FFBAA24C5969200510C64 /* AALang.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27065A5924C198E700D872EB /* AALang.swift */; };
-		22A3BD5624876AEA00BBDC1D /* AAScrollablePlotArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFACB2212424497B00FDAB0B /* AAScrollablePlotArea.swift */; };
-		22A3BD5724876AF600BBDC1D /* AAStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486C50723D7516300B54849 /* AAStates.swift */; };
-		2763384524A7070F00143B9B /* DataSortingWithAnimationChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2763384424A7070F00143B9B /* DataSortingWithAnimationChartVC.swift */; };
+		22484A6124FE30980066F74C /* ShowManyChartViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B5B131FB0577A000B8DBF /* ShowManyChartViewVC.swift */; };
+		22484A6224FE30AD0066F74C /* AAInfographics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22035E882344E7EC0093D5AD /* AAInfographics.framework */; };
+		22484A6324FE30AD0066F74C /* AAInfographics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22035E882344E7EC0093D5AD /* AAInfographics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		27065A5A24C198E700D872EB /* AALang.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27065A5924C198E700D872EB /* AALang.swift */; };
+		27065A5C24C1A7A400D872EB /* AACredits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27065A5B24C1A7A400D872EB /* AACredits.swift */; };
+		27499150210D90B5003D18C2 /* AASeriesElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2749914C210D90B5003D18C2 /* AASeriesElement.swift */; };
 		276A56FF22C77228007F53E7 /* DoubleChartsLinkedWorkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A56FE22C77228007F53E7 /* DoubleChartsLinkedWorkVC.swift */; };
 		277066112452E99C00C4581D /* ScrollableChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277066102452E99C00C4581D /* ScrollableChartVC.swift */; };
-		2770FBBF1F93673700091C75 /* OnlyRefreshChartDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2770FBBE1F93673700091C75 /* OnlyRefreshChartDataVC.swift */; };
-		27766455207C55BE00F0A62C /* MixedChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27766454207C55BE00F0A62C /* MixedChartVC.swift */; };
 		278C54B21EE9472300770B97 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C54B11EE9472300770B97 /* AppDelegate.swift */; };
 		278C54B71EE9472300770B97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 278C54B51EE9472300770B97 /* Main.storyboard */; };
 		278C54B91EE9472300770B97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278C54B81EE9472300770B97 /* Assets.xcassets */; };
@@ -55,9 +23,8 @@
 		278C54D21EE9472300770B97 /* AAInfographicsDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C54D11EE9472300770B97 /* AAInfographicsDemoUITests.swift */; };
 		278C55141EE948C900770B97 /* BasicChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C55101EE948C900770B97 /* BasicChartVC.swift */; };
 		278C55151EE948C900770B97 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C55111EE948C900770B97 /* MainVC.swift */; };
-		278C55161EE948C900770B97 /* SpecialChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C55121EE948C900770B97 /* SpecialChartVC.swift */; };
 		278C55171EE948C900770B97 /* AnimationTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278C55131EE948C900770B97 /* AnimationTypeVC.swift */; };
-		279B5B141FB0577A000B8DBF /* ShowManyChartViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279B5B131FB0577A000B8DBF /* ShowManyChartViewVC.swift */; };
+		27DB49A42273767000B7926B /* AATooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DB49A32273767000B7926B /* AATooltip.swift */; };
 		27E475F924B83AE200690657 /* AABaseChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E475F824B83AE200690657 /* AABaseChartVC.swift */; };
 		27FADB8620D6569000FED960 /* HideOrShowChartSeriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FADB8520D6569000FED960 /* HideOrShowChartSeriesVC.swift */; };
 		440839A1226AD2B600645263 /* AADataLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440839A0226AD2B600645263 /* AADataLabels.swift */; };
@@ -68,6 +35,8 @@
 		44154767231A1D0200382DAD /* AASubtitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44154766231A1D0200382DAD /* AASubtitle.swift */; };
 		4419618C230D8EDC00C12AAF /* CustomStyleChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4419618B230D8EDC00C12AAF /* CustomStyleChartVC.swift */; };
 		447B4B3521C9F40900FDA965 /* DrawChartWithAAOptionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447B4B3421C9F40900FDA965 /* DrawChartWithAAOptionsVC.swift */; };
+		448330B624E23DED00368A30 /* AAExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448330B524E23DED00368A30 /* AAExtension.swift */; };
+		448330B824E270FE00368A30 /* AdvancedUpdatingFeatureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448330B724E270FE00368A30 /* AdvancedUpdatingFeatureVC.swift */; };
 		4486C50823D7516300B54849 /* AAStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4486C50723D7516300B54849 /* AAStates.swift */; };
 		449A0ED62377149D009F8FE1 /* ScrollingUpdateDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449A0ED52377149D009F8FE1 /* ScrollingUpdateDataVC.swift */; };
 		44EB70A722BCB606008FECE4 /* JSFormatterFunctionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EB70A622BCB606008FECE4 /* JSFormatterFunctionVC.swift */; };
@@ -89,7 +58,14 @@
 			remoteGlobalIDString = 278C54AD1EE9472300770B97;
 			remoteInfo = AAInfographicsDemo;
 		};
-		22035E9B2344E7EC0093D5AD /* PBXContainerItemProxy */ = {
+		22484A5F24FE305C0066F74C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 278C54A61EE9472300770B97 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22035E872344E7EC0093D5AD;
+			remoteInfo = AAInfographics;
+		};
+		22484A6424FE30AD0066F74C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 278C54A61EE9472300770B97 /* Project object */;
 			proxyType = 1;
@@ -113,13 +89,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		22035E9F2344E7EC0093D5AD /* Embed Frameworks */ = {
+		22484A6624FE30AD0066F74C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				22035E9E2344E7EC0093D5AD /* AAInfographics.framework in Embed Frameworks */,
+				22484A6324FE30AD0066F74C /* AAInfographics.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -134,6 +110,7 @@
 		22035E972344E7EC0093D5AD /* AAInfographicsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAInfographicsTests.swift; sourceTree = "<group>"; };
 		22035E992344E7EC0093D5AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27065A5924C198E700D872EB /* AALang.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AALang.swift; sourceTree = "<group>"; };
+		27065A5B24C1A7A400D872EB /* AACredits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AACredits.swift; sourceTree = "<group>"; };
 		272BBE7721A258C200DBE69D /* AAColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAColor.swift; sourceTree = "<group>"; };
 		27499097210D7B2E003D18C2 /* AAJSFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AAJSFiles.bundle; sourceTree = "<group>"; };
 		2749914B210D90B5003D18C2 /* AAChartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AAChartModel.swift; sourceTree = "<group>"; };
@@ -163,7 +140,6 @@
 		278C55131EE948C900770B97 /* AnimationTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationTypeVC.swift; sourceTree = "<group>"; };
 		279B5B131FB0577A000B8DBF /* ShowManyChartViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowManyChartViewVC.swift; sourceTree = "<group>"; };
 		27DB49A32273767000B7926B /* AATooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AATooltip.swift; sourceTree = "<group>"; };
-		27DB49A5227381C300B7926B /* AAJSStringPurer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAJSStringPurer.swift; sourceTree = "<group>"; };
 		27E475F824B83AE200690657 /* AABaseChartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AABaseChartVC.swift; sourceTree = "<group>"; };
 		27FADB8520D6569000FED960 /* HideOrShowChartSeriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideOrShowChartSeriesVC.swift; sourceTree = "<group>"; };
 		440839A0226AD2B600645263 /* AADataLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AADataLabels.swift; sourceTree = "<group>"; };
@@ -188,6 +164,8 @@
 		446809DD22C3809000BAE647 /* AAXAxis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAXAxis.swift; sourceTree = "<group>"; };
 		446809DF22C380A000BAE647 /* AAYAxis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAYAxis.swift; sourceTree = "<group>"; };
 		447B4B3421C9F40900FDA965 /* DrawChartWithAAOptionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawChartWithAAOptionsVC.swift; sourceTree = "<group>"; };
+		448330B524E23DED00368A30 /* AAExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAExtension.swift; sourceTree = "<group>"; };
+		448330B724E270FE00368A30 /* AdvancedUpdatingFeatureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedUpdatingFeatureVC.swift; sourceTree = "<group>"; };
 		4486C50723D7516300B54849 /* AAStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AAStates.swift; sourceTree = "<group>"; };
 		4490BB372388E1AE005B9238 /* AAInfographicsDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AAInfographicsDemo.entitlements; sourceTree = "<group>"; };
 		449A0ED52377149D009F8FE1 /* ScrollingUpdateDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingUpdateDataVC.swift; sourceTree = "<group>"; };
@@ -207,7 +185,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22035E912344E7EC0093D5AD /* AAInfographics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22035E9D2344E7EC0093D5AD /* AAInfographics.framework in Frameworks */,
+				22484A6224FE30AD0066F74C /* AAInfographics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +235,13 @@
 			path = AAInfographicsTests;
 			sourceTree = "<group>";
 		};
+		22484A5A24FE30160066F74C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		275BB8D720CFA6DB00DE1991 /* AdditionalContent1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +252,7 @@
 				277066102452E99C00C4581D /* ScrollableChartVC.swift */,
 				449A0ED52377149D009F8FE1 /* ScrollingUpdateDataVC.swift */,
 				2763384424A7070F00143B9B /* DataSortingWithAnimationChartVC.swift */,
+				448330B724E270FE00368A30 /* AdvancedUpdatingFeatureVC.swift */,
 			);
 			path = AdditionalContent1;
 			sourceTree = "<group>";
@@ -281,6 +266,7 @@
 				22035E892344E7EC0093D5AD /* AAInfographics */,
 				22035E962344E7EC0093D5AD /* AAInfographicsTests */,
 				278C54AF1EE9472300770B97 /* Products */,
+				22484A5A24FE30160066F74C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -371,7 +357,7 @@
 			children = (
 				272BBE7721A258C200DBE69D /* AAColor.swift */,
 				44143D3521A17F2300D44657 /* AAGradientColor.swift */,
-				27DB49A5227381C300B7926B /* AAJSStringPurer.swift */,
+				448330B524E23DED00368A30 /* AAExtension.swift */,
 			);
 			path = AATool;
 			sourceTree = "<group>";
@@ -400,6 +386,7 @@
 				445353C222631B48009FA12A /* AAPlotLinesElement.swift */,
 				FFACB2212424497B00FDAB0B /* AAScrollablePlotArea.swift */,
 				27065A5924C198E700D872EB /* AALang.swift */,
+				27065A5B24C1A7A400D872EB /* AACredits.swift */,
 			);
 			path = AAOptionsModel;
 			sourceTree = "<group>";
@@ -411,7 +398,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22035E9A2344E7EC0093D5AD /* AAInfographics.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,12 +448,13 @@
 				278C54AA1EE9472300770B97 /* Sources */,
 				278C54AB1EE9472300770B97 /* Frameworks */,
 				278C54AC1EE9472300770B97 /* Resources */,
-				22035E9F2344E7EC0093D5AD /* Embed Frameworks */,
+				22484A6624FE30AD0066F74C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				22035E9C2344E7EC0093D5AD /* PBXTargetDependency */,
+				22484A6024FE305C0066F74C /* PBXTargetDependency */,
+				22484A6524FE30AD0066F74C /* PBXTargetDependency */,
 			);
 			name = AAInfographicsDemo;
 			productName = AAInfographicsDemo;
@@ -577,7 +564,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22035EC42344F3B50093D5AD /* AAJSFiles.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,35 +605,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22035EA82344F3A90093D5AD /* AAChartView.swift in Sources */,
-				22035EA92344F3A90093D5AD /* AAChartModel.swift in Sources */,
-				22035EAA2344F3A90093D5AD /* AASeriesElement.swift in Sources */,
-				22035EAC2344F3A90093D5AD /* AASerializable.swift in Sources */,
-				22035EAD2344F3A90093D5AD /* AAOptions.swift in Sources */,
-				22A3BD5624876AEA00BBDC1D /* AAScrollablePlotArea.swift in Sources */,
-				22035EAE2344F3A90093D5AD /* AAChart.swift in Sources */,
-				22035EAF2344F3A90093D5AD /* AATitle.swift in Sources */,
-				22035EB02344F3A90093D5AD /* AASubtitle.swift in Sources */,
-				22035EB12344F3A90093D5AD /* AATooltip.swift in Sources */,
-				22035EB22344F3A90093D5AD /* AAPlotOptions.swift in Sources */,
-				22A3BD5724876AF600BBDC1D /* AAStates.swift in Sources */,
-				22035EB32344F3A90093D5AD /* AASeries.swift in Sources */,
-				22035EB42344F3A90093D5AD /* AAAnimation.swift in Sources */,
-				22035EB52344F3A90093D5AD /* AAMarker.swift in Sources */,
-				22035EB62344F3A90093D5AD /* AALegend.swift in Sources */,
-				22035EB72344F3A90093D5AD /* AAPane.swift in Sources */,
-				22035EB82344F3A90093D5AD /* AALabel.swift in Sources */,
-				227FFBAA24C5969200510C64 /* AALang.swift in Sources */,
-				22035EB92344F3A90093D5AD /* AALabels.swift in Sources */,
-				22035EBA2344F3A90093D5AD /* AADataLabels.swift in Sources */,
-				22035EBB2344F3A90093D5AD /* AAXAxis.swift in Sources */,
-				22035EBC2344F3A90093D5AD /* AAYAxis.swift in Sources */,
-				22035EBD2344F3A90093D5AD /* AACrosshair.swift in Sources */,
-				22035EBE2344F3A90093D5AD /* AAPlotBandsElement.swift in Sources */,
-				22035EBF2344F3A90093D5AD /* AAPlotLinesElement.swift in Sources */,
-				22035EC02344F3A90093D5AD /* AAColor.swift in Sources */,
-				22035EC12344F3A90093D5AD /* AAGradientColor.swift in Sources */,
-				22035EC22344F3A90093D5AD /* AAJSStringPurer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,7 +612,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22035E982344E7EC0093D5AD /* AAInfographicsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,8 +619,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				279B5B141FB0577A000B8DBF /* ShowManyChartViewVC.swift in Sources */,
 				278C55151EE948C900770B97 /* MainVC.swift in Sources */,
+				27DB49A42273767000B7926B /* AATooltip.swift in Sources */,
+				27499150210D90B5003D18C2 /* AASeriesElement.swift in Sources */,
 				278C54B21EE9472300770B97 /* AppDelegate.swift in Sources */,
 				4409BED021B8CC4900D79278 /* EvaluateJSStringFunctionVC.swift in Sources */,
 				276A56FF22C77228007F53E7 /* DoubleChartsLinkedWorkVC.swift in Sources */,
@@ -672,11 +629,7 @@
 				4415475B231A18C500382DAD /* AAAnimation.swift in Sources */,
 				4419618C230D8EDC00C12AAF /* CustomStyleChartVC.swift in Sources */,
 				278C55171EE948C900770B97 /* AnimationTypeVC.swift in Sources */,
-				2770FBBF1F93673700091C75 /* OnlyRefreshChartDataVC.swift in Sources */,
-				27766455207C55BE00F0A62C /* MixedChartVC.swift in Sources */,
-				278C55161EE948C900770B97 /* SpecialChartVC.swift in Sources */,
-				27FADB8620D6569000FED960 /* HideOrShowChartSeriesVC.swift in Sources */,
-				2763384524A7070F00143B9B /* DataSortingWithAnimationChartVC.swift in Sources */,
+				448330B824E270FE00368A30 /* AdvancedUpdatingFeatureVC.swift in Sources */,
 				27E475F924B83AE200690657 /* AABaseChartVC.swift in Sources */,
 				440839A1226AD2B600645263 /* AADataLabels.swift in Sources */,
 				277066112452E99C00C4581D /* ScrollableChartVC.swift in Sources */,
@@ -684,7 +637,12 @@
 				44154767231A1D0200382DAD /* AASubtitle.swift in Sources */,
 				FFACB2222424497B00FDAB0B /* AAScrollablePlotArea.swift in Sources */,
 				44154761231A1AE100382DAD /* AAMarker.swift in Sources */,
+				448330B624E23DED00368A30 /* AAExtension.swift in Sources */,
+				27FADB8620D6569000FED960 /* HideOrShowChartSeriesVC.swift in Sources */,
 				44EB70A722BCB606008FECE4 /* JSFormatterFunctionVC.swift in Sources */,
+				22484A6124FE30980066F74C /* ShowManyChartViewVC.swift in Sources */,
+				27065A5A24C198E700D872EB /* AALang.swift in Sources */,
+				27065A5C24C1A7A400D872EB /* AACredits.swift in Sources */,
 				449A0ED62377149D009F8FE1 /* ScrollingUpdateDataVC.swift in Sources */,
 				447B4B3521C9F40900FDA965 /* DrawChartWithAAOptionsVC.swift in Sources */,
 				278C55141EE948C900770B97 /* BasicChartVC.swift in Sources */,
@@ -720,10 +678,15 @@
 			target = 278C54AD1EE9472300770B97 /* AAInfographicsDemo */;
 			targetProxy = 22035E942344E7EC0093D5AD /* PBXContainerItemProxy */;
 		};
-		22035E9C2344E7EC0093D5AD /* PBXTargetDependency */ = {
+		22484A6024FE305C0066F74C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 22035E872344E7EC0093D5AD /* AAInfographics */;
-			targetProxy = 22035E9B2344E7EC0093D5AD /* PBXContainerItemProxy */;
+			targetProxy = 22484A5F24FE305C0066F74C /* PBXContainerItemProxy */;
+		};
+		22484A6524FE30AD0066F74C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22035E872344E7EC0093D5AD /* AAInfographics */;
+			targetProxy = 22484A6424FE30AD0066F74C /* PBXContainerItemProxy */;
 		};
 		278C54C41EE9472300770B97 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -767,6 +730,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = WUVX9AWD5Q;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -781,6 +745,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.andreagiavatto.AAInfographics;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -798,6 +763,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = WUVX9AWD5Q;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -811,6 +777,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.andreagiavatto.AAInfographics;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -977,7 +944,6 @@
 		278C54D71EE9472300770B97 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AAInfographicsDemo/AAInfographicsDemo.entitlements;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
@@ -985,7 +951,7 @@
 				INFOPLIST_FILE = AAInfographicsDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Hobbies.AAInfographi;
+				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -995,7 +961,6 @@
 		278C54D81EE9472300770B97 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AAInfographicsDemo/AAInfographicsDemo.entitlements;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
@@ -1003,7 +968,7 @@
 				INFOPLIST_FILE = AAInfographicsDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Hobbies.AAInfographi;
+				PRODUCT_BUNDLE_IDENTIFIER = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;

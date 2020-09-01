@@ -41,7 +41,7 @@ class JSFormatterFunctionVC: AABaseChartVC {
     
     override func chartConfigurationWithSelectedIndex(_ selectedIndex: Int) -> Any? {
         switch selectedIndex {
-        case 0: return customAreaChartTooltipStyleWithSimpleFormatString()
+        case 0: return customAreasplineChartTooltipStyleByDivWithCSS()
         case 1: return customAreaChartTooltipStyleWithDifferentUnitSuffix()
         case 2: return customAreaChartTooltipStyleWithColorfulHtmlLabels()
         case 3: return customLineChartTooltipStyleWhenValueBeZeroDoNotShow()
@@ -57,6 +57,11 @@ class JSFormatterFunctionVC: AABaseChartVC {
         case 13: return customizeEveryDataLabelSinglelyByDataLabelsFormatter()
         case 14: return customXAxisLabelsBeImages()
         case 15: return customLegendItemClickEvent()
+        case 16: return customTooltipPostionerFunction()
+        case 17: return fixedTooltipPositionByCustomPositionerFunction()
+        case 18: return disableColumnChartUnselectEventEffectBySeriesPointEventClickFunction()
+        case 19: return customAreasplineChartTooltipStyleByDivWithCSS()
+            
         default:
             return AAOptions()
         }
@@ -114,10 +119,7 @@ function () {
             .valueDecimals(2)//设置取值精确到小数点后几位//设置取值精确到小数点后几位
             .backgroundColor("#000000")
             .borderColor("#000000")
-            .style(AAStyle()
-                .color("#FFD700")
-                .fontSize(12)
-        )
+            .style(AAStyle(color: "#FFD700", fontSize: 12))
         
         return aaOptions
     }
@@ -314,10 +316,7 @@ function () {
             .valueDecimals(2)//设置取值精确到小数点后几位//设置取值精确到小数点后几位
             .backgroundColor("#000000")
             .borderColor("#000000")
-            .style(AAStyle()
-                .color("#1e90ff")
-                .fontSize(12)
-        )
+            .style(AAStyle(color: "#1e90ff", fontSize: 12))
         
         return aaOptions
     }
@@ -332,7 +331,7 @@ function () {
             .markerRadius(8)
             .series([
                 AASeriesElement()
-                    .name("Tokyo Hot")
+                    .name("Scores")
                     .lineWidth(5.0)
                     .fillOpacity(0.4)
                     .data([29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4])
@@ -344,15 +343,15 @@ function () {
 function () {
         let yValue = this.value;
         if (yValue >= 200) {
-            return "极佳";
+            return "Excellent";
         } else if (yValue >= 150 && yValue < 200) {
-            return "非常棒";
+            return "Very Good";
         } else if (yValue >= 100 && yValue < 150) {
-            return "相当棒";
+            return "Good";
         } else if (yValue >= 50 && yValue < 100) {
-            return "还不错";
+            return "Not Bad";
         } else {
-            return "一般";
+            return "Just So So";
         }
     }
 """#)
@@ -381,11 +380,7 @@ function () {
                 ])
         
         let aaYAxisLabels = AALabels()
-            .style(AAStyle()
-                .fontSize(10)
-                .fontWeight(.bold)
-                .color(AAColor.gray)//Y轴文字颜色
-            )
+            .style(AAStyle(color: AAColor.gray, fontSize: 10, weight: .bold))
             .formatter(#"""
 function () {
         let yValue = this.value;
@@ -493,16 +488,15 @@ function () {
                 .fontSize(12.0))
         
         let aaCategories = ["0-4", "5-9", "10-14", "15-19",
-        "20-24", "25-29", "30-34", "35-39", "40-44",
-        "45-49", "50-54", "55-59", "60-64", "65-69",
-        "70-74", "75-79", "80-84", "85-89", "90-94",
-        "95-99", "100 + "]
-
+                            "20-24", "25-29", "30-34", "35-39", "40-44",
+                            "45-49", "50-54", "55-59", "60-64", "65-69",
+                            "70-74", "75-79", "80-84", "85-89", "90-94",
+                            "95-99", "100 + "]
+        
         let aaXAxis1 = AAXAxis()
             .reversed(true)
             .categories(aaCategories)
-            .labels(
-                AALabels()
+            .labels(AALabels()
                 .step(1))
         
         let aaXAxis2 = AAXAxis()
@@ -510,17 +504,14 @@ function () {
             .opposite(true)
             .categories(aaCategories)
             .linkedTo(0)
-            .labels(
-                AALabels()
-                  .step(1))
+            .labels(AALabels()
+                .step(1))
         
         let aaYAxis = AAYAxis()
             .gridLineWidth(0)// Y 轴网格线宽度
-            .title(
-                AATitle()
+            .title(AATitle()
                 .text(""))//Y 轴标题
-            .labels(
-                AALabels()
+            .labels(AALabels()
                 .formatter("""
 function () {
     return (Math.abs(this.value) / 1000000) + 'M';
@@ -530,13 +521,10 @@ function () {
             .max( 4000000)
         
         let aaPlotOptions = AAPlotOptions()
-            .series(
-                AASeries()
-                .animation(
-                   AAAnimation()
+            .series(AASeries()
+                .animation(AAAnimation()
                     .duration(800)
-                    .easing(.bounce)
-                )
+                    .easing(.bounce))
                 .stacking(.normal))
         
         let aaTooltip = AATooltip()
@@ -552,17 +540,21 @@ function () {
         let aaSeriesElement1 = AASeriesElement()
             .name("Men")
             .color(gradientColorDic1)
-            .data([-1746181, -1884428, -2089758, -2222362, -2537431, -2507081, -2443179,
-            -2664537, -3556505, -3680231, -3143062, -2721122, -2229181, -2227768,
-            -2176300, -1329968, -836804, -354784, -90569, -28367, -3878])
+            .data([
+                -1746181, -1884428, -2089758, -2222362, -2537431, -2507081, -2443179,
+                -2664537, -3556505, -3680231, -3143062, -2721122, -2229181, -2227768,
+                -2176300, -1329968, -836804, -354784, -90569, -28367, -3878
+            ])
         
         let aaSeriesElement2 = AASeriesElement()
             .name("Women")
             .color(gradientColorDic2)
-            .data([1656154, 1787564, 1981671, 2108575, 2403438, 2366003, 2301402, 2519874,
-            3360596, 3493473, 3050775, 2759560, 2304444, 2426504, 2568938, 1785638,
-            1447162, 1005011, 330870, 130632, 21208])
-                
+            .data([
+                1656154, 1787564, 1981671, 2108575, 2403438, 2366003, 2301402, 2519874,
+                3360596, 3493473, 3050775, 2759560, 2304444, 2426504, 2568938, 1785638,
+                1447162, 1005011, 330870, 130632, 21208
+            ])
+        
         let aaOptions = AAOptions()
             .chart(aaChart)
             .title(aaTitle)
@@ -655,7 +647,7 @@ function () {
     private func customLineChartOriginalPointPositionByConfiguringXAxisFormatterAndTooltipFormatter() -> AAOptions {
         let categories = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         
-        let categoryJSArrStr = javaScriptArrayStringWithSwiftArray(categories)
+        let categoryJSArrStr = categories.aa_toJSArray()
         
         let tooltipFormatter = """
         function () {
@@ -716,7 +708,6 @@ function () {
             .yAxisTitle("")//设置 Y 轴标题
             .yAxisLineWidth(1)//Y轴轴线线宽为0即是隐藏Y轴轴线
             .yAxisGridLineWidth(1)//y轴横向分割线宽度为1(为0即是隐藏分割线)
-            .xAxisGridLineWidth(1)//x轴横向分割线宽度为1(为0即是隐藏分割线)
             .colorsTheme(["#FFD700"/*纯金色*/])
             .categories(["一月", "二月", "三月", "四月", "五月", "六月",
                          "七月", "八月", "九月", "十月", "十一月", "十二月"])
@@ -761,14 +752,14 @@ function () {
             arc4random() % 10, arc4random() % 10, arc4random() % 10,
         ]
         
-        let 总时长JS数组 = javaScriptArrayStringWithSwiftArray(总时长数组)
-        let 有效时长JS数组 = javaScriptArrayStringWithSwiftArray(有效时长数组)
-        let 看近时长JS数组 = javaScriptArrayStringWithSwiftArray(看近时长数组)
-        let 看中时长JS数组 = javaScriptArrayStringWithSwiftArray(看中时长数组)
-        let 看远时长JS数组 = javaScriptArrayStringWithSwiftArray(看远时长数组)
-        let 切换次数JS数组 = javaScriptArrayStringWithSwiftArray(切换次数数组)
-        let 停止次数JS数组 = javaScriptArrayStringWithSwiftArray(停止次数数组)
-        let 干预次数JS数组 = javaScriptArrayStringWithSwiftArray(干预次数数组)
+        let 总时长JS数组 = 总时长数组.aa_toJSArray()
+        let 有效时长JS数组 = 有效时长数组.aa_toJSArray()
+        let 看近时长JS数组 = 看近时长数组.aa_toJSArray()
+        let 看中时长JS数组 = 看中时长数组.aa_toJSArray()
+        let 看远时长JS数组 = 看远时长数组.aa_toJSArray()
+        let 切换次数JS数组 = 切换次数数组.aa_toJSArray()
+        let 停止次数JS数组 = 停止次数数组.aa_toJSArray()
+        let 干预次数JS数组 = 干预次数数组.aa_toJSArray()
         
         let jsFormatterStr = """
         function () {
@@ -810,25 +801,10 @@ function () {
             .formatter(jsFormatterStr)
             .backgroundColor("#000000")//黑色背景色
             .borderColor("#FFD700")//边缘颜色纯金色
-            .style(AAStyle()
-                    .color("#FFD700")//文字颜色纯金色
-                    .fontSize(12)
-        )
+            .style(AAStyle(color: "#FFD700", fontSize: 12))
         
         return aaOptions
     }
-    
-    //Convert Swift array to be JavaScript array
-    private func javaScriptArrayStringWithSwiftArray(_ swiftArray: [Any]) -> String {
-        var originalJsArrStr = ""
-        for element in swiftArray {
-            originalJsArrStr = originalJsArrStr + "'\(element)',"
-        }
-        
-        let finalJSArrStr = "[\(originalJsArrStr)]"
-        return finalJSArrStr
-    }
-    
 
     //https://github.com/AAChartModel/AAChartKit/issues/852 自定义蜘蛛🕷图样式
     private func customSpiderChartStyle() -> AAOptions {
@@ -842,7 +818,7 @@ function () {
             "不动销金额占比",
             "停采金额占比",
         ]
-        let categoryJSArrStr = javaScriptArrayStringWithSwiftArray(categoryArr)
+        let categoryJSArrStr = categoryArr.aa_toJSArray()
         
         let xAxisLabelsFormatter = """
         function () {
@@ -936,7 +912,7 @@ function () {
         
         
         let unitArr = ["美元", "欧元", "人民币", "日元", "韩元", "越南盾", "港币", ]
-        let unitJSArrStr = javaScriptArrayStringWithSwiftArray(unitArr)
+        let unitJSArrStr = unitArr.aa_toJSArray()
         //单组 serie 图表, 获取选中的点的索引是 this.point.index ,多组并且共享提示框,则是this.points[0].index
         let dataLabelsFormatter = """
         function () {
@@ -945,26 +921,23 @@ function () {
         """
         
         let aaDatalabels = AADataLabels()
-            .style(AAStyle()
-                .fontSize(10)
-                .fontWeight(.bold)
-                .color(AAColor.red)
-                .textOutline("1px 1px contrast"))
+            .style(AAStyle(color: AAColor.red, fontSize: 10, weight: .bold))
             .formatter(dataLabelsFormatter)
             .backgroundColor(AAColor.white)// white color
             .borderColor(AAColor.red)// red color
             .borderRadius(1.5)
             .borderWidth(1.3)
             .x(3)
-            .verticalAlign(.middle)
             .y(-20)
+            .verticalAlign(.middle)
         
         aaOptions.plotOptions?.series?.dataLabels = aaDatalabels
         
         return aaOptions
     }
 
-//
+    // Refer to GitHub issue: https://github.com/AAChartModel/AAChartKit/issues/938
+    // Refer to online chart sample: https://www.highcharts.com/demo/column-comparison
     private func customXAxisLabelsBeImages() -> AAOptions {
          let nameArr = [
             "South Korea",
@@ -1014,7 +987,7 @@ function () {
                     .colorByPoint(true)
             ])
 
-         let imageLinkFlagJSArrStr = javaScriptArrayStringWithSwiftArray(imageLinkFlagArr)
+        let imageLinkFlagJSArrStr = imageLinkFlagArr.aa_toJSArray()
          let xLabelsFormatter = """
 function () {
     let imageFlag = \(imageLinkFlagJSArrStr)[this.pos];
@@ -1146,6 +1119,195 @@ function(event) {
     return enableDefault;
 }
 """#)
+        
+        return aaOptions
+    }
+    
+    // https://github.com/AAChartModel/AAChartKit-Swift/issues/233
+    private func customTooltipPostionerFunction() -> AAOptions {
+        let categories = [
+            "孤岛危机",
+            "使命召唤",
+            "荣誉勋章",
+            "狙击精英",
+            "神秘海域",
+            "最后生还者",
+            "巫师3狂猎",
+            "对马之魂",
+            "死亡搁浅",
+            "地狱边境",
+            "闪客",
+            "忍者之印"
+        ]
+        
+        let aaChartModel = AAChartModel()
+            .chartType(.column)
+            .yAxisTitle("")
+            .yAxisGridLineWidth(0)
+            .categories(categories)
+            .series([
+                AASeriesElement()
+                    .name("单机大作")
+                    .color(AAColor.red)
+                    .data([0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5])])
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        aaOptions.tooltip?
+            .shadow(false)
+            .positioner("""
+            function (labelWidth, labelHeight, point) {
+                return {
+                 x : point.plotX,
+                 y : 20
+                };
+            }
+            """)
+        
+        return aaOptions
+    }
+    
+        
+    private func fixedTooltipPositionByCustomPositionerFunction() -> AAOptions {
+        let aaOptions = customTooltipPostionerFunction()
+        
+        aaOptions.tooltip?
+            .positioner("""
+            function (labelWidth, labelHeight, point) {
+                return {
+                 x : 50,
+                 y : 50
+                };
+            }
+            """)
+        
+        return aaOptions
+    }
+    
+    //https://github.com/AAChartModel/AAChartKit/issues/967
+    private func disableColumnChartUnselectEventEffectBySeriesPointEventClickFunction() -> AAOptions  {
+        let aaChartModel = AAChartModel()
+            .chartType(.bar)
+            .title("Custom Bar Chart select color")
+            .yAxisTitle("")
+            .yAxisReversed(true)
+            .xAxisReversed(true)
+            .series([
+                AASeriesElement()
+                    .name("ElementOne")
+                    .data([211,183,157,133,111,91,73,57,43,31,21,13,7,3])
+                    .allowPointSelect(true)
+                    .states(AAStates()
+                        .hover(AAHover()
+                            .color(AAColor.yellow))
+                        .select(AASelect()
+                            .color(AAColor.red)))
+            ])
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        aaOptions.plotOptions?.series?
+            .point(AAPoint()
+                .events(AAPointEvents()
+                    .click("""
+                    function () {
+                        if (this.selected == true) {
+                            this.selected = false;
+                        }
+                        return;
+                    }
+                    """))
+        )
+
+        return aaOptions
+    }
+    
+    //https://github.com/AAChartModel/AAChartKit/issues/970
+    //https://github.com/AAChartModel/AAChartKit-Swift/issues/239
+    //通过自定义 div 的 css 样式来自定义复杂效果的 tooltip 浮动提示框
+    private func customAreasplineChartTooltipStyleByDivWithCSS() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .chartType(.areaspline)//图形类型
+            .stacking(.normal)
+            .categories([
+                "10-01","10-02","10-03","10-04","10-05","10-06","10-07","10-08","10-09","10-10","10-11",
+                "10-12","10-13","10-14","10-15","10-16","10-17","10-18","10-19","10-20","10-21","10-22",
+                "10-23","10-024","10-25","10-26","10-27","10-28","10-29","10-30","10-31","11-01","11-02",
+                "11-03","11-04","11-05","11-06","11-07","11-08","11-09","11-10","11-11","11-12","11-13",
+                "11-14","11-15","11-16","11-17","11-18","11-19","11-20","11-21","11-22","11-23","11-024",
+                "11-25","11-26","11-27","11-28","11-29","11-30","12-01","12-02","12-03","12-04","12-05",
+                "12-06","12-07","12-08","12-09","12-10","12-11","12-12","12-13","12-14","12-15","12-16",
+                "12-17","12-18","12-19","12-20","12-21","12-22","12-23","12-024","12-25","12-26","12-27",
+                "12-28","12-29","12-30"])
+            .series([
+                AASeriesElement()
+                    .name("黄金上涨")
+                    .lineWidth(3)
+                    .color("#FFD700"/*纯金色*/)
+                    .fillOpacity(0.5)
+                    .data([
+                        1.51, 6.7, 0.94, 1.44, 1.6, 1.63, 1.56, 1.91, 2.45, 3.87, 3.24, 4.90, 4.61, 4.10,
+                        4.17, 3.85, 4.17, 3.46, 3.46, 3.55, 3.50, 4.13, 2.58, 2.28,1.51, 12.7, 0.94, 1.44,
+                        18.6, 1.63, 1.56, 1.91, 2.45, 3.87, 3.24, 4.90, 4.61, 4.10, 4.17, 3.85, 4.17, 3.46,
+                        3.46, 3.55, 3.50, 4.13, 2.58, 2.28,1.33, 4.68, 1.31, 1.10, 13.9, 1.10, 1.16, 1.67,
+                        2.64, 2.86, 3.00, 3.21, 4.14, 4.07, 3.68, 3.11, 3.41, 3.25, 3.32, 3.07, 3.92, 3.05,
+                        2.18, 3.24,3.23, 3.15, 2.90, 1.81, 2.11, 2.43, 5.59, 3.09, 4.09, 6.14, 5.33, 6.05,
+                        5.71, 6.22, 6.56, 4.75, 5.27, 6.02, 5.48
+                    ])
+                ,
+                AASeriesElement()
+                    .name("房价下跌")
+                    .lineWidth(3)
+                    .color("#ffc069")
+                    .fillOpacity(0.5)
+                    .data([
+                        1.51, 6.7, 0.94, 1.44, 1.6, 1.63, 1.56, 1.91, 2.45, 3.87, 3.24, 4.90, 4.61, 4.10,
+                        4.17, 3.85, 4.17, 3.46, 3.46, 3.55, 3.50, 4.13, 2.58, 2.28,1.51, 12.7, 0.94, 1.44,
+                        18.6, 1.63, 1.56, 1.91, 2.45, 3.87, 3.24, 4.90, 4.61, 4.10, 4.17, 3.85, 4.17, 3.46,
+                        3.46, 3.55, 3.50, 4.13, 2.58, 2.28,1.33, 4.68, 1.31, 1.10, 13.9, 1.10, 1.16, 1.67,
+                        2.64, 2.86, 3.00, 3.21, 4.14, 4.07, 3.68, 3.11, 3.41, 3.25, 3.32, 3.07, 3.92, 3.05,
+                        2.18, 3.24,3.23, 3.15, 2.90, 1.81, 2.11, 2.43, 5.59, 3.09, 4.09, 6.14, 5.33, 6.05,
+                        5.71, 6.22, 6.56, 4.75, 5.27, 6.02, 5.48
+                    ])
+                ,
+            ])
+        
+        //https://zhidao.baidu.com/question/301691908.html
+        //https://jshare.com.cn/highcharts/hhhhGc
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        aaOptions.tooltip?
+            .useHTML(true)
+            .padding(0)
+            .borderWidth(0)
+            .formatter(#"""
+            function () {
+                var box1Text = "&nbsp 2021-" + this.x + this.points[0].series.name + this.y;
+                var box2Text = "&nbsp 2021-" + this.x + this.points[1].series.name + this.y;
+                
+                return '<style>\
+                div{margin:0;padding:0}\
+                #container{width:300px;height:40px;border:80px;}\
+                #container .box1{width:150px;height:40px;float:left;background:red;line-height:40px;color:#fff}\
+                #container .box2{width:150px;height:40px;float:right;background:green;line-height:40px;color:#fff}\
+                </style>\
+                <div id=\"container\">'
+                +
+                '<div class=\"box1\">' + box1Text + '</div>'
+                +
+                '<div class=\"box2\">' + box2Text + '</div>'
+                +
+                '</div>';
+            }
+            """#)
+        
+        //禁用图例点击事件
+        aaOptions.plotOptions?.series?.events = AAEvents()
+            .legendItemClick(#"""
+                        function() {
+                          return false;
+                        }
+            """#)
         
         return aaOptions
     }

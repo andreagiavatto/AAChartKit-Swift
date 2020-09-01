@@ -1,8 +1,8 @@
 //
-//  AALang.swift
+//  AdvancedUpdatingFeatureVC.swift
 //  AAInfographicsDemo
 //
-//  Created by AnAn on 2020/7/17.
+//  Created by AnAn on 2020/8/11.
 //  Copyright © 2020 An An. All rights reserved.
 //*************** ...... SOURCE CODE ...... ***************
 //***...................................................***
@@ -15,10 +15,10 @@
  
  * -------------------------------------------------------------------------------
  *
- *  🌕 🌖 🌗 🌘  ❀❀❀   WARM TIPS!!!   ❀❀❀ 🌑 🌒 🌓 🌔
+ * 🌕 🌖 🌗 🌘  ❀❀❀   WARM TIPS!!!   ❀❀❀ 🌑 🌒 🌓 🌔
  *
  * Please contact me on GitHub,if there are any problems encountered in use.
- * GitHub Issues : https://github.com/AAChartModel/AAChartKit-Swift/issues
+ * GitHub Issues : https://github.com/AAChartModel/AAChartKit/issues
  * -------------------------------------------------------------------------------
  * And if you want to contribute for this project, please contact me as well
  * GitHub        : https://github.com/AAChartModel
@@ -32,23 +32,22 @@
 
 import UIKit
 
-public class AALang: AAObject {
-    public var resetZoom: String?
-    public var thousandsSep: String?
-    
-    @discardableResult
-    public func resetZoom(_ prop: String?) -> AALang {
-        resetZoom = prop
-        return self
+class AdvancedUpdatingFeatureVC: BasicChartVC {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
     }
+
     
-    @discardableResult
-    public func thousandsSep(_ prop: String?) -> AALang {
-        thousandsSep = prop
-        return self
-    }
-    
-    public override init() {
+    override func segmentDidSelected(segmentedControl: UISegmentedControl) {
         
     }
+    
+    
+    override func switchDidChange(switchView: UISwitch) {
+        
+    }
+
 }

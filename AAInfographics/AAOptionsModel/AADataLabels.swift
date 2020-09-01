@@ -82,7 +82,7 @@ public class AADataLabels: AAObject {
     @discardableResult
     public func formatter(_ prop: String?) -> AADataLabels {
         if prop != nil {
-            formatter = AAJSStringPurer.pureJavaScriptFunctionString(prop!)
+            formatter = prop!.aa_toPureJSString()
         }
         return self
     }
@@ -222,5 +222,27 @@ public class AAStyle: AAObject {
     
     public override init() {
         
+    }
+}
+
+public extension AAStyle {
+    convenience init(color : String?) {
+        self.init(color: color, fontSize: nil)
+    }
+    
+    convenience init(color : String?, fontSize: Float?) {
+        self.init(color: color, fontSize: fontSize,weight: nil)
+    }
+    
+    convenience init(color : String?, fontSize: Float?, weight: AAChartFontWeightType?) {
+      self.init(color: color, fontSize: fontSize,weight: weight, outline: nil)
+    }
+    
+    convenience init(color : String?, fontSize: Float?, weight: AAChartFontWeightType?, outline: String?) {
+        self.init()
+        self.color(color)
+        .fontSize(fontSize)
+        .fontWeight(weight)
+        .textOutline(outline)
     }
 }

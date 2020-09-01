@@ -46,6 +46,7 @@ public class AAOptions: AAObject {
     public var legend: AALegend?
     public var pane: AAPane?
     public var colors: [Any]?
+    public var credits: AACredits?
     public var defaultOptions: AALang?
     public var touchEventEnabled: Bool?
     
@@ -128,6 +129,12 @@ public class AAOptions: AAObject {
     }
     
     @discardableResult
+    public func credits(_ prop: AACredits?) -> AAOptions {
+        credits = prop
+        return self
+    }
+    
+    @discardableResult
     public func defaultOptions(_ prop: AALang?) -> AAOptions {
         defaultOptions = prop
         return self
@@ -140,7 +147,9 @@ public class AAOptions: AAObject {
     }
     
     public override init() {
-        
+        let aaCredits = AACredits()
+        aaCredits.enabled = false
+        credits = aaCredits
     }
 }
 
@@ -157,9 +166,8 @@ public class AAOptionsConstructor {
             .pinchType(aaChartModel.zoomType) //Set gesture zoom direction
             .panning(true) //Set whether gestures can be panned after zooming
             .polar(aaChartModel.polar) //Whether to polarize the chart (turn on polar mode)
-            .marginLeft(aaChartModel.marginLeft)
-            .marginRight(aaChartModel.marginRight)
             .scrollablePlotArea(aaChartModel.scrollablePlotArea)
+        aaChart.margin = aaChartModel.margin
         
         let aaTitle = AATitle()
             .text(aaChartModel.title) //Title text content

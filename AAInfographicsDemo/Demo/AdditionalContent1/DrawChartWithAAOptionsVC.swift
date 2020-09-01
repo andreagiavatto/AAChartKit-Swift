@@ -33,10 +33,10 @@ import UIKit
 import AAInfographics
 
 class DrawChartWithAAOptionsVC: AABaseChartVC {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
     
     override func chartConfigurationWithSelectedIndex(_ selectedIndex: Int) -> Any? {
@@ -72,12 +72,14 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
         case 28: return configurePentagonRadarChart()//带有颜色标志带の五角形雷达图
         case 29: return configureHexagonRadarChart()//带有颜色标志带の六角形雷达图
         case 30: return configureSpiderWebRadarChart()//带有颜色标志带の🕸蜘蛛网状雷达图
+        case 31: return disableMixedChartInactiveAnimationEffect()//禁用混合图表的 inactive 动画效果
+        case 32: return adjustBubbleChartMinAndMax()//调整气泡图的 min 和 max 相关属性
+        case 33: return doubleLayerHalfPieChart()//双层嵌套的玉阕图
             
         default:
             return AAOptions()
         }
     }
-
     
     private func configureLegendStyle() -> AAOptions {
         let aaChartModel = AAChartModel()
@@ -85,6 +87,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
             .animationType(.easeFrom)//设置图表渲染动画类型为 EaseFrom
             .dataLabelsEnabled(false)
             .zoomType(.x)
+            .margin(top: 100, right: 100, bottom: 100, left: 100)
             .colorsTheme([
                 AAGradientColor.oceanBlue,
                 AAGradientColor.sanguine,
@@ -113,7 +116,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
             ])
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         aaOptions.yAxis?.labels?.format = "{value} $";//给y轴添加单位
-
+        
         aaOptions.legend!
             .itemMarginTop(20)
             .symbolRadius(10)//图标圆角
@@ -173,7 +176,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
         return aaOptions
     }
     
-    private func yAxisOnTheRightSideChart() -> AAOptions  {
+    private func yAxisOnTheRightSideChart() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.line)//图表类型
             .title("yAxis on the right side 📈")//图表主标题
@@ -195,10 +198,11 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
         //该配置一般是用于多坐标轴区分展示，另外在 Highstock 中，y 轴默认是在对立面显示の。
         //默认是：false.
         aaOptions.yAxis?.opposite(true)
+        
         return aaOptions
     }
     
-    private func adjustYAxisMinValueForChart() -> AAOptions  {
+    private func adjustYAxisMinValueForChart() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.column)//图表类型
             .borderRadius(5)
@@ -211,6 +215,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         aaOptions.yAxis?.min(1000)
+        
         return aaOptions
     }
     
@@ -287,6 +292,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
             .yAxisArray(YAxisArr)
             .plotOptions(aaPlotOptions)
             .series(aaSeriesArr)
+        
         return aaOptions
     }
     
@@ -315,7 +321,6 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                         NSNull(),NSNull(),NSNull(),NSNull(),NSNull(),NSNull(),
                         0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5])
                 ,
-                
             ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
@@ -323,7 +328,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
         aaOptions.xAxis?
             .tickInterval(3)
             .labels(AALabels()
-                .autoRotation([-10, -20, -30, -40, -50, -60, -70, -80, -90] as AnyObject))
+                .autoRotation([-10, -20, -30, -40, -50, -60, -70, -80, -90]))
         
         return aaOptions
     }
@@ -369,11 +374,9 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         
-        aaOptions.pane(
-            AAPane()
-                .startAngle(-150)
-                .endAngle(150)
-        )
+        aaOptions.pane(AAPane()
+            .startAngle(-150)
+            .endAngle(150))
         
         aaOptions.tooltip?.crosshairs(false)
         aaOptions.yAxis?
@@ -385,8 +388,8 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     .color("#FF0000")
                     .outerRadius("105%")
                     .thickness("5%")
-                
             ])
+        
         return aaOptions
     }
     
@@ -405,11 +408,9 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         
-        aaOptions.pane(
-            AAPane()
-                .startAngle(-150)
-                .endAngle(150)
-        )
+        aaOptions.pane(AAPane()
+            .startAngle(-150)
+            .endAngle(150))
         
         aaOptions.tooltip?.crosshairs(false)
         aaOptions.yAxis?
@@ -566,6 +567,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
             .subtitle("金价(元/克)")//图表副标题
             .markerSymbolStyle(.borderBlank)//折线连接点样式为外边缘空白
             .dataLabelsEnabled(false)
+            .zoomType(.x)
             .categories([
                 "10-01","10-02","10-03","10-04","10-05","10-06","10-07","10-08","10-09","10-10","10-11",
                 "10-12","10-13","10-14","10-15","10-16","10-17","10-18","10-19","10-20","10-21","10-22",
@@ -593,7 +595,13 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                 ,
             ])
         
-        let aaTooltip = AATooltip()
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        aaOptions.chart?
+            .resetZoomButton(AAResetZoomButton()
+                .theme(["display": "none"]))//隐藏图表缩放后的默认显示的缩放按钮
+        
+        aaOptions.tooltip?
             .useHTML(true)
             .formatter("""
 function () {
@@ -609,14 +617,7 @@ function () {
             .valueDecimals(2)//设置取值精确到小数点后几位//设置取值精确到小数点后几位
             .backgroundColor("#000000")
             .borderColor("#000000")
-            .style(AAStyle()
-                .color("#FFD700")
-                .fontSize(12)
-        )
-        
-        
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
-        aaOptions.tooltip(aaTooltip)
+            .style(AAStyle(color: "#FFD700", fontSize: 12))
         
         return aaOptions
     }
@@ -707,6 +708,7 @@ function () {
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         aaOptions.xAxis?.labels?.useHTML(true)
+        
         return aaOptions
     }
     
@@ -1366,6 +1368,7 @@ function () {
             .tooltip(aaTooltip)
             .legend(aaLegend)
             .series([element1,element2])
+        
         return aaOptions
     }
     
@@ -1418,7 +1421,7 @@ function () {
     }
     
     
-    private func customAxesGridLineStyle() -> AAOptions  {
+    private func customAxesGridLineStyle() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.line)//图表类型
             .title("custom Axes Grid Line Style")//图表主标题
@@ -1472,7 +1475,7 @@ function () {
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         
         let categories = ["智力感", "距离感", "成熟感"]
-        let categoryJSArrStr = javaScriptArrayStringWithSwiftArray(categories)
+        let categoryJSArrStr = categories.aa_toJSArray()
         
         let xAxisLabelsFormatter = """
         function () {
@@ -1495,7 +1498,6 @@ function () {
             .tickPositions([0,1,2,0])
         
         aaOptions.xAxis?.labels?
-            
             .formatter(xAxisLabelsFormatter)
         
         return aaOptions
@@ -1590,11 +1592,12 @@ function () {
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
         aaOptions.xAxis?.labels?.useHTML = true
+        
         return aaOptions
     }
     
     //三角形雷达图
-    private func configureTriangleRadarChart() -> AAOptions  {
+    private func configureTriangleRadarChart() -> AAOptions {
         let aaChartModel = AAChartModel()
             .chartType(.area)
             .backgroundColor(AAColor.white)
@@ -1662,6 +1665,7 @@ function () {
         
         let aaYAxis = aaOptions.yAxis
         aaYAxis?.plotBands = aaPlotBandsArr
+        
         return aaOptions
     }
     
@@ -1699,7 +1703,6 @@ function () {
             .data([17.0, 16.9, 12.5, 14.5,])
             .dataLabels(AADataLabels()
                 .color(AAColor.rgbaColor(255, 0, 0, 1.0)))
-        
         
         return aaOptions
     }
@@ -1739,7 +1742,6 @@ function () {
             .dataLabels(AADataLabels()
                 .color(AAColor.rgbaColor(255, 215, 0, 1.0)))
         
-        
         return aaOptions
     }
     
@@ -1777,7 +1779,6 @@ function () {
             .data([17.0, 16.9, 12.5, 14.5, 18.2, 21.5,])
             .dataLabels(AADataLabels()
                 .color(AAColor.rgbaColor(50, 205, 50, 1.0)))
-        
         
         return aaOptions
     }
@@ -1817,21 +1818,130 @@ function () {
             .dataLabels(AADataLabels()
                 .color(AAColor.rgbaColor(138, 43, 226, 1.0)))
         
+        return aaOptions
+    }
+    
+    //https://github.com/AAChartModel/AAChartKit-Swift/issues/230
+    private func disableMixedChartInactiveAnimationEffect() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .chartType(.line)
+            .colorsTheme(["#1e90ff","#ef476f","#ffd066","#04d69f","#25547c",])//Colors theme
+            .series([
+                AASeriesElement()
+                    .name("New York")
+                    .type(.line)
+                    .data([0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5])
+                ,
+                AASeriesElement()
+                    .name("Berlin")
+                    .type(.line)
+                    .data([0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0])
+                ,
+                AASeriesElement()
+                    .name("London")
+                    .type(.area)
+                    .data([3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8])
+                ,
+            ])
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        aaOptions.tooltip?.shared(false)
+        
+        aaOptions.plotOptions?.series?
+            .states(AAStates()
+                .inactive(AAInactive()
+                    .enabled(false)))
         
         return aaOptions
     }
     
-    
-    //Convert Swift array to be JavaScript array
-    private func javaScriptArrayStringWithSwiftArray(_ swiftArray: [Any]) -> String {
-        var originalJsArrStr = ""
-        for element in swiftArray {
-            originalJsArrStr = originalJsArrStr + "'\(element)',"
-        }
+    //https://github.com/AAChartModel/AAChartKit-Swift/issues/242
+    private func adjustBubbleChartMinAndMax() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .chartType(.bubble)
+            .title("AACHARTKIT BUBBLES")
+            .subtitle("JUST FOR FUN")
+            .yAxisTitle("℃")
+            .yAxisGridLineWidth(0)
+            .colorsTheme(["#0c9674","#7dffc0","#d11b5f","#facd32","#ffffa0","#EA007B"])
+            .series([
+                AASeriesElement()
+                    .name("BubbleOne")
+                    .data([
+                        [97, 36, 50],
+                        [94, 74, 50],
+                        [68, 76, 50],
+                        [64, 87, 50],
+                        [68, 27, 49],
+                        [74, 99, 51],
+                        [71, 93, 55],
+                        [51, 69, 60],
+                        [38, 23, 50],
+                        [57, 86, 50],
+                        [33, 24, 51]
+                    ])
+                ]
+        )
         
-        let finalJSArrStr = "[\(originalJsArrStr)]"
-        return finalJSArrStr
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        aaOptions.plotOptions?
+            .bubble(AABubble()
+                .minSize(0)
+                .maxSize(100)
+                .zMin(0)
+                .zMax(100))
+        
+        return aaOptions
     }
+    
+//    https://github.com/AAChartModel/AAChartKit-Swift/issues/244
+    private func doubleLayerHalfPieChart() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .chartType(.pie)
+            .title("浏览器市场占比历史对比")
+            .subtitle("无任何可靠依据的虚拟数据")
+            .dataLabelsEnabled(false)//是否直接显示扇形图数据
+            .yAxisTitle("摄氏度")
+            .series([
+                AASeriesElement()
+                    .name("Past")
+                    .size("40%")//尺寸大小
+                    .innerSize("30%")//内部圆环半径大小占比
+                    .borderWidth(0)//描边的宽度
+                    .allowPointSelect(false)//是否允许在点击数据点标记(扇形图点击选中的块发生位移)
+                    .data([
+                        ["Firefox Past",   3336.2],
+                        ["Chrome Past",      26.8],
+                        ["Safari Past",      88.5],
+                        ["Opera Past",       46.0],
+                        ["Others Past",     223.0],
+                    ]),
+                AASeriesElement()
+                    .name("Now")
+                    .size("80%")//尺寸大小
+                    .innerSize("70%")//内部圆环半径大小占比
+                    .borderWidth(0)//描边的宽度
+                    .allowPointSelect(false)//是否允许在点击数据点标记(扇形图点击选中的块发生位移)
+                    .data([
+                        ["Firefox Now",    336.2],
+                        ["Chrome Now",    6926.8],
+                        ["Safari Now",     388.5],
+                        ["Opera Now",      446.0],
+                        ["Others Now",     223.0],
+                    ])
+            ])
+        
+        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        
+        aaOptions.plotOptions?.pie?
+                .startAngle(-90)
+                .endAngle(90)
+        
+        return aaOptions
+    }
+    
 }
 
 

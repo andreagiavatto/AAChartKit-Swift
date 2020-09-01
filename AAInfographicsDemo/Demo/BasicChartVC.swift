@@ -154,11 +154,12 @@ class BasicChartVC: UIViewController {
     
     private func configureAreaChartAndAreasplineChartStyle() {
         aaChartModel!
-            .markerSymbolStyle(.innerBlank)//Set the polyline connection point style to: white inside
             .animationType(.easeOutQuart)
-            .legendEnabled(true)
+            .markerSymbolStyle(.innerBlank)//Set the polyline connection point style to: white inside
             .markerRadius(5)
             .markerSymbol(.circle)
+            .categories(["Java", "Swift", "Python", "Ruby", "PHP", "Go","C", "C#", "C++", "Perl", "R", "MATLAB", "SQL"])
+            .legendEnabled(true)
         
         if chartType == .areaspline {
             let gradientColorDic = AAGradientColor.linearGradient(
@@ -195,6 +196,8 @@ class BasicChartVC: UIViewController {
         aaChartModel!
             .markerSymbolStyle(.borderBlank)//Set the polyline connection point style to: white edge
             .markerRadius(6)
+            .categories(["Java", "Swift", "Python", "Ruby", "PHP", "Go","C", "C#", "C++", "Perl", "R", "MATLAB", "SQL"])
+
         if chartType == .spline {
             aaChartModel!
                 .animationType(.swingFromTo)
@@ -282,6 +285,8 @@ class BasicChartVC: UIViewController {
     }
     
     @objc func segmentDidSelected(segmentedControl:UISegmentedControl) {
+        let selectedSegmentIndex = segmentedControl.selectedSegmentIndex
+        
         switch segmentedControl.tag {
         case 0:
             let stackingArr = [
@@ -289,12 +294,12 @@ class BasicChartVC: UIViewController {
                 .normal,
                 .percent
             ]
-            aaChartModel!.stacking(stackingArr[segmentedControl.selectedSegmentIndex])
+            aaChartModel!.stacking(stackingArr[selectedSegmentIndex])
             
         case 1:
             if chartType == .column || chartType == .bar {
                 let borderRadiusArr: [Float] = [0,10,100]
-                aaChartModel!.borderRadius(borderRadiusArr[segmentedControl.selectedSegmentIndex])
+                aaChartModel!.borderRadius(borderRadiusArr[selectedSegmentIndex])
             } else {
                 let symbolArr = [
                     AAChartSymbolType.circle,
@@ -303,7 +308,7 @@ class BasicChartVC: UIViewController {
                     .triangle,
                     .triangleDown
                 ]
-                aaChartModel!.markerSymbol(symbolArr[segmentedControl.selectedSegmentIndex])
+                aaChartModel!.markerSymbol(symbolArr[selectedSegmentIndex])
             }
             
         default: break
@@ -364,13 +369,15 @@ class BasicChartVC: UIViewController {
     }
     
     @objc func switchDidChange(switchView:UISwitch) {
+        let isOn = switchView.isOn
+        
         switch switchView.tag {
-        case 0: aaChartModel!.xAxisReversed(switchView.isOn)
-        case 1: aaChartModel!.yAxisReversed(switchView.isOn)
-        case 2: aaChartModel!.inverted(switchView.isOn)
-        case 3: aaChartModel!.polar(switchView.isOn)
-        case 4: aaChartModel!.dataLabelsEnabled(switchView.isOn)
-        case 5: aaChartModel!.markerRadius(switchView.isOn ? 0 : 5)//Polyline connection point radius length.A value of 0 is equivalent to no polyline connection point.
+        case 0: aaChartModel!.xAxisReversed(isOn)
+        case 1: aaChartModel!.yAxisReversed(isOn)
+        case 2: aaChartModel!.inverted(isOn)
+        case 3: aaChartModel!.polar(isOn)
+        case 4: aaChartModel!.dataLabelsEnabled(isOn)
+        case 5: aaChartModel!.markerRadius(isOn ? 0 : 5)//Polyline connection point radius length.A value of 0 is equivalent to no polyline connection point.
         default:
             break
         }

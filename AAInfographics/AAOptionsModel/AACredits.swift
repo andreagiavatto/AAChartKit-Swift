@@ -1,9 +1,9 @@
 //
-//  AAPlotBandsElement.swift
+//  AACredits.swift
 //  AAInfographicsDemo
 //
-//  Created by AnAn on 2019/4/14.
-//  Copyright © 2019 An An. All rights reserved.
+//  Created by AnAn on 2020/7/17.
+//  Copyright © 2020 An An. All rights reserved.
 //*************** ...... SOURCE CODE ...... ***************
 //***...................................................***
 //*** https://github.com/AAChartModel/AAChartKit        ***
@@ -30,83 +30,82 @@
  
  */
 
-import Foundation
+import UIKit
 
-public class AAPlotBandsElement: AAObject {
-    public var from: Double?
-    public var to: Double?
-    public var color: Any?
-    public var borderColor: String?
-    public var borderWidth: Float?
-    public var className: String?
-    public var label: AALabel?
-    public var zIndex: Int?
-    public var outerRadius: String?
-    public var thickness: String?
-    
+public class AACredits: AAObject {
+    public var enabled: Bool?
+    public var href: String?
+    public var position: AAPosition?
+    public var style: AAStyle?
+    public var text: String?
     
     @discardableResult
-    public func from(_ prop: Double) -> AAPlotBandsElement {
-        from = prop
+    public func enabled(_ prop: Bool?) -> AACredits {
+        enabled = prop
         return self
     }
     
     @discardableResult
-    public func to(_ prop: Double) -> AAPlotBandsElement {
-        to = prop
+    public func href(_ prop: String?) -> AACredits {
+        href = prop
         return self
     }
     
     @discardableResult
-    public func color(_ prop: Any) -> AAPlotBandsElement {
-        color = prop
+    public func position(_ prop: AAPosition?) -> AACredits {
+        position = prop
         return self
     }
     
     @discardableResult
-    public func borderColor(_ prop: String) -> AAPlotBandsElement {
-        borderColor = prop
+    public func style(_ prop: AAStyle?) -> AACredits {
+        style = prop
         return self
     }
     
     @discardableResult
-    public func borderWidth(_ prop: Float) -> AAPlotBandsElement {
-        borderWidth = prop
-        return self
-    }
-    
-    @discardableResult
-    public func className(_ prop: String) -> AAPlotBandsElement {
-        className = prop
-        return self
-    }
-    
-    @discardableResult
-    public func label(_ prop: AALabel) -> AAPlotBandsElement {
-        label = prop
-        return self
-    }
-    
-    @discardableResult
-    public func zIndex(_ prop: Int) -> AAPlotBandsElement {
-        zIndex = prop
-        return self
-    }
-    
-    @discardableResult
-    public func outerRadius(_ prop: String) -> AAPlotBandsElement {
-        outerRadius = prop
-        return self
-    }
-    
-    @discardableResult
-    public func thickness(_ prop: String) -> AAPlotBandsElement {
-        thickness = prop
+    public func text(_ prop: String?) -> AACredits {
+        text = prop
         return self
     }
     
     public override init() {
         
-    }   
-
+    }
 }
+
+public class AAPosition: AAObject {
+    public var align: String?
+    public var verticalAlign: String?
+    public var x: Float?
+    public var y: Float?
+    
+    @discardableResult
+    public func align(_ prop: AAChartAlignType?) -> AAPosition {
+        align = prop?.rawValue
+        return self
+    }
+    
+    @discardableResult
+    public func verticalAlign(_ prop: AAChartVerticalAlignType?) -> AAPosition {
+        verticalAlign = prop?.rawValue
+        return self
+    }
+    
+    @discardableResult
+    public func x(_ prop: Float?) -> AAPosition {
+        x = prop
+        return self
+    }
+    
+    @discardableResult
+    public func y(_ prop: Float?) -> AAPosition {
+        y = prop
+        return self
+    }
+    
+    public override init() {
+        
+    }
+}
+

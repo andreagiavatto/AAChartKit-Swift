@@ -83,13 +83,13 @@ class DoubleChartsLinkedWorkVC: UIViewController, AAChartViewDelegate {
             ])
         
         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel1)
+        
         aaOptions.xAxis?
-            .crosshair(
-                AACrosshair()
-                    .dashStyle(AAChartLineDashStyleType.longDashDot)
-                    .color(AAColor.black)
-                    .width(1)
-        )
+            .crosshair(AACrosshair()
+                .dashStyle(AAChartLineDashStyleType.longDashDot)
+                .color(AAColor.black)
+                .width(1))
+        
         aaOptions.plotOptions?.column?.groupPadding(0)
         
         aaChartView1.aa_drawChartWithChartOptions(aaOptions)
@@ -130,10 +130,10 @@ class DoubleChartsLinkedWorkVC: UIViewController, AAChartViewDelegate {
     func aaChartView(_ aaChartView: AAChartView, moveOverEventMessage: AAMoveOverEventMessageModel) {
         selectedColor = colorsArr?[moveOverEventMessage.index ?? 0] ?? "#ff000"
         
-        aaChartView2.aa_onlyRefreshTheChartDataWithChartModelSeries(
-            [AASeriesElement()
-                .data(configureSeriesDataArray())]
-        )
+        aaChartView2.aa_onlyRefreshTheChartDataWithChartModelSeries([
+            AASeriesElement()
+                .data(configureSeriesDataArray())
+            ])
     }
     
     private func getRandomNumbersArr(numbers: Int) -> [Float] {
@@ -150,7 +150,7 @@ class DoubleChartsLinkedWorkVC: UIViewController, AAChartViewDelegate {
         var y1 = 0.0
         let Q = arc4random() % 38
         for  x in 0 ..< 40 {
-            y1 = sin(Double(Q) * (Double(x) * Double.pi / 180)) + Double(x) * 2.0 * 0.01 - 1 ;
+            y1 = sin(Double(Q) * (Double(x) * Double.pi / 180)) + Double(x) * 2.0 * 0.01 - 1 
             randomNumArrA.add(
                 AADataElement()
                     .color(selectedColor as Any)

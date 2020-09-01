@@ -284,7 +284,7 @@ extension AAChartView {
     /// - Parameter chartOptionsSeries: chart options series  array
     /// - Parameter animation: enable animation effect or not
     public func aa_onlyRefreshTheChartDataWithChartOptionsSeries(_ chartOptionsSeries: [AASeriesElement], animation: Bool) {
-        var seriesElementDicArr = [[String: AnyObject]]()
+        var seriesElementDicArr = [[String: Any]]()
         chartOptionsSeries.forEach { (aaSeriesElement) in
             seriesElementDicArr.append(aaSeriesElement.toDic()!)
         }
@@ -420,8 +420,8 @@ extension AAChartView {
     ///
     /// - Parameter element: chart series element
     public func aa_addElementToChartSeries(element: AASeriesElement) {
-        let elementJson = element.toJSON()
-        let pureElementJsonStr = AAJSStringPurer.pureJavaScriptFunctionString(elementJson!)
+        let elementJson = element.toJSON()!
+        let pureElementJsonStr = elementJson.aa_toPureJSString()
         let jsStr = "addElementToChartSeriesWithElement('\(pureElementJsonStr)')"
         safeEvaluateJavaScriptString(jsStr)
     }
@@ -456,7 +456,7 @@ extension AAChartView {
     /// - Parameter JSFunctionBodyString: valid JavaScript function body string
     public func aa_evaluateJavaScriptStringFunction(_ JSFunctionString: String) {
         if optionsJson != nil {
-            let pureJSFunctionStr = AAJSStringPurer.pureJavaScriptFunctionString(JSFunctionString)
+            let pureJSFunctionStr = JSFunctionString.aa_toPureJSString()
             let jsFunctionNameStr = "evaluateTheJavaScriptStringFunction('\(pureJSFunctionStr)')"
             safeEvaluateJavaScriptString(jsFunctionNameStr)
         }
@@ -570,11 +570,30 @@ extension AAChartView: WKScriptMessageHandler {
 }
 
 extension AAChartView {
-   private func getEventMessageModel(messageBody: [String: Any]) -> AAMoveOverEventMessageModel {
+    private func getEventMessageModel(messageBody: [String: Any]) -> AAMoveOverEventMessageModel {
         let eventMessageModel = AAMoveOverEventMessageModel()
         eventMessageModel.name = messageBody["name"] as? String
-        eventMessageModel.x = messageBody["x"] as? Float
-        eventMessageModel.y = messageBody["y"] as? Float
+        let x = messageBody["x"]
+        if x is String {
+            eventMessageModel.x = Float(x as! String)
+        } else if x is Int {
+            eventMessageModel.x = Float(x as! Int)
+        } else if x is Float {
+            eventMessageModel.x = (x as! Float)
+        } else if x is Double {
+            eventMessageModel.x = Float(x as! Double)
+        }
+        
+        let y = messageBody["y"]
+        if y is String {
+            eventMessageModel.y = Float(y as! String)
+        } else if y is Int {
+            eventMessageModel.y = Float(y as! Int)
+        } else if y is Float {
+            eventMessageModel.y = (y as! Float)
+        } else if y is Double {
+            eventMessageModel.y = Float(y as! Double)
+        }
         eventMessageModel.category = messageBody["category"] as? String
         eventMessageModel.offset = messageBody["offset"] as? [String: Any]
         eventMessageModel.index = messageBody["index"] as? Int
