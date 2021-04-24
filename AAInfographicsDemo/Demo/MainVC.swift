@@ -22,7 +22,7 @@
  * -------------------------------------------------------------------------------
  * And if you want to contribute for this project, please contact me as well
  * GitHub        : https://github.com/AAChartModel
- * StackOverflow : https://stackoverflow.com/users/7842508/codeforu
+ * StackOverflow : https://stackoverflow.com/users/12302132/codeforu
  * JianShu       : https://www.jianshu.com/u/f1e6753d4254
  * SegmentFault  : https://segmentfault.com/u/huanghunbieguan
  *
@@ -227,6 +227,8 @@ class MainVC: UIViewController {
                 "Disable Mixed Chart Inactive Animation Effect----禁用混合图表的 inactive 动画效果",
                 "Adjust Bubble Chart Min And Max----调整气泡图的 min 和 max 相关属性",
                 "doubleLayerHalfPieChart---双层嵌套的玉阕图",
+                "customLineChartDataLabelsFormat---自定义曲线图的 DataLabels 的 format 属性",
+                "customLineChartDataLabelsFormat2---自定义曲线图的 DataLabels 的 format 属性2(更简易方法)",
             ],
             /*Custom Tooltip With JavaScript Formatter Function */
             [
@@ -250,6 +252,8 @@ class MainVC: UIViewController {
                 "fixedTooltipPositionByCustomPositionerFunction---通过 Positioner 函数来实现一个位置固定的提示框",
                 "disableColumnChartUnselectEventEffectBySeriesPointEventClickFunction---通过 Series 的 Point 的选中事件函数来禁用条形图反选效果",
                 "customAreasplineChartTooltipStyleByDivWithCSS---通过自定义 div 的 css 样式来自定义复杂效果的 tooltip 浮动提示框",
+                "configureTheAxesLabelsFormattersOfDoubleYAxesChart---配置双 Y 轴图表的 Y 轴文字标签的 Formatter 函数",
+                "makePieChartShow0Data---使饼图显示为 0 的数据",
             ],
             /*Scrolling update chart data*/
             [  "Column Chart---柱形图",
@@ -323,7 +327,7 @@ class MainVC: UIViewController {
                 "polygonMixedScatter",
                 "polarChartMixed",
                 "columnMixedScatter",
-                "PieMixeLineMixedColumn",
+                "PieMixedLineMixedColumn",
                 "LineChartWithShadow",
                 "NegativeColorMixedAreasplineChart"
             ],

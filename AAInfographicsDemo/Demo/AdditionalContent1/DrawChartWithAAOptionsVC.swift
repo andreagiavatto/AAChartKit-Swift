@@ -22,7 +22,7 @@
  * -------------------------------------------------------------------------------
  * And if you want to contribute for this project, please contact me as well
  * GitHub        : https://github.com/AAChartModel
- * StackOverflow : https://stackoverflow.com/users/7842508/codeforu
+ * StackOverflow : https://stackoverflow.com/users/12302132/codeforu
  * JianShu       : https://www.jianshu.com/u/f1e6753d4254
  * SegmentFault  : https://segmentfault.com/u/huanghunbieguan
  *
@@ -75,6 +75,8 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
         case 31: return disableMixedChartInactiveAnimationEffect()//禁用混合图表的 inactive 动画效果
         case 32: return adjustBubbleChartMinAndMax()//调整气泡图的 min 和 max 相关属性
         case 33: return doubleLayerHalfPieChart()//双层嵌套的玉阕图
+        case 34: return customLineChartDataLabelsFormat()//自定义曲线图的 DataLabels 的 format 属性
+        case 35: return customLineChartDataLabelsFormat2()//自定义曲线图的 DataLabels 的 format 属性(更简易方法)
             
         default:
             return AAOptions()
@@ -97,6 +99,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
             .markerSymbol(.circle)
             .markerSymbolStyle(.innerBlank)
             .stacking(.normal)
+            .xAxisLabelsStyle(AAStyle(color: AAColor.purple, fontSize: 18, weight: .bold))
             .series([
                 AASeriesElement()
                     .name("Tokyo Hot")
@@ -114,9 +117,27 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     .data([60000000, 51000000, 52000000, 53000000, 64000000, 84000000, 65000000, 68000000, 63000000, 47000000, 72000000, 60000000, 65000000, 74000000, 66000000, 65000000, 71000000, 59000000, 65000000, 77000000, 52000000, 53000000, 58000000, 53000000])
                 ,
             ])
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
+        
+        //https://jshare.com.cn/highcharts/hhhhf0
+        aaOptions.xAxis?
+            .type("dateTime")
+            .dateTimeLabelFormats(
+                AADateTimeLabelFormats()
+                    .day("%e of %b"))
+        
+        aaOptions.plotOptions?.series?.pointInterval(24 * 3600 * 1000 )
+        
         aaOptions.yAxis?.labels?.format = "{value} $";//给y轴添加单位
         
+        aaOptions.yAxis?
+            .crosshair(
+                AACrosshair()
+                    .color(AAColor.red)
+                    .dashStyle(.longDashDotDot)
+                    .width(2)
+            )
+                        
         aaOptions.legend!
             .itemMarginTop(20)
             .symbolRadius(10)//图标圆角
@@ -170,7 +191,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     ])
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.chart?.plotBackgroundImage("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2859216016,2109779587&fm=27&gp=0.jpg")
         
         return aaOptions
@@ -192,7 +213,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2, 26.5, 23.3, 45.3, 13.9, 9.6])
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         //是否将坐标轴显示在对立面，默认情况下 x 轴是在图表の下方显示，y 轴是在左方，
         //坐标轴显示在对立面后，x 轴是在上方显示，y 轴是在右方显示（即坐标轴会显示在对立面）。
         //该配置一般是用于多坐标轴区分展示，另外在 Highstock 中，y 轴默认是在对立面显示の。
@@ -213,7 +234,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     .color(AAGradientColor.sanguine)
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.yAxis?.min(1000)
         
         return aaOptions
@@ -302,9 +323,9 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
             .colorsTheme(["#ffc069","#fe117c","#06caf4","#7dffc0"])
             .categories([
                 "January", "February", "March", "April", "May", "June",
-                "July", "August", "Septembel", "October", "November", "December",
+                "July", "August", "September", "October", "November", "December",
                 "January", "February", "March", "April", "May", "June",
-                "July", "August", "Septembel", "October", "November", "December",])
+                "July", "August", "September", "October", "November", "December",])
             .dataLabelsEnabled(false)
             .legendEnabled(false)
             .series([
@@ -323,7 +344,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                 ,
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.xAxis?
             .tickInterval(3)
@@ -337,7 +358,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
         let aaChartModel = AAChartModel()
             .chartType(.column)
             .categories(["January", "February", "March", "April", "May", "June",
-                         "July", "August", "Septembel", "October", "November", "December"])
+                         "July", "August", "September", "October", "November", "December"])
             .dataLabelsEnabled(false)
             .legendEnabled(false)
             .series([
@@ -345,10 +366,9 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     .name("2020")
                     .color(AAGradientColor.coastalBreeze)
                     .data([7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6])
-                
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         //    * 关于 `pointPadding`
         //https://api.highcharts.com.cn/highcharts#plotOptions.column.groupPadding
         //
@@ -372,13 +392,12 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     .data([80]
                 )])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.pane(AAPane()
             .startAngle(-150)
             .endAngle(150))
         
-        aaOptions.tooltip?.crosshairs(false)
         aaOptions.yAxis?
             .gridLineColor(AAColor.white)
             .plotBands([
@@ -406,13 +425,12 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     .data([80]
                 )])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.pane(AAPane()
             .startAngle(-150)
             .endAngle(150))
         
-        aaOptions.tooltip?.crosshairs(false)
         aaOptions.yAxis?
             .gridLineColor(AAColor.white)
             .plotBands([
@@ -446,9 +464,8 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2, 26.5, 23.3, 45.3, 13.9, 9.6])
                     .color(AAColor.white)
                     .lineWidth(10)
-                ,
             ])
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         let aaPlotBandsArr = [
             AAPlotBandsElement()
                 .from(0)
@@ -504,11 +521,9 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                             .color("#04d69f"),
                         AAZonesElement()
                             .color("#ffd066"),
-                        
                     ])
-                ,
             ])
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         
         let aaPlotLinesArr = [
@@ -522,11 +537,8 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     .text("PLOT LINES ONE")
                     .style(AAStyle()
                         .color("#1e90ff")
-                        .fontWeight(.bold)
-                    )
-            )
+                        .fontWeight(.bold)))
             ,
-            
             AAPlotLinesElement()
                 .color("#ef476f")
                 .dashStyle(.longDashDot)
@@ -536,11 +548,8 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     .text("PLOT LINES TWO")
                     .style(AAStyle()
                         .color("#ef476f")
-                        .fontWeight(.bold)
-                    )
-            )
+                        .fontWeight(.bold)))
             ,
-            
             AAPlotLinesElement()
                 .color("#04d69f")
                 .dashStyle(.longDash)
@@ -550,9 +559,7 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                     .text("PLOT LINES THREE")
                     .style(AAStyle()
                         .color("#04d69f")
-                        .fontWeight(.bold)
-                    )
-            )
+                        .fontWeight(.bold)))
         ]
         
         aaOptions.yAxis?.plotLines(aaPlotLinesArr)
@@ -592,10 +599,9 @@ class DrawChartWithAAOptionsVC: AABaseChartVC {
                         2.64, 2.86, 3.00, 3.21, 4.14, 4.07, 3.68, 3.11, 3.41, 3.25, 3.32, 3.07, 3.92, 3.05,
                         2.18, 3.24,3.23, 3.15, 2.90, 1.81, 2.11, 2.43, 5.59, 3.09, 4.09, 6.14, 5.33, 6.05,
                         5.71, 6.22, 6.56, 4.75, 5.27, 6.02, 5.48])
-                ,
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.chart?
             .resetZoomButton(AAResetZoomButton()
@@ -662,16 +668,14 @@ function () {
                         [12489120,   15],
                         [12489984, 13.6]
                     ])
-                
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
-        let aaCrosshair = AACrosshair()
-            .dashStyle(.longDashDot)
-            .color(AAColor.red)
-            .width(1)
-        
-        aaOptions.xAxis?.crosshair(aaCrosshair)
+        let aaOptions = aaChartModel.aa_toAAOptions()
+        aaOptions.xAxis?
+            .crosshair(AACrosshair()
+                .dashStyle(.longDashDot)
+                .color(AAColor.red)
+                .width(1))
         
         return aaOptions
     }
@@ -703,10 +707,9 @@ function () {
                     .name("Berlin Hot")
                     .color(AAGradientColor.mysticMauve)
                     .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2, 26.5, 23.3, 45.3, 13.9, 9.6])
-                ,
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.xAxis?.labels?.useHTML(true)
         
         return aaOptions
@@ -740,10 +743,9 @@ function () {
                     .name("Berlin Hot")
                     .color(AAGradientColor.deepSea)
                     .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2, 26.5, 23.3, 45.3, 13.9, 9.6])
-                ,
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.xAxis?.labels?.useHTML(true)
         
         return aaOptions
@@ -769,7 +771,7 @@ function () {
             .yAxisTitle("")
             .categories(["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"])
             .markerRadius(0)
-            .axesTextColor(AAColor.white)
+            .xAxisLabelsStyle(AAStyle(color: AAColor.white))
             .series([
                 AASeriesElement()
                     .name("Berlin Hot")
@@ -779,7 +781,7 @@ function () {
                     .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2, 26.5, 23.3, 45.3, 13.9, 9.6]),
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.plotOptions?.areaspline?.dataLabels?
             .enabled(true)
             .style(AAStyle()
@@ -805,8 +807,7 @@ function () {
             .lineColor(AAColor.white)//X轴轴线颜色
             .crosshair(aaCrosshair)
             .labels(AALabels()
-                .style(aaStyle)
-        )
+                .style(aaStyle))
         
         aaOptions.yAxis?
             .opposite(true)
@@ -817,8 +818,7 @@ function () {
             .crosshair(aaCrosshair)
             .labels(AALabels()
                 .format("{value} ℃")//给y轴添加单位
-                .style(aaStyle)
-        )
+                .style(aaStyle))
         
         return aaOptions
     }
@@ -847,7 +847,7 @@ function () {
                     .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2, 26.5, 23.3, 45.3, 13.9, 9.6]),
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         let aaPlotBandsArr = [
             AAPlotBandsElement()
                 .from(-0.25)//值域颜色带X轴起始值
@@ -866,7 +866,8 @@ function () {
                 .to(11.25)
                 .color("#04d69f66")
                 .zIndex(0)
-            ,        ]
+            ,
+        ]
         
         aaOptions.xAxis?.plotBands(aaPlotBandsArr)
         
@@ -1040,9 +1041,8 @@ function () {
             .floating(true)
             .layout(.vertical)
             .align(.left)
-            .x(80)
+            .x(80).y(55)
             .verticalAlign(.top)
-            .y(55)
         
         let element1 = AASeriesElement()
             .name("降雨量")
@@ -1084,9 +1084,9 @@ function () {
     
     private func configureDoubleYAxesAndColumnLineMixedChart() -> AAOptions {
         let stopsArr = [
-            [0.0, "rgba(156,107,211,0.5)"],//颜色字符串设置支持十六进制类型和 rgba 类型
-            [0.2, "rgba(156,107,211,0.3)"],
-            [1.0, "rgba(156,107,211,0)"]
+            [0.0, AAColor.rgbaColor(156,107,211,0.5)],//颜色字符串设置支持十六进制类型和 rgba 类型
+            [0.2, AAColor.rgbaColor(156,107,211,0.3)],
+            [1.0, AAColor.rgbaColor(156,107,211,0)]
         ]
         
         let gradientColorDic1 = AAGradientColor.linearGradient(
@@ -1183,8 +1183,7 @@ function () {
             .column(AAColumn()
                 .grouping(false)
                 .pointPadding(0)
-                .pointPlacement((0))
-        )
+                .pointPlacement((0)))
         
         let aaLegend = AALegend()
             .enabled(true)
@@ -1193,9 +1192,9 @@ function () {
             .floating(true)
             .layout(.horizontal)
             .align(.left)
-            .x(30)
+            .x(30).y(10)
             .verticalAlign(.top)
-            .y(10)
+            
         
         let goalValuesElement = AASeriesElement()
             .name("计划贯通")
@@ -1238,7 +1237,8 @@ function () {
             .series([
                 goalValuesElement,
                 realValuesElement,
-                rateValuesElement])
+                rateValuesElement
+            ])
         
         return aaOptions
     }
@@ -1278,8 +1278,7 @@ function () {
             .labels(AALabels()
                 .enabled(true)//设置 y 轴是否显示数字
                 .align("left")
-                .x(8)
-        )
+                .x(8))
         
         let yAxis2 = AAYAxis()
             .opposite(true)
@@ -1294,8 +1293,7 @@ function () {
             .labels(AALabels()
                 .enabled(true)//设置 y 轴是否显示数字
                 .align("right")
-                .x(-8)
-        )
+                .x(-8))
         
         let aaTooltip = AATooltip()
             .enabled(true)
@@ -1408,7 +1406,7 @@ function () {
                 ,
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.tooltip?
             .shared(true)
             .useHTML(true)
@@ -1436,7 +1434,7 @@ function () {
                     .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2, 26.5, 23.3, 45.3, 13.9, 9.6])
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.yAxis?
             .opposite(true)
@@ -1472,7 +1470,7 @@ function () {
                     .data([86, 90, 65])
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         let categories = ["智力感", "距离感", "成熟感"]
         let categoryJSArrStr = categories.aa_toJSArray()
@@ -1550,7 +1548,7 @@ function () {
                     ]),
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         //    *  关于 `pointPadding`
         //https://api.highcharts.com.cn/highcharts#plotOptions.column.groupPadding
@@ -1590,7 +1588,7 @@ function () {
                     .data([7.0, 6.9, 2.5, 14.5, 13.2, 18.2, 29.5, 21.5, ]),
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.xAxis?.labels?.useHTML = true
         
         return aaOptions
@@ -1619,7 +1617,7 @@ function () {
                     .data([17.0, 16.9, 12.5,]),
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.xAxis?
             .tickInterval(1)
@@ -1844,7 +1842,7 @@ function () {
                 ,
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.tooltip?.shared(false)
         
@@ -1881,10 +1879,9 @@ function () {
                         [57, 86, 50],
                         [33, 24, 51]
                     ])
-                ]
-        )
+            ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.plotOptions?
             .bubble(AABubble()
@@ -1933,11 +1930,50 @@ function () {
                     ])
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.plotOptions?.pie?
                 .startAngle(-90)
                 .endAngle(90)
+        
+        return aaOptions
+    }
+    
+    
+    //https://github.com/AAChartModel/AAChartKit-Swift/issues/260
+    private func customLineChartDataLabelsFormat() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .dataLabelsEnabled(true)
+            .series([
+                AASeriesElement()
+                    .data([
+                        ["测试 1", 100],
+                        ["测试 2", 130],
+                        ["测试 3", 120],
+                    ])
+            ])
+        
+        let aaOptions = aaChartModel.aa_toAAOptions()
+        aaOptions.plotOptions?.series?.dataLabels?
+            .format("{point.name}")
+        
+        return aaOptions
+    }
+    
+    //A more simple way to custom line chart dataLabels format
+    //https://github.com/AAChartModel/AAChartKit-Swift/issues/260
+    private func customLineChartDataLabelsFormat2() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .dataLabelsEnabled(true)
+            .categories(["测试 1", "测试 2", "测试 3", ])
+            .series([
+                AASeriesElement()
+                    .data([100, 130, 120])
+            ])
+        
+        let aaOptions = aaChartModel.aa_toAAOptions()
+        aaOptions.plotOptions?.series?.dataLabels?
+            .format("{x}")
         
         return aaOptions
     }

@@ -22,7 +22,7 @@
  * -------------------------------------------------------------------------------
  * And if you want to contribute for this project, please contact me as well
  * GitHub        : https://github.com/AAChartModel
- * StackOverflow : https://stackoverflow.com/users/7842508/codeforu
+ * StackOverflow : https://stackoverflow.com/users/12302132/codeforu
  * JianShu       : https://www.jianshu.com/u/f1e6753d4254
  * SegmentFault  : https://segmentfault.com/u/huanghunbieguan
  *
@@ -34,6 +34,7 @@ import Foundation
 
 public class AAXAxis: AAObject {
     public var type: String?
+    public var dateTimeLabelFormats: AADateTimeLabelFormats?
     public var plotBands: [AAPlotBandsElement]?
     public var plotLines: [AAPlotLinesElement]?
     public var categories: [String]?
@@ -44,6 +45,7 @@ public class AAXAxis: AAObject {
     public var max: Float? // x-axis maximum
     public var min: Float? // x-axis minimum  (set to 0, there will be no negative numbers)
     public var tickColor: String? // Color of tick mark below x axis
+    public var title: AATitle?
     public var gridLineWidth: Float? // x-axis grid line width
     public var gridLineColor: String? // x-axis grid line color
     public var gridLineDashStyle: String? // x-axis grid line style
@@ -61,10 +63,22 @@ public class AAXAxis: AAObject {
     public var tickPosition: String? // Position of the tick line relative to the axis line. Available values ​​are "inside" and "outside", which represent the inside and outside of the axis line, respectively. The default is: "outside".
     public var tickPositions: [Any]? // Custom x-axis coordinates 
     public var minRange: Int?
+
+    @discardableResult
+    public func title(_ prop:AATitle?) -> AAXAxis {
+        title = prop
+        return self
+    }
     
     @discardableResult
     public func type(_ prop: String?) -> AAXAxis {
         type = prop
+        return self
+    }
+    
+    @discardableResult
+    public func dateTimeLabelFormats(_ prop: AADateTimeLabelFormats?) -> AAXAxis {
+        dateTimeLabelFormats = prop
         return self
     }
     
@@ -228,5 +242,69 @@ public class AAXAxis: AAObject {
         
     }
 
+}
+
+
+public class AADateTimeLabelFormats: AAObject {
+    public var millisecond: String?
+    public var second: String?
+    public var minute: String?
+    public var hour: String?
+    public var day: String?
+    public var week: String?
+    public var month: String?
+    public var year: String?
+    
+    @discardableResult
+    public func millisecond(_ prop: String?) -> AADateTimeLabelFormats {
+        millisecond = prop
+        return self
+    }
+    
+    @discardableResult
+    public func second(_ prop: String?) -> AADateTimeLabelFormats {
+        second = prop
+        return self
+    }
+    
+    @discardableResult
+    public func minute(_ prop: String?) -> AADateTimeLabelFormats {
+        minute = prop
+        return self
+    }
+    
+    @discardableResult
+    public func hour(_ prop: String?) -> AADateTimeLabelFormats {
+        hour = prop
+        return self
+    }
+    
+    @discardableResult
+    public func day(_ prop: String?) -> AADateTimeLabelFormats {
+        day = prop
+        return self
+    }
+    
+    @discardableResult
+    public func week(_ prop: String?) -> AADateTimeLabelFormats {
+        week = prop
+        return self
+    }
+    
+    @discardableResult
+    public func month(_ prop: String?) -> AADateTimeLabelFormats {
+        month = prop
+        return self
+    }
+    
+    @discardableResult
+    public func year(_ prop: String?) -> AADateTimeLabelFormats {
+        year = prop
+        return self
+    }
+    
+    public override init() {
+        
+    }
 }
 

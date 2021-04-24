@@ -22,7 +22,7 @@
  * -------------------------------------------------------------------------------
  * And if you want to contribute for this project, please contact me as well
  * GitHub        : https://github.com/AAChartModel
- * StackOverflow : https://stackoverflow.com/users/7842508/codeforu
+ * StackOverflow : https://stackoverflow.com/users/12302132/codeforu
  * JianShu       : https://www.jianshu.com/u/f1e6753d4254
  * SegmentFault  : https://segmentfault.com/u/huanghunbieguan
  *
@@ -41,7 +41,7 @@ class JSFormatterFunctionVC: AABaseChartVC {
     
     override func chartConfigurationWithSelectedIndex(_ selectedIndex: Int) -> Any? {
         switch selectedIndex {
-        case 0: return customAreasplineChartTooltipStyleByDivWithCSS()
+        case 0: return customAreaChartTooltipStyleWithSimpleFormatString()
         case 1: return customAreaChartTooltipStyleWithDifferentUnitSuffix()
         case 2: return customAreaChartTooltipStyleWithColorfulHtmlLabels()
         case 3: return customLineChartTooltipStyleWhenValueBeZeroDoNotShow()
@@ -57,10 +57,12 @@ class JSFormatterFunctionVC: AABaseChartVC {
         case 13: return customizeEveryDataLabelSinglelyByDataLabelsFormatter()
         case 14: return customXAxisLabelsBeImages()
         case 15: return customLegendItemClickEvent()
-        case 16: return customTooltipPostionerFunction()
+        case 16: return customTooltipPositionerFunction()
         case 17: return fixedTooltipPositionByCustomPositionerFunction()
         case 18: return disableColumnChartUnselectEventEffectBySeriesPointEventClickFunction()
         case 19: return customAreasplineChartTooltipStyleByDivWithCSS()
+        case 20: return configureTheAxesLabelsFormattersOfDoubleYAxesChart()
+        case 21: return makePieChartShow0Data()
             
         default:
             return AAOptions()
@@ -99,10 +101,9 @@ class JSFormatterFunctionVC: AABaseChartVC {
                         2.18, 3.24,3.23, 3.15, 2.90, 1.81, 2.11, 2.43, 5.59, 3.09, 4.09, 6.14, 5.33, 6.05,
                         5.71, 6.22, 6.56, 4.75, 5.27, 6.02, 5.48
                     ])
-                ,
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.tooltip?
             .useHTML(true)
             .formatter("""
@@ -149,7 +150,7 @@ function () {
                 ,
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.tooltip?
             .useHTML(true)
             .enabled(true)
@@ -164,6 +165,14 @@ function () {
         return s;
     }
 """#)
+        
+        //禁用图例点击事件
+        aaOptions.plotOptions?.series?.events = AAEvents()
+            .legendItemClick(#"""
+                        function() {
+                          return false;
+                        }
+            """#)
         
         return aaOptions
     }
@@ -203,23 +212,23 @@ function () {
                 ,
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.tooltip?
             .useHTML(true)
             .formatter(#"""
 function () {
-        let colorsArr = ["mediumspringgreen", "deepskyblue", "red", "sandybrown"];
-        let wholeContentString ='<span style=\"' + 'color:lightGray; font-size:13px\"' + '>◉ Time: ' + this.x + ' year</span><br/>';
-        for (let i = 0;i < 4;i++) {
+        let wholeContentStr ='<span style=\"' + 'color:lightGray; font-size:13px\"' + '>◉ Time: ' + this.x + ' year</span><br/>';
+        let length = this.points.length;
+        for (let i = 0; i < length; i++) {
             let thisPoint = this.points[i];
             let yValue = thisPoint.y;
             if (yValue != 0) {
-                let spanStyleStartStr = '<span style=\"' + 'color:'+ colorsArr[i] + '; font-size:13px\"' + '>◉ ';
+                let spanStyleStartStr = '<span style=\"' + 'color:'+ thisPoint.color + '; font-size:13px\"' + '>◉ ';
                 let spanStyleEndStr = '</span> <br/>';
-                wholeContentString += spanStyleStartStr + thisPoint.series.name + ': ' + thisPoint.y + '℃' + spanStyleEndStr;
+                wholeContentStr += spanStyleStartStr + thisPoint.series.name + ': ' + thisPoint.y + '℃' + spanStyleEndStr;
             }
         }
-        return wholeContentString;
+        return wholeContentStr;
     }
 """#)
             .backgroundColor("#050505")
@@ -253,26 +262,23 @@ function () {
                 ,
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.tooltip?
             .useHTML(true)
             .formatter(#"""
     function () {
-            let colorDot0 = '<span style=\"' + 'color:red; font-size:13px\"' + '>◉</span> ';
-            let colorDot1 = '<span style=\"' + 'color:mediumspringgreen; font-size:13px\"' + '>◉</span> ';
-            let colorDot2 = '<span style=\"' + 'color:deepskyblue; font-size:13px\"' + '>◉</span> ';
-            let colorDot3 = '<span style=\"' + 'color:sandybrown; font-size:13px\"' + '>◉</span> ';
-            let colorDotArr = [colorDot0, colorDot1, colorDot2, colorDot3];
-            let wholeContentString = this.points[0].x + '<br/>';
-            for (let i = 0;i < 4;i++) {
-                let yValue = this.points[i].y;
-                if (yValue != 0) {
-                    let prefixStr = colorDotArr[i];
-                    wholeContentString += prefixStr + this.points[i].series.name + ': ' + this.points[i].y + '<br/>';
-                }
+        let wholeContentStr = this.points[0].x + '<br/>';
+        let length = this.points.length;
+        for (let i = 0; i < length; i++) {
+            let thisPoint = this.points[i];
+            let yValue = thisPoint.y;
+            if (yValue != 0) {
+                let prefixStr = '<span style=\"' + 'color:'+ thisPoint.color + '; font-size:13px\"' + '>◉ ';
+                wholeContentStr += prefixStr + thisPoint.series.name + ': ' + yValue + '<br/>';
             }
-            return wholeContentString;
         }
+        return wholeContentStr;
+    }
     """#)
         
         return aaOptions
@@ -308,7 +314,7 @@ function () {
             + "最小值: {point.low}<br/>"
         )
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.tooltip?
             .useHTML(true)
             .headerFormat("<em>实验号码： {point.key}</em><br/>")
@@ -356,7 +362,7 @@ function () {
     }
 """#)
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.yAxis?.labels(aaYAxisLabels)
 
         return aaOptions
@@ -376,7 +382,6 @@ function () {
                     .lineWidth(5.0)
                     .fillOpacity(0.4)
                     .data([229.9, 771.5, 1106.4, 1129.2, 6644.0, 1176.0, 8835.6, 148.5, 8816.4, 6694.1, 7795.6, 9954.4])
-                ,
                 ])
         
         let aaYAxisLabels = AALabels()
@@ -398,7 +403,7 @@ function () {
     }
 """#)
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.yAxis?
             .opposite(true)
             .tickWidth(2)
@@ -445,7 +450,7 @@ function () {
                 ])
         
         /*Custom Tooltip Style --- 自定义图表浮动提示框样式及内容*/
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.tooltip?
             .shared(false)
             .formatter(#"""
@@ -487,11 +492,13 @@ function () {
                 .color("#000000")
                 .fontSize(12.0))
         
-        let aaCategories = ["0-4", "5-9", "10-14", "15-19",
-                            "20-24", "25-29", "30-34", "35-39", "40-44",
-                            "45-49", "50-54", "55-59", "60-64", "65-69",
-                            "70-74", "75-79", "80-84", "85-89", "90-94",
-                            "95-99", "100 + "]
+        let aaCategories = [
+            "0-4", "5-9", "10-14", "15-19",
+            "20-24", "25-29", "30-34", "35-39", "40-44",
+            "45-49", "50-54", "55-59", "60-64", "65-69",
+            "70-74", "75-79", "80-84", "85-89", "90-94",
+            "95-99", "100 + "
+        ]
         
         let aaXAxis1 = AAXAxis()
             .reversed(true)
@@ -614,10 +621,9 @@ function () {
                         [12489984, 10.8, 16.1]
                         ])
                     .zIndex(0)
-                    ,
                 ])
         
-          let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+          let aaOptions = aaChartModel.aa_toAAOptions()
                 aaOptions.tooltip?
                     .useHTML(true)
                     .formatter("""
@@ -636,10 +642,7 @@ function () {
         """)
                     .backgroundColor("#000000")
                     .borderColor("#000000")
-                    .style(AAStyle()
-                        .color("#FFD700")
-                        .fontSize(12)
-                )
+                    .style(AAStyle(color: "#FFD700", fontSize: 12))
                 
                 return aaOptions
     }
@@ -665,7 +668,7 @@ function () {
         let aaChartModel = AAChartModel()
             .chartType(.line)
             .colorsTheme(["#1e90ff","#ef476f","#ffd066","#04d69f","#25547c",])//Colors theme
-            .axesTextColor(AAColor.white)
+            .xAxisLabelsStyle(AAStyle(color: AAColor.white))
             .dataLabelsEnabled(false)
             .tooltipValueSuffix("℃")
             .animationType(.bounce)
@@ -690,7 +693,7 @@ function () {
                 ,
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.tooltip?
             .useHTML(true)
@@ -715,7 +718,7 @@ function () {
             .series([
                 AASeriesElement()
                     .name("2017")
-                    .data([55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, ]),
+                    .data([55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, ])
             ])
         
         let 看近时长数组 = [70, 69, 95, 14, 18, 21, 25, 26, 23, 18, 13, 96]
@@ -790,7 +793,7 @@ function () {
         }
         """
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.tooltip?
             //‼️以 this.point.index 这种方式获取选中的点的索引必须设置 tooltip 的 shared 为 false
@@ -845,7 +848,7 @@ function () {
                     .data([0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, ]),
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.chart?
             .marginLeft(80)
@@ -854,8 +857,7 @@ function () {
         aaOptions.xAxis?
             .lineWidth(0)//避免多边形外环之外有额外套了一层无用的外环
             .labels?
-            .style(AAStyle()
-                .color(AAColor.black))
+            .style(AAStyle(color: AAColor.black))
             .formatter(xAxisLabelsFormatter)
         
         aaOptions.yAxis?
@@ -902,10 +904,10 @@ function () {
             .categories(["美国🇺🇸","欧洲🇪🇺","中国🇨🇳","日本🇯🇵","韩国🇰🇷","越南🇻🇳","中国香港🇭🇰",])
             .series([
                 AASeriesElement()
-                    .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2]),
+                    .data([7.0, 6.9, 2.5, 14.5, 18.2, 21.5, 5.2])
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.yAxis?.gridLineDashStyle = AAChartLineDashStyleType.longDash.rawValue//设置Y轴的网格线样式为 AAChartLineDashStyleTypeLongDash
         
         aaOptions.tooltip?.shared = true
@@ -913,25 +915,24 @@ function () {
         
         let unitArr = ["美元", "欧元", "人民币", "日元", "韩元", "越南盾", "港币", ]
         let unitJSArrStr = unitArr.aa_toJSArray()
-        //单组 serie 图表, 获取选中的点的索引是 this.point.index ,多组并且共享提示框,则是this.points[0].index
+        //单组 series 图表, 获取选中的点的索引是 this.point.index ,多组并且共享提示框,则是this.points[0].index
         let dataLabelsFormatter = """
         function () {
         return this.y + \(unitJSArrStr)[this.point.index];
         }
         """
         
-        let aaDatalabels = AADataLabels()
+        let aaDataLabels = AADataLabels()
             .style(AAStyle(color: AAColor.red, fontSize: 10, weight: .bold))
             .formatter(dataLabelsFormatter)
             .backgroundColor(AAColor.white)// white color
             .borderColor(AAColor.red)// red color
             .borderRadius(1.5)
             .borderWidth(1.3)
-            .x(3)
-            .y(-20)
+            .x(3).y(-20)
             .verticalAlign(.middle)
         
-        aaOptions.plotOptions?.series?.dataLabels = aaDatalabels
+        aaOptions.plotOptions?.series?.dataLabels = aaDataLabels
         
         return aaOptions
     }
@@ -997,7 +998,7 @@ function () {
 """
 
         //    https://api.highcharts.com.cn/highcharts#xAxis.labels.formatter
-         let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+         let aaOptions = aaChartModel.aa_toAAOptions()
         aaOptions.xAxis?.labels?
         .useHTML(true)
         .formatter(xLabelsFormatter)
@@ -1042,7 +1043,7 @@ function () {
     //4. 其他情况，按默认处理：
     //显示 --> 隐藏；
     //隐藏 --> 显示；
-    //Customized legengItemClick Event online: http://code.hcharts.cn/rencht/hhhhLv/share
+    //Customized legendItemClick Event online: http://code.hcharts.cn/rencht/hhhhLv/share
     private func customLegendItemClickEvent() -> AAOptions  {
         let aaChartModel = AAChartModel()
             .chartType(.column)
@@ -1063,7 +1064,7 @@ function () {
                     .name("2020")
                     .data([3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]),
             ])
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.legend?
             .enabled(true)
@@ -1076,11 +1077,11 @@ function () {
         aaOptions.plotOptions?.series?.events = AAEvents()
             .legendItemClick(#"""
 function(event) {
-    function getVisibleMode(series, serieName) {
+    function getVisibleMode(series, seriesName) {
         var allVisible = true;
         var allHidden = true;
         for (var i = 0; i < series.length; i++) {
-            if (series[i].name == serieName)
+            if (series[i].name == seriesName)
                 continue;
             allVisible &= series[i].visible;
             allHidden &= (!series[i].visible);
@@ -1101,16 +1102,16 @@ function(event) {
     else if (mode == 'all-visible') {
         var seriesLength = series.length;
         for (var i = 0; i < seriesLength; i++) {
-            var serie = series[i];
-            serie.hide();
+            var series = series[i];
+            series.hide();
         }
         this.show();
     }
     else if (mode == 'all-hidden') {
         var seriesLength = series.length;
         for (var i = 0; i < seriesLength; i++) {
-            var serie = series[i];
-            serie.show();
+            var series = series[i];
+            series.show();
         }
     }
     else {
@@ -1124,7 +1125,7 @@ function(event) {
     }
     
     // https://github.com/AAChartModel/AAChartKit-Swift/issues/233
-    private func customTooltipPostionerFunction() -> AAOptions {
+    private func customTooltipPositionerFunction() -> AAOptions {
         let categories = [
             "孤岛危机",
             "使命召唤",
@@ -1149,9 +1150,10 @@ function(event) {
                 AASeriesElement()
                     .name("单机大作")
                     .color(AAColor.red)
-                    .data([0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5])])
+                    .data([0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5])
+            ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.tooltip?
             .shadow(false)
@@ -1169,7 +1171,7 @@ function(event) {
     
         
     private func fixedTooltipPositionByCustomPositionerFunction() -> AAOptions {
-        let aaOptions = customTooltipPostionerFunction()
+        let aaOptions = customTooltipPositionerFunction()
         
         aaOptions.tooltip?
             .positioner("""
@@ -1204,7 +1206,7 @@ function(event) {
                             .color(AAColor.red)))
             ])
         
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.plotOptions?.series?
             .point(AAPoint()
@@ -1274,7 +1276,7 @@ function(event) {
         
         //https://zhidao.baidu.com/question/301691908.html
         //https://jshare.com.cn/highcharts/hhhhGc
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         
         aaOptions.tooltip?
             .useHTML(true)
@@ -1310,5 +1312,170 @@ function(event) {
             """#)
         
         return aaOptions
+    }
+    
+    //https://github.com/AAChartModel/AAChartKit/issues/901
+    //https://github.com/AAChartModel/AAChartKit/issues/952
+    func configureTheAxesLabelsFormattersOfDoubleYAxesChart() -> AAOptions {
+        let aaChart = AAChart()
+            .backgroundColor(AAColor.white)
+        
+        let aaTitle = AATitle()
+            .text("")
+        
+        let aaXAxis = AAXAxis()
+            .visible(true)
+            .min(0)
+            .categories([
+                "Java", "Swift", "Python", "Ruby", "PHP", "Go","C",
+                "C#", "C++", "Perl", "R", "MATLAB", "SQL"
+            ])
+        
+        let aaPlotOptions = AAPlotOptions()
+                .series(AASeries()
+                        .marker(AAMarker()
+                                .radius(7)//曲线连接点半径，默认是4
+                                .symbol(AAChartSymbolType.circle.rawValue)//曲线点类型："circle", "square", "diamond", "triangle","triangle-down"，默认是"circle"
+                                .fillColor("#ffffff")//点的填充色(用来设置折线连接点的填充色)
+                                .lineWidth(3)//外沿线的宽度(用来设置折线连接点的轮廓描边的宽度)
+                                .lineColor("")//外沿线的颜色(用来设置折线连接点的轮廓描边颜色，当值为空字符串时，默认取数据点或数据列的颜色)
+                        ))
+        
+        let yAxis1 = AAYAxis()
+            .visible(true)
+            .lineWidth(1)
+            .startOnTick(false)
+            .endOnTick(false)
+            .tickPositions([0, 50, 100, 150, 200])
+            .labels(AALabels()
+                        .enabled(true)
+                        .style(AAStyle()
+                                .color("DodgerBlue"))
+                        .formatter("""
+function () {
+            let yValue = this.value;
+            if (yValue >= 200) {
+                return "极佳";
+            } else if (yValue >= 150 && yValue < 200) {
+                return "非常棒";
+            } else if (yValue >= 100 && yValue < 150) {
+                return "相当棒";
+            } else if (yValue >= 50 && yValue < 100) {
+                return "还不错";
+            } else {
+                return "一般";
+            }
+        }
+"""))
+            .gridLineWidth(0)
+            .title(AATitle()
+                    .text("中文")
+                    .style(AAStyle(color: "DodgerBlue", fontSize: 14, weight: .bold)))
+        
+        let yAxis2 = AAYAxis()
+            .visible(true)
+            .lineWidth(1)
+            .startOnTick(false)
+            .endOnTick(false)
+            .tickPositions([0, 50, 100, 150, 200])
+            .labels(AALabels()
+                        .enabled(true)
+                        .style(AAStyle()
+                                .color(AAColor.red))
+                        .formatter("""
+function () {
+        let yValue = this.value;
+        if (yValue >= 200) {
+            return "Awesome";
+        } else if (yValue >= 150 && yValue < 200) {
+            return "Great";
+        } else if (yValue >= 100 && yValue < 150) {
+            return "Very Good";
+        } else if (yValue >= 50 && yValue < 100) {
+            return "Not Bad";
+        } else {
+            return "Just So So";
+        }
+    }
+"""))
+            .gridLineWidth(0)
+            .title(AATitle()
+                    .text("ENGLISH")
+                    .style(AAStyle(color: AAColor.red, fontSize: 14, weight: .bold)))
+            .opposite(true)
+        
+        let aaTooltip = AATooltip()
+            .enabled(true)
+            .shared(true)
+        
+        let seriesArr = [
+            AASeriesElement()
+                .name("2020")
+                .type(.spline)
+                .lineWidth(7)
+                .color(AAGradientColor.deepSea)
+                .yAxis(1)
+                .data([
+                    0, 71.5, 106.4, 129.2, 144.0, 176.0,
+                    135.6, 148.5, 216.4, 194.1, 95.6, 54.4
+                ]),
+            AASeriesElement()
+                .name("2021")
+                .type(.spline)
+                .lineWidth(7)
+                .color(AAGradientColor.sanguine)
+                .yAxis(0)
+                .data([
+                    135.6, 148.5, 216.4, 194.1, 95.6, 54.4,
+                    0, 71.5, 106.4, 129.2, 144.0, 176.0
+                ])
+        ]
+        
+        let aaOptions = AAOptions()
+            .chart(aaChart)
+            .title(aaTitle)
+            .plotOptions(aaPlotOptions)
+            .xAxis(aaXAxis)
+            .yAxisArray([yAxis1,yAxis2])
+            .tooltip(aaTooltip)
+            .series(seriesArr)
+        
+        return aaOptions
+    }
+    
+    //https://github.com/AAChartModel/AAChartKit/issues/1042
+    func makePieChartShow0Data() -> AAOptions {
+        let dataArr = [
+            ["y":1,
+             "isZero":true,
+             "name": "One",
+            ],
+            ["y":1,
+             "isZero":true,
+             "name": "Two",
+            ],
+            ["y":1,
+             "isZero":true,
+             "name": "Three",
+            ]
+        ]
+        
+        return AAOptions()
+            .title(AATitle()
+                    .text(""))
+            .chart(AAChart()
+                    .type(.pie))
+            .series([
+                AASeriesElement()
+                    .name("ZeroDataPie")
+                    .data(dataArr)
+                    .tooltip(AATooltip()
+                                .shared(false)
+                                .pointFormatter(#"""
+                                function() {
+                                return "<span style=\'color:" + this.color + "\'> ◉ </span>" + this.series.name + ": <b>" + (this.options.isZero ? 0 : this.y) + "</b><br/>";
+                                                }
+                                """#))
+            ])
     }
 }

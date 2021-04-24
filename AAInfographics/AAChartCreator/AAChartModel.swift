@@ -22,7 +22,7 @@
  * -------------------------------------------------------------------------------
  * And if you want to contribute for self project, please contact me as well
  * GitHub        : https://github.com/AAChartModel
- * StackOverflow : https://stackoverflow.com/users/7842508/codeforu
+ * StackOverflow : https://stackoverflow.com/users/12302132/codeforu
  * JianShu       : https://www.jianshu.com/u/f1e6753d4254
  * SegmentFault  : https://segmentfault.com/u/huanghunbieguan
  *
@@ -141,15 +141,10 @@ public class AAChartModel: AAObject {
     public var animationType: AAChartAnimationType? //The type of chart animation
     public var animationDuration: Int?      //The chart rendering animation duration
     public var title: String?               //The chart title
-    public var titleFontColor: String?      //The chart title font color
-    public var titleFontSize: Float?        //The chart title font size
-    public var titleFontWeight: AAChartFontWeightType? //The chart font weight
+    public var titleStyle: AAStyle?         //The chart title style
     public var subtitle: String?            //The chart subtitle
     public var subtitleAlign: AAChartAlignType?//The chart subtitle text align style
-    public var subtitleFontColor: String?   //The chart subtitle font color
-    public var subtitleFontSize: Float?     //The chart subtitle font size
-    public var subtitleFontWeight: AAChartFontWeightType?   //The chart subtitle font weight
-    public var axesTextColor: String?       //The labels font color of chart x axis and y axis
+    public var subtitleStyle: AAStyle?      //The chart subtitle style
     public var chartType: AAChartType?      //The default series type for the chart. Can be any of the chart types listed under `AAChartType`. Defaults to line
     public var stacking: AAChartStackingType? //Whether to stack the values of each series on top of each other. Possible values are null to disable, "normal" to stack by value or "percent". When stacking is enabled, data must be sorted in ascending X order
     public var markerSymbol: AAChartSymbolType?   //A predefined shape or symbol for the marker. When null, the symbol is pulled from options.symbols. Other possible values are "circle", "square", "diamond", "triangle" and "triangle-down"
@@ -162,17 +157,18 @@ public class AAChartModel: AAObject {
     public var polar: Bool?                 //When true, cartesian charts like line, spline, area and column are transformed into the polar coordinate system. Requires `AAHighchartsMore.js`. Defaults to false
     public var margin: [Float]?
     public var dataLabelsEnabled: Bool?     //Enable or disable the data labels. Defaults to false
-    public var dataLabelsFontColor: String? //The data labels font color
-    public var dataLabelsFontSize: Float?   //The data labels font size
-    public var dataLabelsFontWeight: AAChartFontWeightType?//The data labels font weight
+    public var dataLabelsStyle: AAStyle?    //The data labels style
     public var xAxisLabelsEnabled: Bool?    //Enable or disable the axis labels. Defaults to true
+    public var xAxisLabelsStyle: AAStyle?   //The x axis labels style
     public var categories: [String]?        //Set new categories for the axis
     public var xAxisGridLineWidth: Float?   //The width of the grid lines extending the ticks across the plot area.Defaults to 0
     public var xAxisVisible: Bool?          //Show the x axis or not
     public var xAxisTickInterval: Float?    //Custom x axis tick interval,It is useful when the x categories array is too long to show all of them
     public var yAxisVisible: Bool?          //Show the y axis or not
     public var yAxisLabelsEnabled: Bool?    //Enable or disable the axis labels. Defaults to true
+    public var yAxisLabelsStyle: AAStyle?   //The y axis labels style
     public var yAxisTitle: String?          //The actual text of the axis title
+    public var xAxisTitle: String?          //The actual text of the axis title
     public var yAxisLineWidth: Float?       //The width of y axis line
     public var yAxisGridLineWidth: Float?   //The width of the grid lines extending the ticks across the plot area. Defaults to 1
     public var yAxisMin: Double?            //The y axis mini value
@@ -180,7 +176,6 @@ public class AAChartModel: AAObject {
     public var yAxisAllowDecimals: Bool?    //The y axis values label allow decimals or not
     public var tooltipEnabled: Bool?        //Show the tooltip or not
     public var tooltipValueSuffix: String?  //Custom tooltip value unit suffix
-    public var tooltipCrosshairs: Bool?     //Show tooltip crosshair or not
     public var colorsTheme: [Any]?          //An array containing the default colors for the chart's series. When all colors are used, new colors are pulled from the start again. Defaults to: ["#bb250c","#f67210","#fde680","#257679","#f1c6c5"]
     public var series: [Any]?               //An array of all the chart's series
     public var legendEnabled: Bool?         //Enable or disable the legend. Defaults to true
@@ -190,6 +185,7 @@ public class AAChartModel: AAObject {
     public var touchEventEnabled: Bool?     //Support touch event call back or not
     public var scrollablePlotArea: AAScrollablePlotArea?    //Scroll properties if supported
     
+
     @discardableResult
     public func animationType(_ prop: AAChartAnimationType) -> AAChartModel {
         animationType = prop
@@ -209,20 +205,8 @@ public class AAChartModel: AAObject {
     }
     
     @discardableResult
-    public func titleFontColor(_ prop: String) -> AAChartModel {
-        titleFontColor = prop
-        return self
-    }
-    
-    @discardableResult
-    public func titleFontSize(_ prop: Float?) -> AAChartModel {
-        titleFontSize = prop
-        return self
-    }
-    
-    @discardableResult
-    public func titleFontWeight(_ prop: AAChartFontWeightType) -> AAChartModel {
-        titleFontWeight = prop
+    public func titleStyle(_ prop: AAStyle) -> AAChartModel {
+        titleStyle = prop
         return self
     }
     
@@ -239,26 +223,8 @@ public class AAChartModel: AAObject {
     }
     
     @discardableResult
-    public func subtitleFontColor(_ prop: String) -> AAChartModel {
-        subtitleFontColor = prop
-        return self
-    }
-    
-    @discardableResult
-    public func subtitleFontSize(_ prop: Float?) -> AAChartModel {
-        subtitleFontSize = prop
-        return self
-    }
-    
-    @discardableResult
-    public func subtitleFontWeight(_ prop: AAChartFontWeightType) -> AAChartModel {
-        subtitleFontWeight = prop
-        return self
-    }
-    
-    @discardableResult
-    public func axesTextColor(_ prop: String) -> AAChartModel {
-        axesTextColor = prop
+    public func subtitleStyle(_ prop: AAStyle) -> AAChartModel {
+        subtitleStyle = prop
         return self
     }
     
@@ -329,12 +295,6 @@ public class AAChartModel: AAObject {
     }
     
     @discardableResult
-    public func tooltipCrosshairs(_ prop: Bool) -> AAChartModel {
-        tooltipCrosshairs = prop
-        return self
-    }
-    
-    @discardableResult
     public func polar(_ prop: Bool) -> AAChartModel {
         polar = prop
         return self
@@ -353,26 +313,20 @@ public class AAChartModel: AAObject {
     }
     
     @discardableResult
-    public func dataLabelsFontColor(_ prop: String) -> AAChartModel {
-        dataLabelsFontColor = prop
-        return self
-    }
-    
-    @discardableResult
-    public func dataLabelsFontSize(_ prop: Float?) -> AAChartModel {
-        dataLabelsFontSize = prop
-        return self
-    }
-    
-    @discardableResult
-    public func dataLabelsFontWeight(_ prop: AAChartFontWeightType) -> AAChartModel {
-        dataLabelsFontWeight = prop
+    public func dataLabelsStyle(_ prop: AAStyle) -> AAChartModel {
+        dataLabelsStyle = prop
         return self
     }
     
     @discardableResult
     public func xAxisLabelsEnabled(_ prop: Bool) -> AAChartModel {
         xAxisLabelsEnabled = prop
+        return self
+    }
+    
+    @discardableResult
+    public func xAxisLabelsStyle(_ prop: AAStyle) -> AAChartModel {
+        xAxisLabelsStyle = prop
         return self
     }
     
@@ -413,8 +367,20 @@ public class AAChartModel: AAObject {
     }
     
     @discardableResult
+    public func yAxisLabelsStyle(_ prop: AAStyle) -> AAChartModel {
+        yAxisLabelsStyle = prop
+        return self
+    }
+    
+    @discardableResult
     public func yAxisTitle(_ prop: String) -> AAChartModel {
         yAxisTitle = prop
+        return self
+    }
+
+    @discardableResult
+    public func xAxisTitle(_ prop: String) -> AAChartModel {
+        xAxisTitle = prop
         return self
     }
     
@@ -490,7 +456,7 @@ public class AAChartModel: AAObject {
         return self
     }
     
-    
+
     public override init() {
         title                  = ""
         subtitle               = ""
@@ -501,7 +467,6 @@ public class AAChartModel: AAObject {
         zoomType               = AAChartZoomType.none //Disable gesture zoom by default
         colorsTheme            = ["#1e90ff","#ef476f","#ffd066","#04d69f","#25547c",]
         tooltipEnabled         = true
-        tooltipCrosshairs      = true
         xAxisLabelsEnabled     = true
         xAxisVisible           = true
         yAxisVisible           = true
@@ -509,9 +474,101 @@ public class AAChartModel: AAObject {
         yAxisLineWidth         = 0
         yAxisGridLineWidth     = 0.6
         yAxisTitle             = ""
+        xAxisTitle             = ""
         legendEnabled          = true
         borderRadius           = 0
         markerRadius           = 5 //The radius of the polyline connection point. If the default value is set to 0, then this is equivalent to not displaying.
     }
+    
+    
+
+    @available(*, unavailable, message: "please use titleStyle instead of it")
+    public var titleFontColor: String?      //The chart title font color
+    @available(*, unavailable, message: "please use titleStyle instead of it")
+    public var titleFontSize: Float?        //The chart title font size
+    @available(*, unavailable, message: "please use titleStyle instead of it")
+    public var titleFontWeight: AAChartFontWeightType? //The chart font weight
+
+    @available(*, unavailable, message: "please use subtitleStyle instead of it")
+    public var subtitleFontColor: String?   //The chart subtitle font color
+    @available(*, unavailable, message: "please use subtitleStyle instead of it")
+    public var subtitleFontSize: Float?     //The chart subtitle font size
+    @available(*, unavailable, message: "please use subtitleStyle instead of it")
+    public var subtitleFontWeight: AAChartFontWeightType?   //The chart subtitle font weight
+
+    @available(*, unavailable, message: "please use dataLabelsStyle instead of it")
+    public var dataLabelsFontColor: String? //The data labels font color
+    @available(*, unavailable, message: "please use dataLabelsStyle instead of it")
+    public var dataLabelsFontSize: Float?   //The data labels font size
+    @available(*, unavailable, message: "please use dataLabelsStyle instead of it")
+    public var dataLabelsFontWeight: AAChartFontWeightType?//The data labels font weight
+    
+    @available(*, unavailable, message: "please use xAxisLabelsStyle or yAxisLabelsStyle instead of it")
+    public var axesTextColor: String?       //The labels font color of chart x axis and y axis
+
+    
+    
+    @available(*, unavailable, message: "please use titleStyle instead of it")
+    public func titleFontColor(_ prop: String) -> AAChartModel {
+//        titleFontColor = prop
+        return self
+    }
+    
+    @available(*, unavailable, message: "please use titleStyle instead of it")
+    public func titleFontSize(_ prop: Float?) -> AAChartModel {
+//        titleFontSize = prop
+        return self
+    }
+    
+    @available(*, unavailable, message: "please use titleStyle instead of it")
+    public func titleFontWeight(_ prop: AAChartFontWeightType) -> AAChartModel {
+//        titleFontWeight = prop
+        return self
+    }
+    
+    
+    @available(*, unavailable, message: "please use subtitleStyle instead of it")
+    public func subtitleFontColor(_ prop: String) -> AAChartModel {
+//        subtitleFontColor = prop
+        return self
+    }
+    
+    @available(*, unavailable, message: "please use subtitleStyle instead of it")
+    public func subtitleFontSize(_ prop: Float?) -> AAChartModel {
+//        subtitleFontSize = prop
+        return self
+    }
+    
+    @available(*, unavailable, message: "please use subtitleStyle instead of it")
+    public func subtitleFontWeight(_ prop: AAChartFontWeightType) -> AAChartModel {
+//        subtitleFontWeight = prop
+        return self
+    }
+    
+    
+    @available(*, unavailable, message: "please use dataLabelsStyle instead of it")
+    public func dataLabelsFontColor(_ prop: String) -> AAChartModel {
+//        dataLabelsFontColor = prop
+        return self
+    }
+    
+    @available(*, unavailable, message: "please use dataLabelsStyle instead of it")
+    public func dataLabelsFontSize(_ prop: Float?) -> AAChartModel {
+//        dataLabelsFontSize = prop
+        return self
+    }
+    
+    @available(*, unavailable, message: "please use dataLabelsStyle instead of it")
+    public func dataLabelsFontWeight(_ prop: AAChartFontWeightType) -> AAChartModel {
+//        dataLabelsFontWeight = prop
+        return self
+    }
+    
+    @available(*, unavailable, message: "please use xAxisLabelsStyle or yAxisLabelsStyle instead of it")
+    public func axesTextColor(_ prop: String) -> AAChartModel {
+//        axesTextColor = prop
+        return self
+    }
+
     
 }

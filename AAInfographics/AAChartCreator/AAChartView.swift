@@ -22,7 +22,7 @@
  * -------------------------------------------------------------------------------
  * And if you want to contribute for this project, please contact me as well
  * GitHub        : https://github.com/AAChartModel
- * StackOverflow : https://stackoverflow.com/users/7842508/codeforu
+ * StackOverflow : https://stackoverflow.com/users/12302132/codeforu
  * JianShu       : https://www.jianshu.com/u/f1e6753d4254
  * SegmentFault  : https://segmentfault.com/u/huanghunbieguan
  *
@@ -37,6 +37,7 @@ let kUserContentMessageNameMouseOver = "mouseover"
 
 @objc public protocol AAChartViewDelegate: NSObjectProtocol {
     @objc optional func aaChartViewDidFinishLoad (_ aaChartView: AAChartView)
+    @objc optional func aaChartViewDidFinishEvaluate (_ aaChartView: AAChartView)
     @objc optional func aaChartView(_ aaChartView: AAChartView, moveOverEventMessage: AAMoveOverEventMessageModel)
 }
 
@@ -170,6 +171,7 @@ public class AAChartView: WKWebView {
                 WKJavaScriptExceptionLineNumber = \(errorUserInfo["WKJavaScriptExceptionLineNumber"]  ?? "");
                 WKJavaScriptExceptionMessage = \(errorUserInfo["WKJavaScriptExceptionMessage"] ?? "");
                 WKJavaScriptExceptionSourceURL = \(errorUserInfo["WKJavaScriptExceptionSourceURL"] ?? "");
+                }
                 ------------------------------------------------------------------------------------------
                 ==========================================================================================
                 ☠️☠️💀☠️☠️WARNING!!!!!!!!!!!!!!!!!!!! FBI WARNING !!!!!!!!!!!!!!!!!!!!WARNING☠️☠️💀☠️☠️
@@ -178,6 +180,8 @@ public class AAChartView: WKWebView {
                 print(errorInfo)
             }
             #endif
+
+            self.delegate?.aaChartViewDidFinishEvaluate?(self)
         })
     }
     
@@ -224,8 +228,8 @@ extension AAChartView {
     ///
     /// - Parameter aaChartModel: The instance object of AAChartModel
     public func aa_drawChartWithChartModel(_ aaChartModel: AAChartModel) {
-        let options = AAOptionsConstructor.configureChartOptions(aaChartModel)
-        aa_drawChartWithChartOptions(options)
+        let aaOptions = aaChartModel.aa_toAAOptions()
+        aa_drawChartWithChartOptions(aaOptions)
     }
     
     /// Function of only refresh the chart data after the chart has been rendered
@@ -247,7 +251,7 @@ extension AAChartView {
     ///
     /// - Parameter aaChartModel: The instance object of AAChartModel
     public func aa_refreshChartWholeContentWithChartModel(_ aaChartModel: AAChartModel) {
-        let aaOptions = AAOptionsConstructor.configureChartOptions(aaChartModel)
+        let aaOptions = aaChartModel.aa_toAAOptions()
         aa_refreshChartWholeContentWithChartOptions(aaOptions)
     }
     
@@ -258,7 +262,7 @@ extension AAChartView {
     public func aa_drawChartWithChartOptions(_ aaOptions: AAOptions) {
         if optionsJson == nil {
             configureOptionsJsonStringWithAAOptions(aaOptions)
-            let path = Bundle(for: self.classForCoder)
+            let path = BundlePathLoader()
                 .path(forResource: "AAChartView",
                       ofType: "html",
                       inDirectory: "AAJSFiles.bundle")
@@ -266,8 +270,7 @@ extension AAChartView {
             let urlRequest = NSURLRequest(url: urlStr) as URLRequest
             self.load(urlRequest)
         } else {
-            configureOptionsJsonStringWithAAOptions(aaOptions)
-            drawChart()
+            aa_refreshChartWholeContentWithChartOptions(aaOptions)
         }
     }
     
@@ -467,13 +470,8 @@ extension AAChartView {
     ///   - categories: The X axis categories array
     ///   - redraw: Redraw whole chart or not
     public func aa_updateXAxisCategories(_ categories: [String], redraw: Bool = true) {
-        var originalJsArrStr = ""
-        for categoryElement in categories {
-            originalJsArrStr += "'\(categoryElement)',"
-        }
-        let finalJSArrStr = "[\(originalJsArrStr)]"
-        
-        let jsFunctionStr = "aaGlobalChart.xAxis[0].setCategories(\(finalJSArrStr),\(redraw));)"
+        let finalJSArrStr = categories.aa_toJSArray()
+        let jsFunctionStr = "aaGlobalChart.xAxis[0].setCategories(\(finalJSArrStr),\(redraw));"
         safeEvaluateJavaScriptString(jsFunctionStr)
     }
     

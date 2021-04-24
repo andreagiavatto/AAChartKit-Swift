@@ -22,7 +22,7 @@
  * -------------------------------------------------------------------------------
  * And if you want to contribute for this project, please contact me as well
  * GitHub        : https://github.com/AAChartModel
- * StackOverflow : https://stackoverflow.com/users/7842508/codeforu
+ * StackOverflow : https://stackoverflow.com/users/12302132/codeforu
  * JianShu       : https://www.jianshu.com/u/f1e6753d4254
  * SegmentFault  : https://segmentfault.com/u/huanghunbieguan
  *
@@ -41,7 +41,7 @@ public class AADataLabels: AAObject {
     public var rotation: Float?
     public var allowOverlap: Bool?
     public var useHTML: Bool?
-    public var distance: Float?
+    public var distance: Any?
     public var verticalAlign: String?
     public var x: Float?
     public var y: Float?
@@ -106,7 +106,7 @@ public class AADataLabels: AAObject {
     }
     
     @discardableResult
-    public func distance(_ prop: Float?) -> AADataLabels {
+    public func distance(_ prop: Any?) -> AADataLabels {
         distance = prop
         return self
     }

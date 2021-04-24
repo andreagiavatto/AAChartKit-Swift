@@ -21,7 +21,7 @@
  * -------------------------------------------------------------------------------
  * And if you want to contribute for this project, please contact me as well
  * GitHub        : https://github.com/AAChartModel
- * StackOverflow : https://stackoverflow.com/users/7842508/codeforu
+ * StackOverflow : https://stackoverflow.com/users/12302132/codeforu
  * JianShu       : https://www.jianshu.com/u/f1e6753d4254
  * SegmentFault  : https://segmentfault.com/u/huanghunbieguan
  *
@@ -55,13 +55,13 @@ class SpecialChartVC: AABaseChartVC {
         case .waterfall: return configureWaterfallChart()
         case .pyramid: return configurePyramidChart()
         case .funnel: return configureFunnelChart()
-        case .errorbar: return configureErrobarChart()
+        case .errorbar: return configureErrorbarChart()
         default: return configureColumnChart()
         }
     }
     
     private func configureColumnChart() -> AAChartModel {
-        return AAChartModel()
+        AAChartModel()
             .chartType(.column)
             .polar(true)
             .dataLabelsEnabled(false)
@@ -73,12 +73,11 @@ class SpecialChartVC: AABaseChartVC {
                     .name("2018")
                     .data([7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6])
                     .colorByPoint(true)
-                
             ])
     }
     
     private func configurePieChart() -> AAChartModel {
-        return AAChartModel()
+         AAChartModel()
             .chartType(.pie)
             .backgroundColor(AAColor.white)
             .title("LANGUAGE MARKET SHARES JANUARY,2020 TO MAY")
@@ -105,7 +104,7 @@ class SpecialChartVC: AABaseChartVC {
     }
     
     private func configureBubbleChart() -> AAChartModel {
-        return AAChartModel()
+        AAChartModel()
             .chartType(.bubble)
             .title("AACHARTKIT BUBBLES")
             .subtitle("JUST FOR FUN")
@@ -165,11 +164,11 @@ class SpecialChartVC: AABaseChartVC {
     }
     
     private func configureScatterChart() -> AAChartModel {
-        return AAChartModel()
+        AAChartModel()
             .chartType(.scatter)
             .title("Height and weight distribution by sex")
-            .titleFontColor(AAColor.white)
-            .axesTextColor(AAColor.white)
+            .titleStyle(AAStyle(color: AAColor.white))
+            .xAxisLabelsStyle(AAStyle(color: AAColor.white))
             .yAxisTitle("kg")
             .yAxisGridLineWidth(0)
             .markerSymbol(.circle)
@@ -295,10 +294,10 @@ class SpecialChartVC: AABaseChartVC {
     }
     
     private func configureArearangeChart() -> AAChartModel {
-        return AAChartModel()
+        AAChartModel()
             .chartType(.arearange)
             .title("Twilight Hall day temperature fluctuation map")
-            .subtitle("real-time monitoring data")
+        .subtitle("real-time monitoring data")
             .yAxisTitle("℃")
             .dataLabelsEnabled(false)
             .series([
@@ -777,7 +776,7 @@ class SpecialChartVC: AABaseChartVC {
     }
     
     private func configureColumnrangeChart() -> AAChartModel {
-        return AAChartModel()
+        AAChartModel()
             .chartType(.columnrange)
             .title("TEMPERATURE VARIATION BY MONTH")
             .subtitle("observed in Gotham city")
@@ -809,7 +808,7 @@ class SpecialChartVC: AABaseChartVC {
     }
     
     private func configureStepLineChart() -> AAChartModel {
-        return AAChartModel()
+        AAChartModel()
             .chartType(.line)//图形类型
             .animationType(.easeOutCubic)//图形渲染动画类型为"easeOutCubic"
             .title("STEP LINE CHART")//图形标题
@@ -837,7 +836,7 @@ class SpecialChartVC: AABaseChartVC {
     }
     
     private func configureStepAreaChart() -> AAChartModel {
-        return AAChartModel()
+        AAChartModel()
             .chartType(.area)//图形类型
             .animationType(.easeOutCubic)//图形渲染动画类型为"easeOutCubic"
             .title("STEP AREA CHART")//图形标题
@@ -865,7 +864,7 @@ class SpecialChartVC: AABaseChartVC {
     }
     
     private func configureBoxplotChart() -> AAChartModel {
-        return AAChartModel()
+        AAChartModel()
             .chartType(.boxplot)
             .title("BOXPLOT CHART")
             .subtitle("virtual data")
@@ -887,7 +886,7 @@ class SpecialChartVC: AABaseChartVC {
     }
     
     private func configureWaterfallChart() -> AAChartModel {
-        return AAChartModel()
+        AAChartModel()
             .chartType(.waterfall)
             .title("WATERFALL CHART")
             .subtitle("virtual data")
@@ -920,12 +919,13 @@ class SpecialChartVC: AABaseChartVC {
                             "name": "余额",
                             "isSum": true,
                             "color": "#04d69f"
-                        ]])
+                        ]
+                    ])
             ])
     }
     
     private func configurePyramidChart() -> AAChartModel {
-        return AAChartModel()
+        AAChartModel()
             .chartType(.pyramid)
             .title("THE HEAT OF PROGRAM LANGUAGE")
             .subtitle("virtual data")
@@ -940,12 +940,11 @@ class SpecialChartVC: AABaseChartVC {
                         ["Go",         15552],
                         ["Python",     18654],
                     ])
-                ,
             ])
     }
     
     private func configureFunnelChart() -> AAChartModel {
-        return AAChartModel()
+        AAChartModel()
             .chartType(.funnel)
             .title("THE HEAT OF PROGRAM LANGUAGE")
             .subtitle("virtual data")
@@ -967,12 +966,11 @@ class SpecialChartVC: AABaseChartVC {
                         .style(AAStyle()
                             .fontSize(20)
                             .textOutline("0px 0px contrast")))
-                ,
             ])
     }
     
-    private func configureErrobarChart() -> AAChartModel {
-        return AAChartModel()
+    private func configureErrorbarChart() -> AAChartModel {
+        AAChartModel()
             .yAxisTitle("")
             .categories([
                 "一月", "二月", "三月", "四月", "五月", "六月",
