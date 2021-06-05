@@ -91,12 +91,12 @@ class OnlyRefreshChartDataVC: AABaseChartVC {
             }
             
             aaChartModel
-                .series(self.configureSeriesDataArray())
+                .series(configureSeriesDataArray())
         }  else if selectedChartType == .scatter {
             aaChartModel
                 .markerRadius(8)
                 .markerSymbol(.circle)
-                .series(self.configureSeriesDataArray())
+                .series(configureSeriesDataArray())
         } else {
             aaChartModel
                 .markerRadius(0)
@@ -162,7 +162,7 @@ class OnlyRefreshChartDataVC: AABaseChartVC {
     }
     
     @objc func onlyRefreshTheChartData() {
-        aaChartView?.aa_onlyRefreshTheChartDataWithChartOptionsSeries(self.configureSeriesDataArray())
+        aaChartView?.aa_onlyRefreshTheChartDataWithChartOptionsSeries(configureSeriesDataArray())
         updateTimes += 1
         print("⏲定时器正在刷新, 刷新次数为: \(updateTimes) ")
     }

@@ -33,6 +33,7 @@
 import UIKit
 import AAInfographics
 
+@available(macCatalyst 13.0, *)
 class MainVC: UIViewController {
     private var sectionTitleArr = [String]()
     private var chartTypeTitleArr = [[String]]()
@@ -59,6 +60,7 @@ class MainVC: UIViewController {
             "Scrollable chart ---可滚动の图表",
             //                  "Scrollable chart ---可滚动の图表",
             "Data Sorting Chart With Animation---图表动态排序",
+            "XIB AAChartView---在 XIB 中创建 AAChartView",
         ]
         
         chartTypeTitleArr = [
@@ -229,6 +231,7 @@ class MainVC: UIViewController {
                 "doubleLayerHalfPieChart---双层嵌套的玉阕图",
                 "customLineChartDataLabelsFormat---自定义曲线图的 DataLabels 的 format 属性",
                 "customLineChartDataLabelsFormat2---自定义曲线图的 DataLabels 的 format 属性2(更简易方法)",
+                "customAreaChartYAxisLabelsAndGridLineStyle---自定义曲线填充图图的 Y 轴 的 Labels 和 网格线样式",
             ],
             /*Custom Tooltip With JavaScript Formatter Function */
             [
@@ -282,6 +285,8 @@ class MainVC: UIViewController {
                "Bar Chart---条形图",
                "Scatter Chart---散点图",
             ],
+            /*XIB AAChartView*/
+            ["XIB AAChartView---在 XIB 中创建 AAChartView"]
         ]
         
         chartTypeArr = [
@@ -401,6 +406,8 @@ class MainVC: UIViewController {
                 AAChartType.bar,
                 AAChartType.scatter
             ],
+            [//Empty Array,just for holding place
+            ],
         ]
         
         view.backgroundColor = .white
@@ -410,7 +417,7 @@ class MainVC: UIViewController {
     
     private func setUpMainTableView() {
         let tableView = UITableView()
-        tableView.frame = self.view.bounds
+        tableView.frame = view.bounds
         tableView.autoresizingMask = [.flexibleWidth , .flexibleHeight]
         tableView.delegate = self
         tableView.dataSource = self
@@ -428,6 +435,7 @@ class MainVC: UIViewController {
     }
 }
 
+@available(macCatalyst 13.0, *)
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return chartTypeTitleArr.count
@@ -492,28 +500,28 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
             /*Special Type Charts*/
             let vc = SpecialChartVC()
             vc.selectedIndex = indexPath.row
-            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
+            vc.navigationItemTitleArr = chartTypeArr[indexPath.section]
             navigationController?.pushViewController(vc, animated: true)
             
         case 2:
             /*Mixed Type Charts*/
             let vc = CustomStyleChartVC()
             vc.selectedIndex = indexPath.row
-            vc.navigationItemTitleArr = self.chartTypeTitleArr[indexPath.section]
+            vc.navigationItemTitleArr = chartTypeTitleArr[indexPath.section]
             navigationController?.pushViewController(vc, animated: true)
             
         case 3:
             /*Mixed Type Charts*/
             let vc = MixedChartVC()
             vc.selectedIndex = indexPath.row
-            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
+            vc.navigationItemTitleArr = chartTypeArr[indexPath.section]
             navigationController?.pushViewController(vc, animated: true)
             
         case 4:
             /*Only Refresh Chart Data Dynamiclly*/
             let vc = OnlyRefreshChartDataVC()
             vc.selectedIndex = indexPath.row
-            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
+            vc.navigationItemTitleArr = chartTypeArr[indexPath.section]
             vc.step = false
             if indexPath.row == 4 || indexPath.row == 5 {
                 vc.step = true
@@ -560,21 +568,21 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
             /*Draw Chart With AAOptions Instance Object*/
             let vc = DrawChartWithAAOptionsVC()
             vc.selectedIndex = indexPath.row
-            vc.navigationItemTitleArr = self.chartTypeTitleArr[indexPath.section]
+            vc.navigationItemTitleArr = chartTypeTitleArr[indexPath.section]
             navigationController?.pushViewController(vc, animated: true)
             
         case 10:
             /*Custom Tooltip With JavaScript Formatter Function */
             let vc = JSFormatterFunctionVC()
             vc.selectedIndex = indexPath.row
-            vc.navigationItemTitleArr = self.chartTypeTitleArr[indexPath.section]
+            vc.navigationItemTitleArr = chartTypeTitleArr[indexPath.section]
             navigationController?.pushViewController(vc, animated: true)
             
         case 11:
             /*Scrolling update Chart Data Dynamiclly*/
             let vc = ScrollingUpdateDataVC()
             vc.selectedIndex = indexPath.row
-            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
+            vc.navigationItemTitleArr = chartTypeArr[indexPath.section]
             vc.step = false
             if indexPath.row == 4 || indexPath.row == 5 {
                 vc.step = true
@@ -585,7 +593,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
             /*Scrollable Charts*/
             let vc = ScrollableChartVC()
             vc.selectedIndex = indexPath.row
-            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
+            vc.navigationItemTitleArr = chartTypeArr[indexPath.section]
             if indexPath.row == 4 || indexPath.row == 5 {
                 vc.step = true
             }
@@ -595,10 +603,17 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
             /*Data Sorting With Animation Charts*/
             let vc = DataSortingWithAnimationChartVC()
             vc.selectedIndex = indexPath.row
-            vc.navigationItemTitleArr = self.chartTypeArr[indexPath.section]
+            vc.navigationItemTitleArr = chartTypeArr[indexPath.section]
             if indexPath.row == 4 || indexPath.row == 5 {
                 vc.step = true
             }
+            navigationController?.pushViewController(vc, animated: true)
+            
+        case 14:
+            /*Special Type Charts*/
+            let vc = TestAAChartViewForXibVC()
+//            vc.selectedIndex = indexPath.row
+//            vc.navigationItemTitleArr = chartTypeArr[indexPath.section]
             navigationController?.pushViewController(vc, animated: true)
             
         default:

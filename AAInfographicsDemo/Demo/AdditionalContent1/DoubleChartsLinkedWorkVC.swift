@@ -43,7 +43,7 @@ class DoubleChartsLinkedWorkVC: UIViewController, AAChartViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        view.backgroundColor = .white
         setUpTheAAChartViewOne()
         setUpTheAAChartViewTwo()
     }
