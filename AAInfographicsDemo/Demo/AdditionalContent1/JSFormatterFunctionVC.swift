@@ -41,16 +41,16 @@ class JSFormatterFunctionVC: AABaseChartVC {
     
     override func chartConfigurationWithSelectedIndex(_ selectedIndex: Int) -> Any? {
         switch selectedIndex {
-        case 0: return customAreaChartTooltipStyleWithSimpleFormatString()
-        case 1: return customAreaChartTooltipStyleWithDifferentUnitSuffix()
-        case 2: return customAreaChartTooltipStyleWithColorfulHtmlLabels()
-        case 3: return customLineChartTooltipStyleWhenValueBeZeroDoNotShow()
-        case 4: return customBoxplotTooltipContent()
-        case 5: return customYAxisLabels()
-        case 6: return customYAxisLabels2()
-        case 7: return customStackedAndGroupedColumnChartTooltip()
-        case 8: return customDoubleXAxesChart()
-        case 9: return customArearangeChartTooltip()
+        case  0: return customAreaChartTooltipStyleWithSimpleFormatString()
+        case  1: return customAreaChartTooltipStyleWithDifferentUnitSuffix()
+        case  2: return customAreaChartTooltipStyleWithColorfulHtmlLabels()
+        case  3: return customLineChartTooltipStyleWhenValueBeZeroDoNotShow()
+        case  4: return customBoxplotTooltipContent()
+        case  5: return customYAxisLabels()
+        case  6: return customYAxisLabels2()
+        case  7: return customStackedAndGroupedColumnChartTooltip()
+        case  8: return customDoubleXAxesChart()
+        case  9: return customArearangeChartTooltip()
         case 10: return customLineChartOriginalPointPositionByConfiguringXAxisFormatterAndTooltipFormatter()
         case 11: return customTooltipWhichDataSourceComeFromOutSideRatherThanSeries()
         case 12: return customSpiderChartStyle()
@@ -63,6 +63,7 @@ class JSFormatterFunctionVC: AABaseChartVC {
         case 19: return customAreasplineChartTooltipStyleByDivWithCSS()
         case 20: return configureTheAxesLabelsFormattersOfDoubleYAxesChart()
         case 21: return makePieChartShow0Data()
+        case 22: return customColumnChartXAxisLabelsTextByInterceptTheFirstFourCharacters()
             
         default:
             return AAOptions()
@@ -118,8 +119,8 @@ function () {
         }
 """)
             .valueDecimals(2)//设置取值精确到小数点后几位//设置取值精确到小数点后几位
-            .backgroundColor("#000000")
-            .borderColor("#000000")
+            .backgroundColor(AAColor.black)
+            .borderColor(AAColor.black)
             .style(AAStyle(color: "#FFD700", fontSize: 12))
         
         return aaOptions
@@ -320,8 +321,8 @@ function () {
             .headerFormat("<em>实验号码： {point.key}</em><br/>")
             .pointFormat(pointFormatStr)
             .valueDecimals(2)//设置取值精确到小数点后几位//设置取值精确到小数点后几位
-            .backgroundColor("#000000")
-            .borderColor("#000000")
+            .backgroundColor(AAColor.black)
+            .borderColor(AAColor.black)
             .style(AAStyle(color: "#1e90ff", fontSize: 12))
         
         return aaOptions
@@ -454,7 +455,7 @@ function () {
         aaOptions.tooltip?
             .shared(false)
             .formatter(#"""
-function () {
+            function () {
                 return '<b>'
                 + this.x
                 + '</b><br/>'
@@ -464,8 +465,8 @@ function () {
                 + '<br/>'
                 + 'Total: '
                 + this.point.stackTotal;
-     }
-"""#)
+            }
+            """#)
         
         return aaOptions
     }
@@ -489,7 +490,7 @@ function () {
         let aaTitle = AATitle()
             .text("2015 年德国人口金字塔")
             .style(AAStyle()
-                .color("#000000")
+                .color(AAColor.black)
                 .fontSize(12.0))
         
         let aaCategories = [
@@ -640,8 +641,8 @@ function () {
             return tooltipDescStr;
         }
         """)
-                    .backgroundColor("#000000")
-                    .borderColor("#000000")
+                    .backgroundColor(AAColor.black)
+                    .borderColor(AAColor.black)
                     .style(AAStyle(color: "#FFD700", fontSize: 12))
                 
                 return aaOptions
@@ -802,7 +803,7 @@ function () {
             .shared(false)
             .useHTML(true)
             .formatter(jsFormatterStr)
-            .backgroundColor("#000000")//黑色背景色
+            .backgroundColor(AAColor.black)//黑色背景色
             .borderColor("#FFD700")//边缘颜色纯金色
             .style(AAStyle(color: "#FFD700", fontSize: 12))
         
@@ -1076,50 +1077,50 @@ function () {
         //自定义图例点击事件
         aaOptions.plotOptions?.series?.events = AAEvents()
             .legendItemClick(#"""
-function(event) {
-    function getVisibleMode(series, seriesName) {
-        var allVisible = true;
-        var allHidden = true;
-        for (var i = 0; i < series.length; i++) {
-            if (series[i].name == seriesName)
-                continue;
-            allVisible &= series[i].visible;
-            allHidden &= (!series[i].visible);
-        }
-        if (allVisible && !allHidden)
-            return 'all-visible';
-        if (allHidden && !allVisible)
-            return 'all-hidden';
-        return 'other-cases';
-    }
-
-    var series = this.chart.series;
-    var mode = getVisibleMode(series, this.name);
-    var enableDefault = false;
-    if (!this.visible) {
-        enableDefault = true;
-    }
-    else if (mode == 'all-visible') {
-        var seriesLength = series.length;
-        for (var i = 0; i < seriesLength; i++) {
-            var series = series[i];
-            series.hide();
-        }
-        this.show();
-    }
-    else if (mode == 'all-hidden') {
-        var seriesLength = series.length;
-        for (var i = 0; i < seriesLength; i++) {
-            var series = series[i];
-            series.show();
-        }
-    }
-    else {
-        enableDefault = true;
-    }
-    return enableDefault;
-}
-"""#)
+            function(event) {
+                function getVisibleMode(series, serieName) {
+                    var allVisible = true;
+                    var allHidden = true;
+                    for (var i = 0; i < series.length; i++) {
+                        if (series[i].name == serieName)
+                            continue;
+                        allVisible &= series[i].visible;
+                        allHidden &= (!series[i].visible);
+                    }
+                    if (allVisible && !allHidden)
+                        return 'all-visible';
+                    if (allHidden && !allVisible)
+                        return 'all-hidden';
+                    return 'other-cases';
+                }
+                
+                var series = this.chart.series;
+                var mode = getVisibleMode(series, this.name);
+                var enableDefault = false;
+                if (!this.visible) {
+                    enableDefault = true;
+                }
+                else if (mode == 'all-visible') {
+                    var seriesLength = series.length;
+                    for (var i = 0; i < seriesLength; i++) {
+                        var serie = series[i];
+                        serie.hide();
+                    }
+                    this.show();
+                }
+                else if (mode == 'all-hidden') {
+                    var seriesLength = series.length;
+                    for (var i = 0; i < seriesLength; i++) {
+                        var serie = series[i];
+                        serie.show();
+                    }
+                }
+                else {
+                    enableDefault = true;
+                }
+                return enableDefault;
+            }
+        """#)
         
         return aaOptions
     }
@@ -1336,7 +1337,7 @@ function(event) {
                         .marker(AAMarker()
                                 .radius(7)//曲线连接点半径，默认是4
                                 .symbol(AAChartSymbolType.circle.rawValue)//曲线点类型："circle", "square", "diamond", "triangle","triangle-down"，默认是"circle"
-                                .fillColor("#ffffff")//点的填充色(用来设置折线连接点的填充色)
+                                .fillColor(AAColor.white)//点的填充色(用来设置折线连接点的填充色)
                                 .lineWidth(3)//外沿线的宽度(用来设置折线连接点的轮廓描边的宽度)
                                 .lineColor("")//外沿线的颜色(用来设置折线连接点的轮廓描边颜色，当值为空字符串时，默认取数据点或数据列的颜色)
                         ))
@@ -1352,21 +1353,21 @@ function(event) {
                         .style(AAStyle()
                                 .color("DodgerBlue"))
                         .formatter("""
-function () {
-            let yValue = this.value;
-            if (yValue >= 200) {
-                return "极佳";
-            } else if (yValue >= 150 && yValue < 200) {
-                return "非常棒";
-            } else if (yValue >= 100 && yValue < 150) {
-                return "相当棒";
-            } else if (yValue >= 50 && yValue < 100) {
-                return "还不错";
-            } else {
-                return "一般";
+            function () {
+                let yValue = this.value;
+                if (yValue >= 200) {
+                    return "极佳";
+                } else if (yValue >= 150 && yValue < 200) {
+                    return "非常棒";
+                } else if (yValue >= 100 && yValue < 150) {
+                    return "相当棒";
+                } else if (yValue >= 50 && yValue < 100) {
+                    return "还不错";
+                } else {
+                    return "一般";
+                }
             }
-        }
-"""))
+            """))
             .gridLineWidth(0)
             .title(AATitle()
                     .text("中文")
@@ -1383,21 +1384,21 @@ function () {
                         .style(AAStyle()
                                 .color(AAColor.red))
                         .formatter("""
-function () {
-        let yValue = this.value;
-        if (yValue >= 200) {
-            return "Awesome";
-        } else if (yValue >= 150 && yValue < 200) {
-            return "Great";
-        } else if (yValue >= 100 && yValue < 150) {
-            return "Very Good";
-        } else if (yValue >= 50 && yValue < 100) {
-            return "Not Bad";
-        } else {
-            return "Just So So";
-        }
-    }
-"""))
+            function () {
+                let yValue = this.value;
+                if (yValue >= 200) {
+                    return "Awesome";
+                } else if (yValue >= 150 && yValue < 200) {
+                    return "Great";
+                } else if (yValue >= 100 && yValue < 150) {
+                    return "Very Good";
+                } else if (yValue >= 50 && yValue < 100) {
+                    return "Not Bad";
+                } else {
+                    return "Just So So";
+                }
+            }
+           """))
             .gridLineWidth(0)
             .title(AATitle()
                     .text("ENGLISH")
@@ -1445,22 +1446,7 @@ function () {
     
     //https://github.com/AAChartModel/AAChartKit/issues/1042
     func makePieChartShow0Data() -> AAOptions {
-        let dataArr = [
-            ["y":1,
-             "isZero":true,
-             "name": "One",
-            ],
-            ["y":1,
-             "isZero":true,
-             "name": "Two",
-            ],
-            ["y":1,
-             "isZero":true,
-             "name": "Three",
-            ]
-        ]
-        
-        return AAOptions()
+        AAOptions()
             .title(AATitle()
                     .text(""))
             .chart(AAChart()
@@ -1468,14 +1454,84 @@ function () {
             .series([
                 AASeriesElement()
                     .name("ZeroDataPie")
-                    .data(dataArr)
+                    .data([
+                        ["y":1, "isZero":true, "name":"One"  ],
+                        ["y":1, "isZero":true, "name":"Two"  ],
+                        ["y":1, "isZero":true, "name":"Three"]
+                    ])
                     .tooltip(AATooltip()
                                 .shared(false)
                                 .pointFormatter(#"""
                                 function() {
-                                return "<span style=\'color:" + this.color + "\'> ◉ </span>" + this.series.name + ": <b>" + (this.options.isZero ? 0 : this.y) + "</b><br/>";
-                                                }
+                                    return "<span style=\'color:" + this.color + "\'> ◉ </span>"
+                                    + this.series.name
+                                    + ": <b>"
+                                    + (this.options.isZero ? 0 : this.y)
+                                    + "</b><br/>";
+                                }
                                 """#))
             ])
     }
+    
+    //https://github.com/AAChartModel/AAChartKit/issues/1217
+    func customColumnChartXAxisLabelsTextByInterceptTheFirstFourCharacters() -> AAOptions {
+        let aaChartModel = AAChartModel()
+            .chartType(.bar)//图表类型
+            .title("春江花月夜")//图表主标题
+            .subtitle("张若虚")//图表副标题
+            .xAxisReversed(true)
+            .xAxisLabelsStyle(AAStyle(color: AAColor.black))
+            .legendEnabled(false)
+            .categories([
+                "春江潮水连海平", "海上明月共潮生",
+                "滟滟随波千万里", "何处春江无月明",
+                "江流宛转绕芳甸", "月照花林皆似霰",
+                "空里流霜不觉飞", "汀上白沙看不见",
+                "江天一色无纤尘", "皎皎空中孤月轮",
+                "江畔何人初见月", "江月何年初照人",
+                "人生代代无穷已", "江月年年望相似",
+                "不知江月待何人", "但见长江送流水",
+                "白云一片去悠悠", "青枫浦上不胜愁",
+                "谁家今夜扁舟子", "何处相思明月楼",
+                "可怜楼上月裴回", "应照离人妆镜台",
+                "玉户帘中卷不去", "捣衣砧上拂还来",
+                "此时相望不相闻", "愿逐月华流照君",
+                "鸿雁长飞光不度", "鱼龙潜跃水成文",
+                "昨夜闲潭梦落花", "可怜春半不还家",
+                "江水流春去欲尽", "江潭落月复西斜",
+                "斜月沉沉藏海雾", "碣石潇湘无限路",
+                "不知乘月几人归", "落月摇情满江树",
+            ])
+            .series([
+                AASeriesElement()
+                    .lineWidth(1.5)
+                    .color(AAGradientColor.linearGradient(
+                        direction: .toTop,
+                        startColor: "#7052f4",
+                        endColor: "#00b0ff"
+                    ))
+                    .name("2018")
+                    .data([
+                        1.51, 3.7, 0.94, 1.44, 1.6, 1.63, 1.56, 1.91, 2.45, 3.87, 3.24, 4.90, 4.61, 4.10,
+                        4.17, 3.85, 4.17, 3.46, 3.46, 3.55, 3.50, 4.13, 2.58, 2.28,1.51, 2.7, 0.94, 1.44,
+                        3.6, 1.63, 1.56, 1.91, 2.45, 3.87, 3.24, 4.90,
+                    ])
+            ]);
+        
+        let aaOptions = aaChartModel.aa_toAAOptions()
+        aaOptions.xAxis?.labels?
+            .formatter("""
+        function () {
+            let xAxisCategory = this.value;
+            if (xAxisCategory.length > 4) {
+                return xAxisCategory.substr(0, 4);
+            } else {
+                return xAxisCategory;
+            }
+        }
+        """)
+        
+        return aaOptions
+    }
+
 }

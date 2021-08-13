@@ -283,7 +283,7 @@ class MixedChartVC: AABaseChartVC {
                            -6.4, -5.2, -3.0, 0.2, 2.3, 5.5, 8.4, 8.3, 5.1, 0.9, -1.1, -4.0,
                            -6.4, -5.2, -3.0, 0.2, 2.3, 5.5, 8.4, 8.3, 5.1, 0.9, -1.1, -4.0,])
                     .color("#0088FF")
-                    .negativeColor("#FF0000")
+                    .negativeColor(AAColor.red)
                     .threshold(4)//default:0
             ])
     }
@@ -509,7 +509,7 @@ class MixedChartVC: AABaseChartVC {
                         [0.014, 3.078],
                         [0.969, 4.655]
                     ])
-                    .color("#FF0000")
+                    .color(AAColor.red)
             ])
     }
     
@@ -542,7 +542,7 @@ class MixedChartVC: AABaseChartVC {
                         [6,22,2],[6,23,6]
                     ])
                     .color("#0088FF")
-                    .negativeColor("#FF0000")
+                    .negativeColor(AAColor.red)
                     .threshold(4)//default:0
             ])
     }
@@ -614,7 +614,7 @@ class MixedChartVC: AABaseChartVC {
                         [169.5, 67.3], [160.0, 75.5], [172.7, 68.2], [162.6, 61.4], [157.5, 76.8],
                         [176.5, 71.8], [164.4, 55.5], [160.7, 48.6], [174.0, 66.4], [163.8, 67.3]
                     ])
-                    .color("#ff0000")
+                    .color(AAColor.red)
                 ,
             ])
     }
@@ -770,30 +770,7 @@ class MixedChartVC: AABaseChartVC {
     
     //GitHub issue https://github.com/AAChartModel/AAChartKit/issues/921
     private func configureNegativeColorMixedAreasplineChart() -> AAChartModel {
-        let blueStopsArr = [
-            [0.0, AARgba(30, 144, 255, 0.0)],//颜色字符串设置支持十六进制类型和 rgba 类型
-            [0.5, AARgba(30, 144, 255, 0.0)],
-            [1.0, AARgba(30, 144, 255, 0.6)]
-        ]
-        
-        let gradientBlueColorDic = AAGradientColor.linearGradient(
-            direction: .toTop,
-            stops: blueStopsArr
-        )
-        
-        let redStopsArr = [
-            [0.0, AARgba(255, 0, 0, 0.6)],//颜色字符串设置支持十六进制类型和 rgba 类型
-            [0.5, AARgba(255, 0, 0, 0.0)],
-            [1.0, AARgba(255, 0, 0, 0.0)]
-        ]
-        
-        let gradientRedColorDic = AAGradientColor.linearGradient(
-            direction: .toTop,
-            stops: redStopsArr
-        )
-        
-        
-        return AAChartModel()
+        AAChartModel()
             .chartType(.areaspline)
             .legendEnabled(false)
             .dataLabelsEnabled(false)
@@ -810,8 +787,22 @@ class MixedChartVC: AABaseChartVC {
                     .lineWidth(5)
                     .color(AARgba(30, 144, 255, 1.0))
                     .negativeColor(AARgba(255, 0, 0, 1.0))
-                    .fillColor(gradientBlueColorDic)
-                    .negativeFillColor(gradientRedColorDic)
+                    .fillColor(AAGradientColor.linearGradient(
+                        direction: .toTop,
+                        stops: [
+                            [0.0, AARgba(30, 144, 255, 0.0)],//颜色字符串设置支持十六进制类型和 rgba 类型
+                            [0.5, AARgba(30, 144, 255, 0.0)],
+                            [1.0, AARgba(30, 144, 255, 0.6)]
+                        ]
+                    ))
+                    .negativeFillColor(AAGradientColor.linearGradient(
+                        direction: .toTop,
+                        stops: [
+                            [0.0, AARgba(255, 0, 0, 0.6)],//颜色字符串设置支持十六进制类型和 rgba 类型
+                            [0.5, AARgba(255, 0, 0, 0.0)],
+                            [1.0, AARgba(255, 0, 0, 0.0)]
+                        ]
+                    ))
                     .threshold(0)//default:0
             ])
     }
